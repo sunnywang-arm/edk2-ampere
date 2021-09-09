@@ -64,60 +64,6 @@ if [[ -z "$version" || "$parsedVersion" != "3614" ]] ; then
   sudo ln -s /usr/bin/python3.6 ${plink}
 fi
 echo "==========================================================================="
-echo "test connection to SSH host"
-echo "==========================================================================="
-if [ "$(ssh -T git@gitlab.adlinktech.com | grep "Welcome")" != "" ] ; then
-  echo "establish SSH connection to ADLink GitLab server already"
-else
-  echo "==========================================================================="
-  echo "establishing SSH connection to ADLink GitLab server"
-  echo "==========================================================================="
-  ssh-keygen -t rsa -b 4096 -C "Ubuntu-20.04.1 GitLab" -f ~/.ssh/id_rsa -N ""
-  if [ $? == 0 ] ; then
-    cat ~/.ssh/id_rsa.pub
-    echo ""
-    echo "1. copy above public key to clipboard"
-    echo "2. press ENTER to continue, "
-    echo "   will lead you to gitlab to add this public key to your SSH Key setting, "
-    echo "   close the brower to continue following procedure"
-    read
-    echo "wait for the browser..."
-    firefox http://gitlab.adlinktech.com/
-    echo ""
-    while ! ssh -T git@gitlab.adlinktech.com | grep -q "Welcome"
-    do 
-      echo "wait for the ssh..."
-      sleep 1
-    done  
-  fi
-fi
-
-if [ "eval $(ssh -T git@github.com | grep -q "authenticated")" != "" ] ; then
-  echo "establish SSH connection to GitHub already"
-else
-  echo "==========================================================================="
-  echo "establishing SSH connection to GitHub"
-  echo "==========================================================================="
-  ssh-keygen -t rsa -b 4096 -C "Ubuntu-20.04.1 GitHub" -f ~/.ssh/id_rsa_github_ADLINK -N ""
-  if [ $? == 0 ] ; then
-    cat ~/.ssh/id_rsa_github_ADLINK.pub
-    echo ""
-    echo "1. copy above public key to clipboard"
-    echo "2. press ENTER to continue, "
-    echo "   will lead you to gitlab to add this public key to your SSH Key setting, "
-    echo "   close the brower to continue following procedure"
-    echo "wait for the browser..."
-    firefox http://git@github.com
-    echo ""
-    while ! ssh -T git@github.com | grep -q "authenticated"
-    do 
-      echo "wait for the ssh..."
-      sleep 1
-    done  
-  fi
-fi
-
-echo "==========================================================================="
 echo "clone Ampere_Altra"
 echo "==========================================================================="
 SILLICON_FAMILY=$1
@@ -132,24 +78,12 @@ if [ -d "$SILLICON_FAMILY" ]; then
   esac
 fi
 
-git clone git@gitlab.adlinktech.com:BIOS/Ampere_Altra.git $SILLICON_FAMILY
+git clone git@github.com:ADLINK/Ampere_Altra.git $SILLICON_FAMILY
 echo "==========================================================================="
 echo "fetch submodules recursively"
 echo "==========================================================================="
 cd $SILLICON_FAMILY
 git submodule update --init --recursive
-if [ "eval $(ssh -T git@github.com | grep -q "authenticated")" != "" ] ; then
-  echo "==========================================================================="
-  echo "replace HTTPS access with SSH access if authenticated"
-  echo "==========================================================================="
-  cd edk2-platforms
-  git remote set-url origin git@github.com-adlink:ADLINK/edk2-platforms.git
-  cd .. 
-  cd edk2-ampere-tools
-  git remote set-url origin git@github.com-adlink:ADLINK/edk2-ampere-tools.git
-  cd .. 
-  git remote set-url origin git@github.com-adlink:ADLINK/Ampere_Altra.git
-fi
 echo "==========================================================================="
 echo "set building environment"
 echo "==========================================================================="
