@@ -92,7 +92,7 @@ else
   fi
 fi
 
-if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
+if [ "eval $(ssh -T git@github.com | grep -q "authenticated")" != "" ] ; then
   echo "establish SSH connection to GitHub already"
 else
   echo "==========================================================================="
@@ -107,9 +107,9 @@ else
     echo "   will lead you to gitlab to add this public key to your SSH Key setting, "
     echo "   close the brower to continue following procedure"
     echo "wait for the browser..."
-    firefox http://git@github.com-adlink
+    firefox http://git@github.com
     echo ""
-    while ! ssh -T git@github.com-adlink | grep -q "authenticated"
+    while ! ssh -T git@github.com | grep -q "authenticated"
     do 
       echo "wait for the ssh..."
       sleep 1
@@ -138,7 +138,7 @@ echo "fetch submodules recursively"
 echo "==========================================================================="
 cd $SILLICON_FAMILY
 git submodule update --init --recursive
-if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
+if [ "eval $(ssh -T git@github.com | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
   echo "==========================================================================="

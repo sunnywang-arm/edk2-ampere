@@ -1,7 +1,7 @@
 #!/bin/bash
 OPATH=$PATH
 . edk2.sh
-OEM_SRC_DIR=$WORKSPACE/adlink
+OEM_SRC_DIR=$WORKSPACE/adlink-platforms
 BOARD_NAME=ComHpcAlt
 EDK2_PLATFORMS_PKG_DIR=$OEM_SRC_DIR/Platform/Ampere/"$BOARD_NAME"Pkg
 make -f $WORKSPACE/edk2-ampere-tools/Makefile \
@@ -18,5 +18,5 @@ make -f $WORKSPACE/edk2-ampere-tools/Makefile \
 # below setting is for module not reworked fo VR circuit, insert them to above making arguments 
 # to support the modules without reworking.    
 #    FAILSAFE_WORKAROUND=1 \
-#    BOARD_SETTING=$WORKSPACE/adlink/Platform/Ampere/ComHpcAltPkg/ComHpcAltBoardSettingVRWA.cfg \
+#    BOARD_SETTING=$WORKSPACE/adlink-platforms/Platform/Ampere/ComHpcAltPkg/ComHpcAltBoardSettingVRWA.cfg \
 export PATH=$OPATH

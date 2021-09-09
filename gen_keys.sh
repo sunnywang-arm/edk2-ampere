@@ -5,7 +5,7 @@ if [ $WORKSPACE == /usr/bin ]; then
   WORKSPACE=$PWD
 fi
 
-KEYSPACE=$WORKSPACE/adlink/Platform/Ampere/ComHpcAltPkg/AdlinkKeys
+KEYSPACE=$WORKSPACE/adlink-platforms/Platform/Ampere/ComHpcAltPkg/AdlinkKeys
 ssh-keygen -t rsa -b 2048 -m PEM -f $KEYSPACE/Dbb_AdlinkTest.priv.pem -N ""
 openssl req -new -x509 -key $KEYSPACE/Dbb_AdlinkTest.priv.pem \
                        -out $KEYSPACE/Dbb_AdlinkTest.cert.pem -days 3560 \

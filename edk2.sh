@@ -6,7 +6,7 @@ if [ $WORKSPACE == /usr/bin ]; then
 fi
 export WORKSPACE
 export PACKAGES_PATH=$WORKSPACE/edk2-platforms:$WORKSPACE/edk2-platforms/Features/Intel:$WORKSPACE/edk2:
-export PATH=$WORKSPACE/adlink/toolchain:"${PATH}"
+export PATH=$WORKSPACE/adlink-platforms/toolchain:"${PATH}"
 export PYTHON_COMMAND=/usr/bin/python3.6
 . edk2/edksetup.sh
 if ! [ -d "edk2/BaseTools/Source/C/bin" ]; then
