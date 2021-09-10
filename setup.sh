@@ -48,8 +48,8 @@ echo "install python 3.6 sample"
 echo "==========================================================================="
 version=$(python -V 2>&1 | grep -Po '(?<=Python )(.+)')
 echo $version
-parsedVersion=$(echo "${version//./}")
-if [[ -z "$version" || "$parsedVersion" != "3614" ]] ; then
+parsedVersion=${version:0:3}
+if [[ -z "$version" || "$parsedVersion" != "3.6" ]] ; then
   if [[ $INSTALLER == "apt" || $INSTALLER == "apt-get" ]]; then
       sudo add-apt-repository -y ppa:deadsnakes/ppa
       sudo apt update -y
