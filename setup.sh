@@ -63,6 +63,31 @@ if [[ -z "$version" || "$parsedVersion" != "3.6" ]] ; then
   fi 
   sudo ln -s /usr/bin/python3.6 ${plink}
 fi
+if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
+  echo "establish SSH connection to GitHub already"
+else
+  echo "==========================================================================="
+  echo "establishing SSH connection to GitHub"
+  echo "==========================================================================="
+  ssh-keygen -t rsa -b 4096 -C "Ubuntu-20.04.1 GitHub" -f ~/.ssh/id_rsa_github_adlink -N ""
+  if [ $? == 0 ] ; then
+    cat ~/.ssh/id_rsa_github_adlink.pub
+    echo ""
+    echo "1. copy above public key to clipboard"
+    echo "2. press ENTER to continue, "
+    echo "   will lead you to gitlab to add this public key to your SSH Key setting, "
+    echo "   close the brower to continue following procedure"
+    echo "wait for the browser..."
+    firefox http://git@github.com
+    echo ""
+    while ! ssh -T git@github.com-adlink | grep -q "authenticated"
+    do 
+      echo "wait for the ssh..."
+      sleep 1
+    done  
+  fi
+fi
+
 echo "==========================================================================="
 echo "clone Ampere_Altra"
 echo "==========================================================================="
@@ -84,6 +109,18 @@ echo "fetch submodules recursively"
 echo "==========================================================================="
 cd $SILLICON_FAMILY
 git submodule update --init --recursive
+if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
+  echo "==========================================================================="
+  echo "replace HTTPS access with SSH access if authenticated"
+  echo "==========================================================================="
+  git remote set-url origin git@github.com-adlink:ADLINK/Ampere_Altra.git
+  cd edk2-platforms
+  git remote set-url origin git@github.com-adlink:ADLINK/edk2-platforms.git
+  cd .. 
+  cd edk2-ampere-tools
+  git remote set-url origin git@github.com-adlink:ADLINK/edk2-ampere-tools.git
+  cd .. 
+fi
 echo "==========================================================================="
 echo "set building environment"
 echo "==========================================================================="
