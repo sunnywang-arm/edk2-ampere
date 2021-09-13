@@ -8,6 +8,7 @@ make -f $WORKSPACE/edk2-ampere-tools/Makefile \
     EDK2_PLATFORMS_PKG_DIR=$EDK2_PLATFORMS_PKG_DIR \
     BOARD_NAME=$BOARD_NAME \
     VM_SHARED_DIR=$HOME/AmpereR \
+    CHECKSUM_TOOL=$WORKSPACE/adlink-platforms/toolchain/checksum \
     PACKAGES_PATH=$OEM_SRC_DIR:$WORKSPACE/OpenPlatformPkg:"${PACKAGES_PATH}" \
     ATF_SLIM=$WORKSPACE/srp-ac01-fw-aptv-bin-r1.08.20210830/altra_firmware_sdk/bin/atf/altra_atf_signed_1.08.20210825.slim \
     SCP_SLIM=$WORKSPACE/srp-ac01-fw-aptv-bin-r1.08.20210830/altra_firmware_sdk/bin/scp/altra_scp_signed_1.08.20210825.slim \

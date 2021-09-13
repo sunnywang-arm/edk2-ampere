@@ -63,13 +63,16 @@ if [[ -z "$version" || "$parsedVersion" != "3.6" ]] ; then
   fi 
   sudo ln -s /usr/bin/python3.6 ${plink}
 fi
+echo "==========================================================================="
+echo "test connection to SSH host"
+echo "==========================================================================="
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "establish SSH connection to GitHub already"
 else
   echo "==========================================================================="
   echo "establishing SSH connection to GitHub"
   echo "==========================================================================="
-  ssh-keygen -t rsa -b 4096 -C "Ubuntu-20.04.1 GitHub" -f ~/.ssh/id_rsa_github_adlink -N ""
+  ssh-keygen -t rsa -b 4096 -C "GitHub-ADLINK" -f ~/.ssh/id_rsa_github_adlink -N ""
   if [ $? == 0 ] ; then
     cat ~/.ssh/id_rsa_github_adlink.pub
     echo ""
@@ -109,11 +112,22 @@ echo "fetch submodules recursively"
 echo "==========================================================================="
 cd $SILLICON_FAMILY
 git submodule update --init --recursive
+cd edk2-ampere-tools
+git checkout adlink
+cd .. 
+cd edk2-platforms
+git checkout adlink
+cd .. 
+cd edk2
+git checkout ampere-edk2-stable202106
+cd .. 
+# cd OpenPlatformPkg
+# git checkout master
+# cd .. 
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
   echo "==========================================================================="
-  git remote set-url origin git@github.com-adlink:ADLINK/Ampere_Altra.git
   cd edk2-platforms
   git remote set-url origin git@github.com-adlink:ADLINK/edk2-platforms.git
   cd .. 
