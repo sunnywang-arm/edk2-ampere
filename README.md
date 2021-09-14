@@ -1,7 +1,7 @@
-# Initilize Buiding Environment
+# Initialize Building Environment
 
 Ampere Mountain Jade codebase & tools installation.
-* copy 'setup.sh' to local machine and run, tested with OS ubuntu 20.04. 
+* Copy 'setup.sh' to local machine and run, tested with OS Ubuntu 20.04. 
 * follow the instructions to install tools and download source code.
 
 # Folders
