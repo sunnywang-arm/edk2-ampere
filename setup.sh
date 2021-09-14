@@ -96,7 +96,7 @@ echo "clone Ampere_Altra"
 echo "==========================================================================="
 SILLICON_FAMILY=$1
 if [ -z "$SILLICON_FAMILY" ]; then
-  SILLICON_FAMILY="Ampere_Altra"
+  SILLICON_FAMILY="Ampere_Altra_Github"
 fi
 if [ -d "$SILLICON_FAMILY" ]; then
   read -p "Do you wish to override current $SILLICON_FAMILY folder?" yn
@@ -106,7 +106,7 @@ if [ -d "$SILLICON_FAMILY" ]; then
   esac
 fi
 
-git clone git@github.com:ADLINK/Ampere_Altra.git $SILLICON_FAMILY
+git clone git@github.com-adlink:ADLINK/Ampere_Altra.git $SILLICON_FAMILY
 echo "==========================================================================="
 echo "fetch submodules recursively"
 echo "==========================================================================="
@@ -121,9 +121,9 @@ cd ..
 cd edk2
 git checkout ampere-edk2-stable202106
 cd .. 
-# cd OpenPlatformPkg
-# git checkout master
-# cd .. 
+cd OpenPlatformPkg
+git checkout master
+cd .. 
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
