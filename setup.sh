@@ -92,11 +92,11 @@ else
 fi
 
 echo "==========================================================================="
-echo "clone Ampere_Altra"
+echo "clone edk2-ampere"
 echo "==========================================================================="
 SILLICON_FAMILY=$1
 if [ -z "$SILLICON_FAMILY" ]; then
-  SILLICON_FAMILY="Ampere_Altra_Github"
+  SILLICON_FAMILY="edk2-ampere"
 fi
 if [ -d "$SILLICON_FAMILY" ]; then
   read -p "Do you wish to override current $SILLICON_FAMILY folder?" yn
@@ -106,7 +106,7 @@ if [ -d "$SILLICON_FAMILY" ]; then
   esac
 fi
 
-git clone git@github.com-adlink:ADLINK/Ampere_Altra.git $SILLICON_FAMILY
+git clone https://github.com/ADLINK/edk2-ampere.git $SILLICON_FAMILY
 echo "==========================================================================="
 echo "fetch submodules recursively"
 echo "==========================================================================="
@@ -128,6 +128,7 @@ if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; 
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
   echo "==========================================================================="
+  git remote set-url origin git@github.com-adlink:ADLINK/edk2-ampere.git
   cd edk2-platforms
   git remote set-url origin git@github.com-adlink:ADLINK/edk2-platforms.git
   cd .. 
