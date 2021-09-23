@@ -17,7 +17,7 @@ Ampere Mountain Jade codebase & tools installation.
 * buildshell.sh: build uefi shell for AA64.
 * clean.sh: clean temporary files and tools.
 * edk2.sh: Sample script to set environment variables and run edksetup.sh.
-* gen_keys.sh: Sample script to generate keys for signing, not applied yet.
+* flashkernel: tiny linux kernel for embedded.
 * make_ComHpcAlt.sh: Sample script to make ADLink COM-HPC-ALT.
 * make_jade.sh: Sample script to make CRB Ampere Mt. Jade.
 * setup.sh: Sample script to install all source code and tools. Mind your own SSH connection setting if there is any.
