@@ -74,8 +74,8 @@ NOTE:
 
 ### Flashing Capsule Supported EDK-II Firmware
 
-1. Click [here](https://hq0epm0west0us0storage.blob.core.windows.net/development/ampere/Capsule_Supported_EDK-II_img.zip)  to download the package for capsule supported EDK-II firmware.
-2. Unzip into FAT32 USB device.
+1. Go to [Ask a Expert page](https://www.adlinktech.com/en/Askanexpert) or [AVA Developer Platform Forum](https://www.ipi.wiki/community/forum/ava-developer-platform) where you can request us and then we will provide the download link
+2. Download & Unzip into FAT32 USB device.
 3. Boot into UEFI shell
 4. Run fwu.nsh to flash EDK-II to 1.07.299 which will support capsule update.
 5. Power cycle the target board.
