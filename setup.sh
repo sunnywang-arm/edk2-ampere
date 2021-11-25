@@ -119,7 +119,7 @@ cd edk2-platforms
 git checkout adlink
 cd .. 
 cd edk2
-git checkout ampere-edk2-stable202106
+git checkout 4b0c88346a6c57ddf73dd12eb55efd99b1d793e1
 cd .. 
 cd OpenPlatformPkg
 git checkout master
