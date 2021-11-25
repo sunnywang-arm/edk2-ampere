@@ -1,0 +1,45 @@
+The following hardware devices have been tested with this firwmare release.
+
+PCIe Adapters
+=============
+
+Vendor      Model               Firmware    Notes
+------      -----               --------    -----
+Intel       I210T1              0x800006b1
+Intel       x710-DA2            0x800035cf
+Mellanox    MCX4121A-ACAT 2 x 25GbE     14.27.1016  Requires AARCH64 OptionRom
+Mellanox    MCX4131A-GCAT 1x 50GbE      14.27.1016  Requires AARCH64 OptionRom
+Mellanox    MCX455A-ECAT 1 x 100GbE     12.27.4000  Requires AARCH64 OptionRom
+Mellanox    MCX516A-CDAT 2 x 100GbE     16.26.1040  Requires AARCH64 OptionRom
+Mellanox    MCX516A-CCAT 2 x 100GbE     16.27.2008  Requires AARCH64 OptionRom
+Mellanox    MCX566A-CDAI 2 x 100GbE OCP3.0  16.26.1040  Requires AARCH64 OptionRom
+Mellanox    MCX562A-ACAB 2 x 25GbE OCP3.0   16.27.2008  Requires AARCH64 OptionRom
+Broadcom    9400-8i HBA         04.00.04.00 Requires AARCH64 OptionRom
+Broadcom    9400-8e HBA         15.00.00.00 Requires AARCH64 OptionRom
+Broadcom    9400-16i HBA            04.00.04.00 Requires AARCH64 OptionRom
+Broadcom    9305-16i HBA            16.00.11.00 Requires x86 emulation in BIOS
+
+Storage Devices
+===============
+
+Samsung M.2 NVMe 983 DCT Series 960GB Model MZ1LB960NE
+Samsung U.2 NVMe 960GB Model MZ-QLB960N
+Intel   U.2 NVMe DC P4510 Series 1TB Model SSDPE2KX010T801
+Intel®  SSD SATA DC S3520 Series 150GB
+WD Blue SSD SATA 250GB Model WDS250G1B0A
+Samsung SSD SATA 750-EVO 750GB Model MZ750250
+
+Memory Devices
+==============
+
+RDIMM, 16GB 1Rx4 PC4, 3200AA-RB2, P/N: M393A2K40DB3-CWECQ
+RDIMM, 16GB 1Rx4 PC4, 3200AA-RC2, P/N: M393A2K40DB3-CWEGQ
+RDIMM, 16GB 1Rx4 PC4, 3200AA-RC2, P/N: M393A2K40DB3-CWEBQ
+RDIMM, 32GB 2Rx4 PC4, 3200AA-RB2, P/N: M393A4K40DB3-CWEGQ
+RDIMM, 32GB 2Rx4 PC4, 3200AA-RB2, P/N: M393A4K40DB3-CWEBY
+RDIMM, 32GB 2Rx4 PC4, 3200AA-RB2, P/N: M393A4K40DB3-CWEBQ
+RDIMM, 16GB 2Rx8 PC4, 3200AA-RE2, P/N: M393A2K43DB3-CWECQ
+RDIMM, 16GB 2Rx4 PC4, 2666V-RB2,  P/N: M393A2K43CB2-CTD7Q
+RDIMM, 32GB 2Rx4 PC4, 2666V-RB2,  P/N: M393A4K40CB3-CTD7Y
+RDIMM, 32GB 2Rx4 PC4, 3200AA-RB2, P/N: M393A4K40DB3-CWEGQ
+RDIMM, 16GB 2Rx8 PC4, 3200AA-RE2, P/N: M393A2K43DB3-CWECQ

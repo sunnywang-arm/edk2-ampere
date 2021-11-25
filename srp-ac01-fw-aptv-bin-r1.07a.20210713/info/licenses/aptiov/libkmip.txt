@@ -1,0 +1,10 @@
+Software: libkmip
+License: Apache V2
+Software URL: https://github.com/OpenKMIP/libkmip
+License URL: https://github.com/OpenKMIP/libkmip/blob/master/LICENSE
+
+License Content
+A C implementation of the KMIP specification.
+Comments
+A C implementation of the KMIP specification.
+Used by Aptio KmsKmip driver

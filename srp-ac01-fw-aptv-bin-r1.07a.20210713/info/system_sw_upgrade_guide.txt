@@ -1,0 +1,31 @@
+# Ampere Altra System Upgrade Guide
+
+The recommended upgrade order is:
+ 1. BMC
+ 2. SCP
+ 3. UEFI / ATF
+
+Firmware upgrades are done via the BMC interfaces. Information on using the BMC 
+to upgrade firmware is contained within the management software (MGMT) release 
+packages (SRPs). 
+
+The BMC User Manual is available within these SRPs:
+
+---
+For MegaRAC BMC:
+ > srp-ac01-mgmt-mgr-src-rYYYY.MM.DD
+ > srp-ac01-mgmt-mgr-bin-rYYYY.MM.DD
+ > srp-ac01-mgmt-mgr-devdoc-rYYYY.MM.DD
+ > srp-ac01-mgmt-mgr-userdoc-rYYYY.MM.DD
+
+ Upgrade instructions can be found at:  
+  <srp_root>/amp_megarac_sdk/docs/Altra_MegaRAC_BMC_User_Manual_vM.m.pdf in section 3.
+
+---
+For OpenBMC:
+ > srp-ac01-mgmt-obmc-src-rYYYY.MM.DD
+ > srp-ac01-mgmt-obmc-bin-rYYYY.MM.DD
+ > srp-ac01-mgmt-obmc-doc-rYYYY.MM.DD
+
+ Upgrade instructions can be found at:   
+  <srp_root>/amp_openbmc_sdk/docs/jade_openbmc_quickstart_guide.txt in sections 2.0, 3.0, and 4.0.

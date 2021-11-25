@@ -1,0 +1,18 @@
+Software: Unifont
+License: Freeware
+Software URL:
+License URL:
+
+License Content
+All of my works you find here are freeware. You may freely copy, use, quote,
+modify or redistribute them as long as you properly attribute my contribution
+and have given a quick thought about whether Roman might perhaps be
+interested
+to read what you did with his stuff. Horizontal rules don't apply.
+All additions that have been added since I started maintaining Unifong
+have been added by me (who has placed all his additions in the public
+domain) or by someone sending them in without an attached license (and
+hence implicitly being included in the above license.) Any new glyphs
+taken from preexisting fonts will be taken only from those under
+X11-like licenses that add no further restrictions.
+Comments

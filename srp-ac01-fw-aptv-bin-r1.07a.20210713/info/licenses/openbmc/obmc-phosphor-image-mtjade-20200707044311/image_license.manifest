@@ -1,0 +1,10 @@
+RECIPE NAME: linux-aspeed
+VERSION: 5.4.48+gitAUTOINC+f77eed1af7
+LICENSE: GPLv2
+FILES: fitImage--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.bin fitImage-its--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.its fitImage-linux.bin--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.bin fitImage-its-obmc-phosphor-initramfs-mtjade--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.its fitImage-obmc-phosphor-initramfs-mtjade--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.bin aspeed-bmc-ampere-mtjade2U--5.4.48+git0+f77eed1af7-r0-mtjade-20200707044311.dtb
+
+RECIPE NAME: u-boot-aspeed
+VERSION: v2016.07+gitAUTOINC+1ded9fa3a2
+LICENSE: GPLv2+
+FILES: u-boot-mtjade-v2016.07+gitAUTOINC+1ded9fa3a2-r0.bin
+

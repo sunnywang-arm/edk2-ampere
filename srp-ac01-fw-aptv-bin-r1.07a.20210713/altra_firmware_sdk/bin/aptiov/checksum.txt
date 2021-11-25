@@ -1,0 +1,16 @@
+fcc313dced2df8c8fbf7e4828340585a  CapsuleApp.efi
+456408461980b19078b84c29538301f5  dbukey.auth
+c86a106ed7874205b37eaeca6c44d234  del_dbukey.auth
+20bccb357298c3c16666734d0467066c  jade_aptiov_1.07.20210713.fd
+96cd2f7735ac97dc05a3f560c91de729  jade_aptiov_atf_1P_signed_1.07.20210713.cab
+8d28feee1662c25af9acef2ecd3d40e5  jade_aptiov_atf_1P_signed_1.07.20210713.cap
+9380253d6491f6d9095f5386d2e21dd4  jade_aptiov_atf_1P_signed_1.07.20210713.dbu.sig.img
+f93b426a0e9684a05aabb801d6dfc7de  jade_aptiov_atf_1P_signed_1.07.20210713.hpm
+762e0d4e6d4bc41a446ab9b328c46755  jade_aptiov_atf_1P_signed_1.07.20210713.img
+83bfab9f223610f04c1b9d7cbee84383  jade_aptiov_atf_1P_signed_1.07.20210713.spi
+e5833f468de0b395102f7adcc8dbd693  jade_aptiov_atf_signed_1.07.20210713.cab
+24511939dd004ac94324a2e43fb88212  jade_aptiov_atf_signed_1.07.20210713.cap
+d2cd216dad3a5b1975c08e6075e7efbc  jade_aptiov_atf_signed_1.07.20210713.dbu.sig.img
+c7337454ae4976aa3a0d59184441d592  jade_aptiov_atf_signed_1.07.20210713.hpm
+126277b1027f0566534d64a7e2e1a021  jade_aptiov_atf_signed_1.07.20210713.img
+e1fb607d1196bc9419a0d1d8da4b28ce  jade_aptiov_atf_signed_1.07.20210713.spi

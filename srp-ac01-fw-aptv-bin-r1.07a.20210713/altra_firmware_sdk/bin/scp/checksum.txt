@@ -1,0 +1,5 @@
+e3447750c0557e51e400619e77571682  altra_scp_signed_1.07.20210713.cab
+bf05512f6571eea5e08fce74be6cacc3  altra_scp_signed_1.07.20210713.cap
+3669304b042dc9ce3fdf8b77d222684f  altra_scp_signed_1.07.20210713.dbu.sig.img
+70f63bff2b70df1fe63f66100a8026bd  altra_scp_signed_1.07.20210713.hpm
+b1b7ce0310e4efc4682333f1edc87aa3  altra_scp_signed_1.07.20210713.slim

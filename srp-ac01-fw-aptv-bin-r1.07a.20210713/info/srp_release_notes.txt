@@ -1,0 +1,51 @@
+# Software Release Package (SRP) Release Notes
+
+## 2020.07.04
+
+* Version upgrades across:
+  - Ampere CentOS
+  - Ampere Debug Tools
+  - Ampere BMC Software Development Kit (MegaRAC & OpenBMC)
+  - Ampere Firmware Software Development Kit (AptioV)
+
+* Removal of Ampere GCC distribution via the SRP process. All compiler updates can be
+  found on developer.amperecomputing.com.
+
+* Addition of /info/ folder to be included with all SRP packages. This folder will
+  include all system level notes, guides, and license information.
+
+* SRP packaging process moved from mono-package structure to multi-package structure.
+  All content in prior SRP releases was contained in one single package, packaged by
+  license and contract limitations. To address concerns with size, navigability, and
+  ease of version reference we've moved to a component-based packaging model. SRPs will
+  now be broken into packages based on component, provider, and content scope. 
+
+  Possible component types and providers:
+    * Firmware (fw)
+      - AptioV (aptv)
+      - EDK2 (edk2)
+    * Management (mgmt)
+      - MegaRAC (mgr)
+      - OpenBMC (obmc)
+    * Debug Tools (debugtools)
+      - Ampere Distributed (amp)
+    * Operating Systems (os)
+      - Ampere Distributed (amp)
+
+  Possible scopes:
+    * Binary Content (bin)
+    * Source Content (src)
+    * Documentation Content (doc)
+    * Developer Targeted Documentation Content (devdoc)
+    * User Targeted Documentation Content (userdoc)
+
+  This is then consolidated into an SRP naming convention, here are some examples:
+    * srp-ac01-fw-aptv-src-r2020.07.04
+    * srp-ac01-mgmt-mgr-src-r2020.07.04
+    * srp-ac01-debugtools-amp-src-r2020.07.04
+    * etc.
+
+  Note on versions: the version field is composed of a date in YYYY.MM.DD. In the case
+  where multiple distinct releases are made in a single day, the alphabet is used to 
+  further clarify. Where the first release is 2020.07.04, subsequent releases might 
+  be 2020.07.04a, 2020.07.04b, etc.

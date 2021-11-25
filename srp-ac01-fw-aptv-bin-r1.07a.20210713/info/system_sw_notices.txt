@@ -1,0 +1,14 @@
+! Important: OS Mitigations !
+**USB**  
+New USB devices require patches in 5.3 kernel that can cause a kernel panic. To prevent kernel panic, disable PCIe port#6 in Aptio UEFI.
+  
+**NUMA**  
+Memory is not optimally mapped. A solution is in development upstream. See Ampere GitHub for mitigation.
+
+**LSE, Atomics**  
+Locking performance can be significantly improved by using GCC 8.4, 9.3 & 10 and the associated GLIBC that supports -moutline-atomics enabled by default.
+
+**NVMe Hotplug**
+- Perform removal or insertion of one device at a time. Parallel removal or insertion of multiple devices at the same time might result in unexpected results.
+- Make sure to give sufficient time after a device is physically removed before re-inserting a new device
+- When Firmware First PCIe AER is enabled, removal of a device might result in a brief soft lockup warning on system console, but will eventually recover

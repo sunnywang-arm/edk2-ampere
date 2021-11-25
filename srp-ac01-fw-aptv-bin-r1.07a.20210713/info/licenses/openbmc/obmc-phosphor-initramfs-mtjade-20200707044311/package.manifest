@@ -1,0 +1,7 @@
+base-passwd
+busybox
+busybox-udhcpc
+libc6
+obmc-phosphor-initfs
+run-postinsts
+update-alternatives-opkg

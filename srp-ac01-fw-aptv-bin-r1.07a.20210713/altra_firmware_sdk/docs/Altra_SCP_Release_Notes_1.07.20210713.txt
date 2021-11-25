@@ -1,0 +1,2129 @@
+                            Ampere Computing
+                       Altra SCP Firmware Release Note
+                        (support@amperecomputing.com)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                                 CONTENTS
+Topic                            --------                       Section
+-----                                                           -------
+
+ o SUMMARY OF CHANGES ............................................ 1.0
+ o COPYRIGHT ..................................................... 2.0
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+1.0 SUMMARY OF CHANGES
+
+	Version 1.07.20210713 (7/13/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump for all IP's support (1.07)
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support
+	- NMI trigger via i2c register support
+	- 2P link error reporting enhancement
+	- BMC trigger host crash dump
+	- Debug certificate enable CLI for production silicon
+	- PMpro FCC supports PM event
+	- EL2 state dump with Firmware Crash Capture
+	- SCP watchdog via GPIO (default off)
+	- Additional DDR training failure syndrome to BMC
+	- CPM RAS Error Records in FCC
+	- Single domain authentication support 
+	- Multiple vendor VRD support
+	- DRAM CE filter support (1.07)
+	
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.07 does not work with ATF/UEFI FW 1.06
+	  Solution: Update to matching FW version.	
+	- Bug 89615: 2P link UE does not report a full crash dump record
+	  Solution: By design, it only indicate an event occurred. There is
+	            no additional information captured.
+	
+	Resolved Issues:
+	- Bug 89441: QS: Group 3 SKU's support with lower BMC power limit
+	- Bug 89775: QS: Fix no CPU frequency control under OS with SKU Q32-17
+
+---------------------------------------------------------------------------
+
+	Version 1.07.20210723 (6/23/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump for all IP's support (1.07)
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support
+	- NMI trigger via i2c register support
+	- 2P link error reporting enhancement
+	- BMC trigger host crash dump
+	- Debug certificate enable CLI for production silicon
+	- PMpro FCC supports PM event
+	- EL2 state dump with Firmware Crash Capture
+	- SCP watchdog via GPIO (default off)
+	- Additional DDR training failure syndrome to BMC
+	- CPM RAS Error Records in FCC
+	- Single domain authentication support 
+	- Multiple vendor VRD support
+	- DRAM CE filter support (1.07)
+	
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.07 does not work with ATF/UEFI FW 1.06
+	  Solution: Update to matching FW version.	
+	- Bug 89615: 2P link UE does not report a full crash dump record
+	  Solution: By design, it only indicate an event occurred. There is
+	            no additional information captured.
+	
+	Resolved Issues:
+	- Bug 88570: PM: Write zero to PLIMIT register to disable the Plimit capping
+	- Bug 88726: QS: RAS: Fix GIC UE clearing
+	- Bug 85448: QS: RAS: Update BERT and FCC to capture additional error records
+	- Bug 89140: Ignore SPI handshake for slave socket
+	- Bug 89168: QS: RAS: BERT: Remove UEFI BERT call
+	- Bug 89147: APEI: Add severity and status bits for RASDP errors
+	- Bug 89129: QS: RAS: Fix BERT truncating OCM Error Records
+	- Bug 89220: QS: RAS: Update BERT_VERSION as the crash dump data has changed
+	- Bug 87271: QS: Fix SCP hang up under stress test
+	- Bug 89301: CPPC: Stop feedback counter when the core is in WFI/WFE
+	- Bug 87155: VRM: support MPS VRD types (un-tested)
+	- Bug 89354: VRM: Fix Sometimes cannot program the VRD VOUT during cycle test
+	- Bug 85448: QS: RAS: Fix hang when PCIe misconfigured
+	- Bug 84200: QS: BERT: Ensure Secure WDT generates BERT record
+	- Bug 89424: RAS: Add Error Status to Memory Error Record
+	- Bug 89425: QS: RAS: Fix APEI disabling IRQs when no ACK is pending
+	- Bug 89426: QS: RAS: Fix APEI not reporting early errors before OS boots
+	- Bug 89414: VRM: Notify and handle error case when cannot detect the VRM device I
+	- Bug 89212: QS: RAS: Fix capturing all S1 SMpro and PMpro data on S0 HardFault
+	- Bug 89529: QS: TDP value displayed via BMC being 500W
+	- Bug 89442: PM: Update PCP power calibration low threshold value to 15W for some SKU's
+	- Bug 89562: QS: RAS: Fix BERT bringing the BMC i2c2 link down during FCC
+
+---------------------------------------------------------------------------
+	
+	Version 1.06.20210615 (6/15/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support
+	- NMI trigger via i2c register support
+	- 2P link error reporting enhancement
+	- BMC trigger host crash dump
+	- Debug certificate enable CLI for production silicon
+	- PMpro FCC supports PM event
+	- EL2 state dump with Firmware Crash Capture
+	- SCP watchdog via GPIO (default off)
+	- Additional DDR training failure syndrome to BMC
+	- CPM RAS Error Records in FCC
+	- Single domain authentication support (1.06)
+	- Multiple vendor VRD support (1.06)
+    
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.06 does not work with ATF/UEFI FW 1.05
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- These is no change in this build as compare to previous build. A 
+	  build is triggered to have a match FW build number only with ATF.
+		
+---------------------------------------------------------------------------
+
+	Version 1.06.20210613 (6/13/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support
+	- NMI trigger via i2c register support
+	- 2P link error reporting enhancement
+	- BMC trigger host crash dump
+	- Debug certificate enable CLI for production silicon
+	- PMpro FCC supports PM event
+	- EL2 state dump with Firmware Crash Capture
+	- SCP watchdog via GPIO (default off)
+	- Additional DDR training failure syndrome to BMC
+	- CPM RAS Error Records in FCC
+	- Single domain authentication support (1.06)
+	- Multiple vendor VRD support (1.06)
+    
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.06 does not work with ATF/UEFI FW 1.05
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- These is no change in this build as compare to 1.06.20210526. A 
+	  build is triggered to have a match FW build number only with ATF.
+	
+---------------------------------------------------------------------------
+
+	Version 1.06.20210526 (5/26/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support
+	- NMI trigger via i2c register support
+	- 2P link error reporting enhancement
+	- BMC trigger host crash dump
+	- Debug certificate enable CLI for production silicon
+	- PMpro FCC supports PM event
+	- EL2 state dump with Firmware Crash Capture
+	- SCP watchdog via GPIO (default off)
+	- Additional DDR training failure syndrome to BMC
+	- CPM RAS Error Records in FCC
+	- Single domain authentication support (1.06)
+	- Multiple vendor VRD support (1.06)
+    
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.06 does not work with ATF/UEFI FW 1.05
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- Bug 87019: QS: Reduce minimum CPUPLL frequency to 800MHz
+	- Bug 87080: QS: Turbo uses the maximum frequency as the nominal frequency
+	- Bug 85287: BMC: wrong event is sent to BMC for HP action
+	- Bug 84307: SCP: Enables debug registers per debug re-enable cert
+	- Bug 86628: QS: I2C: Expose I2C9 to non-secure world for UEFI and OS access in 1P system
+	- Bug 87580: PM: Update VDM based on characterization
+	- Bug 87760: PM: Change power limit register minimum value to 120W
+	- Bug 87759: BMC: PMpro shouldn't report LPI system standby to BMC
+	- Bug 87968: I2C: Do the bus recovery when transaction timeout or some ARB events
+	- Bug 87451: QS: RAS: Fix GHESv2 ACK lost during DB3 storm
+	- Bug 86012, 86014: BMC: Fix Device ID register read
+	- Bug 87451: QS: RAS: move EINJ request handling to main loop
+	- Bug 87121: Service i2c slave from external interrupt 0/4
+	- Bug 85880: QS: BERT: Repair I2C link during FCC
+	- Bug 87302: Fix i2c slave infinite loop
+	- Bug 85880: QS: BERT: Repair UEFI failure case
+	- Bug 88396: Fix 1P boot if force to 1P setting
+	- Bug 88345: PM1: Do not activate the PM1 when the power is around limit
+	- Bug 88570: PM: Write zero to PLIMIT register to disable the Plimit capping
+
+---------------------------------------------------------------------------
+	
+    Version 1.05.20210426 (4/26/2021)
+    SMpro/PMpro Firmware Features:
+    - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+    - DDR SPD query support (for passing DDR info to HOB)
+    - Macronix/Winbond QSPI mode up to 33MHz
+    - POST (boot progress) support with report to BMC
+    - Assert PWROK signal on boot
+    - CLI command support
+    - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+    - Strap ARMv8 processor boot code
+    - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+    - Reboot/shutdown support
+    - 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+    - Mesh/2P frequency:
+        Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+        Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+        Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+        Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+        Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+        Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+    - Board setting for i2c and SPI support
+    - Board setting for VRD topology support
+    (Fansipan: Config 0; Snow: Config 1, Config 2)
+    - CPPC core frequency scaling and LPI support
+    - SubNUMA monolithic, hemisphere, and quadrant support
+    - TPC TM1/TM2 with frequency throttle @ temperature limit
+    - SoC temperature HWmon support (for Linux)
+    - Timer support at 25MHz
+    - TMM support
+    - AVS support
+    - Failsafe support
+    - Measure boot support via HOB
+    - DVFS support
+    - RAS APEI support
+    - Error injection (EINJ) support
+    - SPI failover notification to BMC support
+    - Security provision support
+    - Turbo support (require effuse part)
+    - Secure boot support
+    - RAS CPM threshold support
+    - Report all power rail of SoC to BMC
+    - effuse AVS support
+    - effues SKU max turbo support
+    - SKU TDP report to BMC support
+    - Core energy report support
+    - DDR scrubbing support
+    - Handle I2C/2P link failure by disable slave socket
+    - Secure watch dog user time out changeable support
+    - Report current for all rails
+    - RAS DDR hardware EINJ support
+    - RAS 2P error handling support
+    - DIMM alert trigger TCRIT method support
+    - RAS SMpro/PMpro crash dump support
+    - A0/A1 silicon support
+    - Per DIMM temperature/alert reporting to BMC
+    - NDIMM-N support
+    - NDIMM-N health monitor, BMC interaction, and RAS support
+    - 2P hardware link error injection support
+    - Expose TPC TM1 to BMC interface
+    - SPI-NOR live update support
+    - Adaptive power modulation (APM) capping support
+    - Voltage drop mitigation (VDM) support
+    - NMI trigger via i2c register support
+    - 2P link error reporting enhancement
+    - BMC trigger host crash dump
+    - Debug certificate enable CLI for production silicon
+    - PMpro FCC supports PM event (1.05)
+    - EL2 state dump with Firmware Crash Capture (1.05)
+    - SCP watchdog via GPIO (default off) (1.05)
+    - Additional DDR training failure syndrome to BMC (1.05)
+    - CPM RAS Error Records in FCC (1.05)
+
+    Known Issues:
+    - Bug XXXXX: SCP FW 1.05 does not work with ATF/UEFI FW 1.04
+      Solution: Update to matching FW version.
+
+    Resolved Issues:
+    - Bug 84883: Plimit: Negative 6 watt margin for Power limit setting from BMC/CLI
+    - Bug 84890: PM: Correct hw soft-start bit in CxCCR
+    - Bug 85178: QS: RAS: Don't allow CPM software simulated EINJ for OS-first
+    - Bug 85226: AVS voltage reports 0 on efused parts
+    - Bug 85196: BMC: Incorrect 0x0D Socket information
+    - Bug 85281: DVFS: Check the current voltage with resolution rounding
+    - Bug 84941: QS: BERT: Ensure only master socket reports UEFI BERT
+    - Bug 85453: QS: RAS: Reduce GIC ITS software UEs to recoverable
+    - Bug 85741: I2C: Remove infinite loop waiting for i2c bus
+    - Bug 85933: QS: Mesh Turbo mode use Turbo PEM to monitor bus activity
+    - Bug 86161: QS: RAS: Update EINJ for PCIe RASDP
+    - Bug 86204: Fix i2c 9 clock bit bang to 89KHz
+    - Bug 86624: PM: Missing S0 hwmon instance
+    - Bug 86849: Update SCP version to 1.05
+
+---------------------------------------------------------------------------
+	
+	Version 1.04.20210326 (3/26/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support (1.04)
+	- NMI trigger via i2c register support (1.04)
+	- 2P link error reporting enhancement (1.04)
+	- BMC trigger host crash dump (1.04)
+	- Debug certificate enable CLI for production silicon (1.04)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.04 does not work with ATF/UEFI FW 1.03
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- Bug 84869: QS: Change MeshPLL frequency slope and the floor frequency (20 instead 40mV)
+	- Bug 84941: QS: BERT: Prevent slave socket from reporting UEFI failure
+	- Bug 84964: WDT: PMpro WDT expires due to long 2P initialization time
+	- Bug 85136: QS: RAS: Add SET_ERROR_TYPE EINJ support
+	- Bug 85385: QS: RAS: Set EINJ GET_ERROR_TYPE vendor bit
+	- Bug 85653: SCP: VRM: Avoid unexpected Pmpro reset's due to wrong de-reference
+	- Bug 82733: 2P: Add link error detection and retry
+	- Bug 82733: 2P: Add link error detection, 2p link retrain and reset
+	- Bug 85741: I2C: Fix i2c slave logic issue causes infinite loop
+	- Bug 82733: 2P: Add 2P link CE recovery for slave socket
+	- Bug 82733: 2P: Add 2P link down recovery by system reset
+	- Bug 82733: 2P: Update 2P retrain print statement
+	- Bug 86099: PMpro PEM calls the uninitialized function pointer (PMIN assert at boot)
+	- Bug 82733: 2P: Fix 2P link retrain counter overflow
+	- Bug 82733: 2P: Remove RASDES error checking out of CCIX initialize sequence
+	- Bug 82733: 2P: Add back retry reboot request
+	- Bug 86302: Fix potential i2c hang polled request
+	- Bug 86204: Fix potential i2c hang while query DIMM SPD
+	- Bug 86204: i2c: Fix long delay i2c request operation
+	- Bug 86204: DDR: Fix putting large data in stack
+	
+---------------------------------------------------------------------------
+	
+	Version 1.04.20210223 (2/23/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh/2P frequency:
+		Core 3.3GHz: 1650 - 1800MHz mesh, 25GHz CCIX
+		Core 3.0GHz: 1650 - 1750MHz mesh, 25GHz CCIX
+		Core 2.8GHz: 1650MHz mesh, 25GHz CCIX
+		Core 2.6GHz: 1550MHz mesh, 20GHz CCIX
+		Core 2.4GHz: 1500MHz mesh, 20GHz CCIX
+		Core 2.0GHz: 1400MHz mesh, 20GHz CCIX
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support
+	- Voltage drop mitigation (VDM) support (1.04)
+	- NMI trigger via i2c register support (1.04)
+	- 2P link error reporting enhancement (1.04)
+	- BMC trigger host crash dump (1.04)
+	- Debug certificate enable CLI for production silicon (1.04)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.04 does not work with ATF/UEFI FW 1.03
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- Bug 81376: DDR: Dynamic 2x refresh rate at high temp condition
+	- Bug 82232: Fix smpro crash if system address is not 64-bit aligned
+	- Bug 81376: DDR: Support to log BMC register when MCU refresh rate (tREF) change
+	- Bug 82684: DVFS: Optimize the DVFS voltage change
+	- Bug 82691: I2C: Optimize I2C async request processing time
+	- Bug 82514: DDR: Correct dimm mask for system less than 32 DIMM slot
+	- Bug 82795: DFS uses the nominal voltage for non-turbo mode
+	- Bug 82744: Add moving average for PCP VRM power
+	- Bug 82839: RAS: Add MPIDR to ARM Processor CPER reporting
+	- Bug 80251: QS: RAS: Add DRAM EINJ no trigger support
+	- Bug 82794: QS: BERT: Support triggering Firmware Crash captured
+	- Bug 83072: DB: Print more information for "msg queue full" error
+	- Bug 82959: SCP NMI trigger using i2c register
+	- Bug 83416: CPPC: Add Performance Limited register
+	- Bug 82259: SCP: CPM: System fails to boot after changing number
+	- Bug 83446: DVFS: Temperature based CPU voltage margin
+	- Bug 81652: QS: RAS: Update 2P Link Payload
+	- Bug 83522: SPI: Fix Socket 1 SPI access RAS warning on every boot
+	- Bug 82641: QS: CCIX: Support SKU's with 20GHz CCIX frequency limit
+	- Bug 82665: TPM: Set SPI1 default frequency to 25 MHz
+    - Bug 80962: System reboot abnormally during PXE boot failure
+    - Bug 84322: Clk: Ensure the PLL register access ordering
+	- Bug 80962: System reboots abnormally during PXE boot
+	- Bug 84304: QS: DVFS: Set mesh frequency at mininum 1650MHz for CCIX 25G
+	- Bug 84239: AVS: Change the AVS frequency by step during boot
+	- Bug 84381: DVFS: Add the age margin for 1650MHz MeshPLL voltage with CCIX 25G
+	- Bug 83173: DDR: Temperature based dynamic SOC voltage setting
+	- Bug 84742: Debug enable to re-enable CLI
+	- Bug 84738: Update the age margin for the minimum PCP voltage required by CCIX 25G
+	- Bug 84531: SKU 2.6/2.8 has 185W TDP instead of 175W TDP
+	- Bug 84815: Enable DDR TCAL dynamic VDD SOC by default
+	- Bug 84806: VRM: Add moving average for DIMM rails and faster PCP monitor
+	- Bug 85021: DDR: Support ZQCS retry at max 3 times
+
+---------------------------------------------------------------------------
+	
+	Version 1.03.20210121 (1/21/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.8GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support (1.03)
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support (1.03)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.03 does not work with ATF/UEFI FW 1.02
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+	- Bug 82682: WDT: Secure WDT time out not reported to BMC
+	- Bug 82493: BERT: Remove slave socket SPI-NOR write
+	- Bug 82734: BERT: Remove system reset on BERT UEFI failure
+	- Bug 82734: BERT: Fix BERT message size
+	- Bug 82517: DVFS: Turbo configures incorrect MAX PCP voltage to DVFS
+
+---------------------------------------------------------------------------
+
+	Version 1.03.20210108 (1/8/2021)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.8GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support (1.03)
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support (1.03)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.03 does not work with ATF/UEFI FW 1.02
+	  Solution: Update to matching FW version.	
+	
+	Resolved Issues:
+    - Bug 81896: DVFS adds delay and check for PCP VOUT_COMMAND
+    - Bug 82216: DVFS: VOUT setting fails because of the wrong readback target volt
+    - Bug 82358: QS: RAS: Lower severity of GIC software UEs
+    - BUG 81093: RAS: Fix DRAM system address column calculation
+    - Bug 81694: QS: MESH: Fix wrong size and order size of HNI
+    - Bug 82863: Sensor: CH0 DIMM0 temp is overwritten by SoC high temp value
+
+---------------------------------------------------------------------------
+
+	Version 1.03.20201219 (12/19/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode up to 33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.8GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere, and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Per DIMM temperature/alert reporting to BMC
+	- NDIMM-N support
+	- NDIMM-N health monitor, BMC interaction, and RAS support (1.03)
+	- 2P hardware link error injection support
+	- Expose TPC TM1 to BMC interface
+	- SPI-NOR live update support
+	- Adaptive power modulation (APM) capping support (1.03)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.03 does not work with ATF/UEFI FW 1.02
+	  Solution: Update to matching FW version.	
+	
+    IMPORTANT NOTE: The SPI-NOR layout change. Please consult the
+	Altra SoC BMC interface spec for more information!!!
+	
+	Resolved Issues:
+	- Bug 79619: DDR: Support logging NVDIMM-N operation status
+	- Bug 80677: DDR: Support OS RAS info in case NVDIMM is disabled due to operation failure
+	- Bug 79618: DDR: Support NVDIMM-N health status monitoring
+	- Bug 81017: CPPC: Use 2000 Mhz for the Lowest NonLinear Performance
+	- Bug 80427: QS: BERT: Avoid SCP BERT on UEFI/ATF boot Failure
+	- Bug 81076: DDR: Support NVDIMM-N DSM health monitoring
+	- Bug 81060: RAS: Fix error injection to Secondary DRAM region
+	- Bug 80531: Fix hwmon mailbox timeout
+	- Bug 81429: Ignore log warn for loading FUSE/SCP BLOB files
+	- Bug 81475: QS: BERT: Add PCP Shutdown to BERT flow
+	- Bug 80752: QS: VRM: Updating Negative value in the Current Sensor
+	- Bug 81677: NVDIMM-N: Fix ZQCS does not run on NVDIMM operating MCU
+	- Bug 81065: PMIN: Change the clock ratio to bring down the power faster
+	- Bug 79284: BMC: Report overflow for RAS error records dropped
+	- Bug 81657: Support new SPI NOR layout
+
+---------------------------------------------------------------------------
+
+	Version 1.02.20201208 (12/8/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Add AVS ver 2.0 support
+	- Add Soft-start feature support
+	- Improve 2P boot time (1.02)
+	- Per DIMM temperature/alert reporting to BMC (1.02)
+	- NDIMM-N support (1.02)
+	- 2P hardware link error injection support (1.02)
+	- Expose TPC TM1 to BMC interface (1.02)
+	- SPI-NOR live update support (1.02)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.02 does not work with ATF/UEFI FW 1.01
+	  Solution: Update to matching FW version.	
+	- Bug 81103: Rarely message "ERR: msg queue full" appears
+	  Solution: There is no functionality impact with this message.
+	            It will be resolved in future FW release.
+	 
+	Resolved Issues:
+	- Bug 80985: Disable CLI on production silicon
+	- Bug 81018: Add lower end 2P calibration support
+
+---------------------------------------------------------------------------
+
+	Version 1.02.20201114 (11/14/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Add AVS ver 2.0 support
+	- Add Soft-start feature support
+	- Improve 2P boot time (1.02)
+	- Per DIMM temperature/alert reporting to BMC (1.02)
+	- NDIMM-N support (1.02)
+	- 2P hardware link error injection support (1.02)
+	- Expose TPC TM1 to BMC interface (1.02)
+	- SPI-NOR live update support (1.02)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.02 does not work with ATF/UEFI FW 1.01
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+	- Bug 80166: Slave socket 2P link calibration support 
+	- Bug 80661: Change RCA VP from 850 mV to 900 mV
+
+---------------------------------------------------------------------------
+
+	Version 1.02.20201106 (11/6/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket
+	- Secure watch dog user time out changeable support
+	- Report current for all rails
+	- RAS DDR hardware EINJ support
+	- RAS 2P error handling support
+	- DIMM alert trigger TCRIT method support
+	- RAS SMpro/PMpro crash dump support
+	- A0/A1 silicon support
+	- Add AVS ver 2.0 support
+	- Add Soft-start feature support
+	- Improve 2P boot time (1.02)
+	- Per DIMM temperature/alert reporting to BMC (1.02)
+	- NDIMM-N support (1.02)
+	- 2P hardware link error injection support (1.02)
+	- Expose TPC TM1 to BMC interface (1.02)
+	- SPI-NOR live update support (1.02)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.02 does not work with ATF/UEFI FW 1.01
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+	- Bug 78356: Use 105C TM1 bydefault for Non-efuse part
+    - Bug 78535: QS: RAS: Change Memory HW EINJ to non-fatal type
+    - Bug 75073: DDR: Support retry at max 5 times if I2C read/write NVDIMM failure
+    - Bug 78713: RAS: Fix DRAM error reporting of address below 4GB
+    - Bug 78690: QS: RAS: Add platform memory CPER to parity error reporting
+    - Bug 78535: QS: RAS: Hardware EINJ DDR UE severity update
+    - Bug 78526: QS: VRM: Stop Updating Negative value in the Current Sensor
+    - Bug 78653: Fix CCIX PCIe as secure
+    - Bug 79228: RAS: Fix EINJ DRAM address to go to the correct MCU
+    - Bug 79499: Core order function also returns the maximum core of the chip
+    - Bug 79623: RAS: Fix MCU DRAM error injection to non-zero bank
+    - Bug 78936: QS: BERT: Report Fatal UE through Bert
+    - Bug 78589: QS: RAS: Reduce severity of certain PCIe HB UEs
+    - Bug 79684: Add support for two 1 rank DIMMs on MCU0
+    - Bug 79717: Fix RAS APEI truncating upper bits of row address
+    - Bug 79865: Support storing 32bit UEFI boot status (for EDKII)
+    - Bug 78279: RAS: Fix calculating SSCG0 for HEMISPHERE and QUADRANT
+    - Bug 80026: Update FW version to 1.02
+    - Bug 79276: QS: SPI: Add SPI-NOR Live Lock Support
+    - Bug 79653: QS: BERT: Report Fatal 2P link error through BERT
+    - Bug 80091: RAS: shutterbit change requires MCU DRAM change
+    - Bug 80225: Mesh: NHI is missing VALID bit for SAM region
+    - Bug 70217: Tune 2P link PHY setting
+    - Bug 80166: Add run-time 2P link calibration
+	
+---------------------------------------------------------------------------
+	
+	Version 1.01.20201019 (10/19/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket (1.01)
+	- Secure watch dog user time out changeable support (1.01)
+	- Report current for all rails (1.01)
+	- RAS DDR hardware EINJ support (1.01)
+	- RAS 2P error handling support (1.01)
+	- DIMM alert trigger TCRIT method support (1.01)
+	- RAS SMpro/PMpro crash dump support (1.01)
+	- A0/A1 silicon support (1.01)
+	- Add AVS ver 2.0 support (1.01)
+	- Add Soft-start feature support (1.01)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.01 does not work with ATF/UEFI FW 0.10.
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+    - Bug 78831: Plimit: Update PID I threshold parameters
+    - Bug 78958: Fix loading of i2c9 board setting
+    - Bug 78402: QS: BERT: Fix Socket 1 Pmpro Crash report
+    - Bug 79223: PM: Missing the power of RCA which is used by CCIX
+    - Bug 79007: Fix TPC TM1 reporting stall value
+    - Bug 78908: Fix TPC message error print
+    - Bug 78804: Fix max core in HOB
+	- Bug 79451: Fix DDR PHY training issue due to wrong core count
+	- Bug 79405: Update 2P link PCIe setting
+    - Bug 78926: QS: RAS: Check for slave socket 2P link errors
+    - Bug 79711: Add board setting for 2P link configuration selection
+
+---------------------------------------------------------------------------
+
+	Version 1.01.2020930 (9/30/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket (1.01)
+	- Secure watch dog user time out changeable support (1.01)
+	- Report current for all rails (1.01)
+	- RAS DDR hardware EINJ support (1.01)
+	- RAS 2P error handling support (1.01)
+	- DIMM alert trigger TCRIT method support (1.01)
+	- RAS SMpro/PMpro crash dump support (1.01)
+	- A0/A1 silicon support (1.01)
+	- Add AVS ver 2.0 support (1.01)
+	- Add Soft-start feature support (1.01)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.01 does not work with ATF/UEFI FW 0.10.
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+	- Bug 78881: Fix logic error with 1P configuration
+
+---------------------------------------------------------------------------
+
+	Version 1.01.2020928 (9/28/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket (1.01)
+	- Secure watch dog user time out changeable support (1.01)
+	- Report current for all rails (1.01)
+	- RAS DDR hardware EINJ support (1.01)
+	- RAS 2P error handling support (1.01)
+	- DIMM alert trigger TCRIT method support (1.01)
+	- RAS SMpro/PMpro crash dump support (1.01)
+	- A0/A1 silicon support (1.01)
+	- Add AVS ver 2.0 support (1.01)
+	- Add Soft-start feature support (1.01)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.01 does not work with ATF/UEFI FW 0.10.
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+	- Bug 75677: QS: RAS: Use recoverable severity for some SW EINJ
+	- Bug 76385: QS: RAS: Allow software simulated EINJ for DSU
+	- Bug 76389: QS: RAS: Add Altra 2P link software EINJ
+	- Bug 76466: QS: RAS: Report socket number as node in memory CPER
+	- Bug 76215: RAS: Add RAS error injection parameter
+	- Bug 76509: LPIfreq: Change the lowest clock ratio from 9/32 to 16/32
+	- Bug 76545: PM: Fix Plimit PID calculation (overflow issue)
+	- Bug 74729: PM: Fix system standby does not reduce the CPUPLL
+	- Bug 76513: Allow read/write access to PCIe HBPSIDR register
+	- Bug 76525: Scale the PCP voltage for the default CPU frequency
+	- Bug 76717: QS: RAS: Report DRAM error register contents to OS
+	- Bug 76721: PM: Plimit does not throttle the frequency
+	- Bug 76584: Change the default TDP value for Non-SKU part
+	- Bug 76710: PM: The minimum power capping value is 90W
+	- Bug 73378: LPI: Support LPI usage and residency counter
+	- Bug 76810: Change CLI print to show S0/S1
+	- Bug 76802: Mesh: Support CCIX optimized configuration
+	- Bug 76867: AVS/DVFS: Add NVPARAM for the Mesh frequency margin
+	- Bug 73091: QS: RAS: Enable DRAM Hardware EINJ
+	- Bug 76874: Add print on secure WDT time out
+	- Bug 76880: QS: RAS: Treat GIC UEs as Fatal
+	- Bug: 76740: QS: RAS: Update status register for software EINJ
+	- Bug 76887: QS: RAS: Treat DRAM UEs as Fatal
+	- Bug 76922: NVPARAM: Support Writable bitmask for CPUECTLR_EL1 register
+	- Bug 76736: QS: RAS: Add DDR Link Error Threshold
+	- Bug 76970: QS: RAS: Disable Hardware EINJ in Production
+	- Bug 75699: QS: Watchdog: Add Secure Watchdog Timer user parameter
+	- Bug 76263: DDR: Support DIMM event TCRIT mode and threshold setting by nvparam
+	- Bug 76985: CCIX: Config CCIX optimization option after ESM init
+	- Bug 73888: Add TPM Boot event logging support
+	- Bug 76436: hwmon: Optimize the core energy shared memory
+	- Bug 77238: QS: RAS: CE Threshold Update
+	- Bug 77429: Fix reporting of ESM 20/25G
+	- Bug 77491: Cannot read the leakage power from efuse
+	- Bug 77461: Mesh frequency change to improve the margin
+	- Bug 76215: Handle I2C side band failure
+	- Bug 77597: RAS: Fix clobbering pending APEI error
+	- Bug 77629: AVS: Add 10mV margin for AVS INFO1 MBIST Vmin Voltage
+	- Bug 72772: Handle I2C hang implementation for all I2C bus
+	- Bug 74726: Update ZQCS behavior to scan all MCUs in one period and support 3DS DIMM
+	- Bug 77644: Update the default value for PM1 and PID NVPARAMs
+	- Bug 77402: QS: RAS: Update 2P Link Error Payload
+	- Bug 76736: QS: RAS: Clear Link Error Count
+	- Bug 77707: RAS: QS: Add new software simulated EINJ types
+	- Bug 77671: PEM: Support up to 1150mV and 125C for leakage power estimation
+	- Bug 77672: PM: Support hysteresis counter for CPU LPI feature
+	- Bug 75799: QS: VRM: Report Current for all the VRD
+	- Bug 74726: DDR: Add support logical rank calculation for 3DS DIMM
+	- Bug 77756: DDR: Move DDR_ZQCS_EN NVPARAM to user region
+	- Bug 77847: Mesh run at minimum 1600Mhz when CCIX 25G is enabled
+	- Bug 77400: QS: RAS: Route Processor EINJ request to specified CPU
+	- Bug 77938: PM: Fix typo for 2.8GHz part TDP
+	- Bug 77905: Add 2P link ESM 25G support
+	- Bug 77897: Clear CCIX RCA block event IRQ
+	- Bug 73092: RAS: Report physical address on DRAM error
+	- Bug 75339: QS: BERT: Add Slave Smpro/Pmpro to Bert
+	- Bug 77996: Enable as default CCIX 512 MskPck+OptHdr and ESM25
+	- Bug 77998: QS: RAS: Add BERT cases to Hardware EINJ
+	- Bug 78008: LPI Statistics time is too high
+	- Bug 68626: QS: RAS: Report all BERT errors to BMC
+	- Bug 77401: QS: RAS: Report Overflow and Threshold GED Flags
+	- Bug 77358: QS: RAS: Fix BMC type reporting for SW EINJ
+	- Bug 77423: QS: RAS: Log SCP Firmware Errors to CLI	 
+	- Bug 76878: RAS: Convert DRAM address to rank/bank/row/col for EINJ
+	- Bug 67043: QS: RAS: Fix the ATF Failure Crash Case
+	- Bug 75795: QS: RAS: Send UEFI Failure to Crash Capture Feature
+	- Bug 76550: QS: Change TM1 threshold based on the SKU EFUSE information
+	- Bug 78117: QS: BERT: Fix PMPRO reporting issue
+	- Bug 78038: RAS: Fix DRAM EINJ to choose correct MCU for MONOLITHIC config
+	- Bug 75814: RAS: Report MCU slot number for DRAM errors
+    - Bug 78341: QS: RAS: Allow Firmware Software Simulated EINJ
+	- Bug 75476: Update FW version to 1.01
+    - Bug 78599: Optmize the Mesh voltage and frequency slope
+    - Bug 78581: DVFS: Fix the PCP performance issue
+    - Bug 78617: Enable soft start feature by default
+    - Bug 78619: Add a new VF curve slope for CPU frequency over 3200MHz
+    - Bug 78442: Add AVS 2.0 support
+
+---------------------------------------------------------------------------
+
+    Version 0.10.20200813 (8/13/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen4 support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+     - Mesh frequency up to 1.75GHz
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support
+       (Fansipan: Config 0; Snow: Config 1, Config 2)
+     - CPPC core frequency scaling and LPI support
+     - SubNUMA monolithic, hemisphere (1.00), and quadrant support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+     - TMM support
+     - AVS support
+     - Failsafe support
+     - Measure boot support via HOB
+     - DVFS support
+     - RAS APEI support
+     - Error injection (EINJ) support
+     - SPI failover notification to BMC support
+	 - Security provision support
+	 - Turbo support (require effuse part)
+	 - Secure boot support
+	 - RAS CPM threshold support
+	 - Report all power rail of SoC to BMC
+     - effuse AVS version 1.0 support
+     - effues SKU max turbo support
+	 - SKU TDP report to BMC support
+	 - Core energy report support
+	 - DDR scrubbing support
+
+	Known Issues:
+	 - Bug XXXXX: SCP FW 0.10 does not work with ATF/UEFI FW 0.09.
+	   Solution: Update to matching FW version.	
+	 - Bug 72771: ATF BL1 failed authentication.
+	   Solution: At this time, ATF BL1 is not authenticated by SMpro.
+	             Ignore the warning.
+	 
+    Resolved Issues:
+     - Bug 76200: Reverse the order of ALERT9 and ALERT3
+     - Bug 76682: VRM: Reducing voltage updates the setting voltage before requesting the VRM
+     - Bug 76576: PM: Fix PEM PCP power estimation giving negative number
+     - Bug 76200: Decrease the time delay between ALERT9 and ALERT3
+     - Bug 76723: TSM: Add TM2 threshold and margin to TPC OverTemp ISR
+     - Bug 76758: PM: Move LPI system standby report into sensor module
+     - Bug 75989: 2P: Add PHY CCIX ESM @20/25GT support
+     - Bug 76802: Mesh: Support CCIX optimized configuration
+     - Bug 76874: Add print on secure WDT time out
+
+---------------------------------------------------------------------------
+
+    Version 0.09.202007024 (7/24/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen4 support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+     - Mesh frequency up to 2.0GHz (AVS) and 1.75GHz (non-AVS)
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support
+       (Fansipan: Config 0; Snow: Config 1, Config 2)
+     - CPPC core frequency scaling and LPI support
+     - SubNUMA monolithic, hemisphere (1.00), and quadrant support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+     - TMM support
+     - AVS support
+     - Failsafe support
+     - Measure boot support via HOB
+     - DVFS support
+     - RAS APEI support
+     - Error injection (EINJ) support
+     - SPI failover notification to BMC support
+	 - Security provision support
+	 - Turbo support (require effuse part)
+	 - Secure boot support
+	 - RAS CPM threshold support (0.09)
+	 - Report all power rail of SoC to BMC (0.09)
+     - effuse AVS version 1.0 support (0.09)
+     - effues SKU max turbo support (0.09)
+	 - SKU TDP report to BMC support (0.09)
+	 - Core energy report support (0.09)
+	 - DDR scrubbing support (0.09)
+
+	Known Issues:
+	 - Bug XXXXX: SCP FW 0.09 does not work with ATF/UEFI FW 0.05.
+	   Solution: Update to matching FW version.	
+	 - Bug 75900: Slave socket failed to be occassionally
+	   Solution: This issue is required in the FW but also requires
+	             CPLD version update.
+	 - Bug 72771: ATF BL1 failed authentication.
+	   Solution: At this time, ATF BL1 is not authenticated by SMpro.
+	             Ignore the warning.
+	 
+    Resolved Issues:
+     - Bug 70942: GIC: Fix pending spurious interrupt detected by OS
+     - Bug 74185: TPC: Cannot trigger interrupt to OSPM for HIGHTEMP alert
+     - Bug 73966: RAS: Report when 2P CCIX link fails to properly negotiate
+     - Bug 69945: RAS: Report errors detected by firmware to OS
+     - Bug 73965: 2P: Retry 2P CCIX link initialization as required
+     - Bug 74586: 2P: Cannot configure the CCIX speed/width via NVPARAM
+     - Bug 71827: Mailbox: Fix the message queue full print
+     - Bug 74132: DDR: Extend DDR failsafe context to support reporting the DIMM error
+     - Bug 74615: 2P: Implement 2P CCIX retraining for Gen-4 only
+     - Bug 74527: DDR: Fix wrong I2C bus number for dimm temperature querying
+     - Bug 74657: I2C: Fix incorrect PEC value issue
+     - Bug 74632: SENSOR: SMPro doesn't update the VRD power
+     - Bug 70507: Trustzone: Fix the security attributes for the non-secure I2C and SPI
+     - Bug 74736: 2P: Fix CCIX 2P Linkup RAS error reporting
+     - Bug 74643: SENSOR: Fix the PMpro DRAM error
+     - Bug 74893: RAS: Add APEI queuing for errors
+     - Bug 74871: DDR: Support report dimm training failure to bmc reg
+     - Bug 74622: RAS: Fix RAS log parameter
+     - Bug 74487: 2P: Fix hard fault when access slave config space if link is down
+     - Bug 75072: DDR: Allow system to boot in case no dimm detected
+     - Bug 74624: CORE: Change the core order with faster core first
+     - Bug 72549: DDR: Support retry up to 5 times on DIMM SPD read error
+     - Bug 71736: HOB: Provide proper message print on hob synchronization failure
+     - Bug 75311: RAS: Fix RAS internal error registers don't match with BMC interface spec
+     - Bug 75338: TSM: Correct the mode 2 config (improve TSM accuracy)
+	 - Bug 75446: TSM: Update the G and H values for temperature conversion.
+     - Bug 75397: PSCI: Enable PSCI statistics
+     - Bug 74106: Mesh: Support Hemisphere for 6 MCUs
+     - Bug 75164: Mesh: Lack of ordering to devices space on socket-to-socket
+     - Bug 75549: QS: NVPARAM: Update DDR boardsetting default value to match ddrlib v200623
+     - Bug 74281: SENSOR: Implement the reporting of RCA VRD voltage, temp and power
+     - Bug 75301: Add debugging print to report slave state
+     - Bug 75644: QS: RAS: Add ARMv8 Core Dump
+     - Bug 75719: RAS: Fix APEI reporting of Ampere Payload Type 3
+     - Bug 75014: RAS: Report DIMM training errors to OS
+     - Bug 75803: Support mesh frequency and voltage scaling
+     - Bug 75301: Add separate SMpro state for 2P
+     - Bug 75711: QS: SPI: Add Receive Data Sample Delay
+     - Bug 75806: BSC: Support the default CPUPLL frequency at 2.8Ghz at 1V
+     - Bug 75868: TPM: Set SPI1 default frequency to 10MHz
+     - Bug 75878: Altra hwmon supports the partial good part
+     - Bug 75265: QS: WDT: Fix system is not rebooted when WS1 times out after OS fails to boot
+     - Bug 75944: Correct efuse turbo frequency reading
+     - Bug 75153: Allow setting CPUPLL upto turbo frequency with 50Mhz margin
+     - Bug 75958: QS: DDR: SCP should switch SPD to page #0 before reading
+     - Bug 75925: PM: Scale down CPU freq when it is idle
+     - Bug 76002: PM: Disable tlimit feature by default
+     - Bug 75777: Fix slave socket boot up issue
+     - Bug 75339: RAS: Force co-processor panic when FCC detected
+     - Bug 76072: RAS: Optimize SAM calculation of address between master and slave
+     - Bug 76092: Remove CLI help text and info command
+     - Bug 72482: PM: Fix SBSA PE testcase fail
+     - Bug 76115: PM: Update core clk ratio when CPU is idle
+     - Bug 76121: PSCI Statistics module causes PMpro to crash
+     - Bug 76158: Fix BMC product version reporting
+     - Bug 75939: Fix BMC SEL output for SMpro/PMpro errors
+     - Bug 75901: Fix software simulated errors for processor EINJ.
+     - Bug 76244: RAS: Fix MESH error showing garbage data
+     - Bug 76247: QS: RAS: Add DSU Hardware EINJ
+     - Bug 76248: QS: RAS: Fix APEI queueing data
+     - Bug 76249: QS: RAS: Add PCIe HB UE Hardware EINJ Support
+     - Bug 76256: EFUSE AVS voltage is used for 3.0 GHz
+	 - Bug 76355: DVFS: Update core base voltage and core/mesh frequency curve
+
+---------------------------------------------------------------------------
+
+    Version 0.05.20200529 (5/29/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen4 support with up to 160 cores @ 3.0GHz with AVS or 1.8GHz without AVS (default to 4 cores only)
+     - Mesh frequency up to 1.25GHz (AVS) and 1.2GHz (non-AVS)
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support
+       (Fansipan: Config 0; Snow: Config 1, Config 2)
+     - CPPC core frequency scaling and LPI support
+     - SubNUMA monolithic & quadrant support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+     - TMM support
+     - AVS support
+     - Failsafe support (0.05)
+     - Measure boot support via HOB (0.05)
+     - DVFS support (0.05)
+     - RAS APEI support (0.05)
+     - Error injection (EINJ) support (0.05)
+     - PI failover notification to BMC support (0.05)
+	 - Security provision support (0.05)
+	 - Turbo support (require effuse part) (0.05)
+	 - Secure boot support (0.05)
+
+	Known Issues:
+	 - Bug XXXXX: SCP FW 0.05 does not work with ATF/UEFI FW 0.04.
+	   Solution: Update to matching FW version.	
+	 
+    Resolved Issues:
+     - Bug 72101: DDR: Support 4 MCU 1256 configuration
+     - Bug 71516: SPI: Enhance SPI device support via SFDP
+     - Bug 72018: DDR: Check for valid MCU setting for ANC mode
+     - Bug 72480: PM: CPPC revision 3 support
+     - Bug 66268: I2C: PEC for i2c slave transaction support
+     - Bug 72485: MISC: Add boot state query support via mailbox
+     - Bug 72376: I2C: Fix i2c clock calculation by 192Khz
+     - Bug 72930: MISC: Add PCIe bifurcation proxy access
+     - Bug 73017: SPI: Support faster SPI frequency for A1 silicon
+     - Bug 73610: RAS: Add CPM error reporting to the OS
+     - Bug 73780: Configure non-secure for GPIO 0-7 
+     - Bug 73643: QS: RAS: Fix Mesh XP MISC Register Offset 
+     - Bug 66266: QS: RAS: Add CE threshold for 2P link 
+     - Bug 73767: Support PMIN GPIO 
+     - Bug 73768: Support BMC Power Limit register 
+     - Bug 73093: RAS: Fix GIC error reporting during OS ITS initialization 
+	 - Bug 73972: QS: RAS: Clear block status of APEI HEST buffers 
+     - Bug 73881: QS: RAS: Add time stamp to error handling 
+     - Bug 73924: Fix default value of GPI UE/CE mask 
+     - Bug 73909: Support SCP failover
+	 - Bug 74150: I2C8: Configure I2C8 as non-secure
+     - Bug 74150: CLI: Support access I2C8 via CLI command
+     - Bug 74401: QS: RAS: Add MCU non-DIMM errors to vendor EINJ
+     - Bug 74402: QS: RAS: Correct PCIe HB Instance Numbering
+     - Bug 74403: QS: RAS: Update APEI Severity Reporting
+     - Bug 73966: RAS: Report when 2P CCIX link fails to properly negotiate 
+     - Bug 69945: RAS: Report errors detected by firmware to OS 
+     - Bug 74528: Fix PEM SoC constant power is in mW 
+     - Bug 73965: Fix 2P CCIX link initialization does not negotiate properly 
+     - Bug 74586: Cannot configure the CCIX speed/width via NVPARAM 
+	 - Bug 74632: Fix SCP does not report VRD power for device without mW unit
+
+---------------------------------------------------------------------------
+
+    Version 0.04.20200414 (4/14/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen4 support with up to 160 cores @ 3.0GHz with AVS or 1.8GHz without AVS (default to 4 cores only)
+     - Mesh frequency up to 1.25GHz (AVS) and 1.2GHz (non-AVS)
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support
+       (Fansipan: Config 0; Snow: Config 1, Config 2)
+     - CPPC core frequency scaling and LPI support
+     - SubNUMA monolithic & quadrant support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+     - TMM support
+     - AVS support
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 73140: Fix configuration of slave VRD from NV-parameter setting
+     - Bug 71736: Fix internal timing coordination issue between SMpro/PMpro
+                  as observed with Mt Jade EVT2 or system with full
+                  DIMM populated
+
+---------------------------------------------------------------------------
+
+    Version 0.04.20200329 (3/29/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen4 support with up to 160 cores @ 3.0GHz with AVS or 1.8GHz without AVS (default to 4 cores only)
+     - Mesh frequency up to 1.25GHz (AVS) and 1.2GHz (non-AVS)
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support
+       (Fansipan: Config 0; Snow: Config 1, Config 2)
+     - CPPC core frequency scaling and LPI support
+     - SubNUMA monolithic & quadrant support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+     - TMM support
+     - AVS support
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 71382: QS: RAS: Fix clearing SMMU TCU and TBU ERRSTATUS on error
+     - Bug 69176: QS: Add the warranty check for non-production armv8 firmware 
+     - Bug 71696: QS: SPI: Update ODS value for Macronix Flash parts
+     - Bug 71951: SCP returns in-correct RAS data to BMC
+     - Bug 71948: Fix SMpro cannot receive alert message from PMpro
+     - Bug 71948: Correct alert DIMM/VRD fault/warning event to BMC
+     - Bug 72000: Wrong error type for PCIE RAS error
+     - Bug 71186: QS: RAS: Enable DDR support for CE threshold interval
+     - Bug 71996: Fix wrong ddr speed incase auto mode is selected in bios menu
+     - Bug 72079: Correct the non-hash region size for Slave socket
+     - Bug 70680: QS: Fix GIC SPI RAM errors during boot
+     - Bug 72394: Support CPPC feedback counter by software to report core properly
+     - Bug 72152: QS: CCIX: Display CCIX link speed and width at boot time
+     - Bug 72846: Support VRD address from NVPARAM with 3rd config
+
+     NOTE: With regard to reporting of VRD topology, instead report config
+           0, 1, and 2 as config 1, config 2, and config 3. They are now
+           reported as config 0, config 1, and config 2 to match the
+           value provided in the board setting.
+
+---------------------------------------------------------------------------
+
+    Version 0.03.20200228 (2/28/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+     - Reboot/shutdown support
+     - 2P Gen3 support with up to 160 cores (default to 4 cores only)
+     - Board setting for i2c and SPI support
+     - Board setting for VRD topology support (Fansipan: Config 1; Snow: Config 2)
+     - Core frequency scaling support
+     - SubNUMA (monolithic) support
+     - TPC TM1/TM2 with frequency throttle @ temperature limit
+     - SoC temperature HWmon support (for Linux)
+     - Timer support at 25MHz
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 71776: QS: DDR: Default speed to 2400
+     - Bug 71379: QS: PCIE: Ignore slave root complex on 1P system
+     - Bug 71379: QS: PCIE: Disable RCB3
+     - Bug 71379: QS: PCIE: Enable Slave socket RCA2 and RCA3
+     - BUG 71492: QS: CCIX: Support Gen-3 link speed
+     - Bug 71521: Fix BL32 boot stage register return 0x0 value
+     - Bug 71582: DDR: NVPARAM: Fix default value for ADCMD_2T_MODE parameter
+     - Bug 70517: Trustzone: Mark the uart and i2c controllers as non-secure for A0 silicon
+     - Bug 71504: Fix smbwr issue on bus 0 in CLI
+     - Bug 71603: DVFS don't change the PLL with the maximum CPPC frequency
+     - Bug 71119: Disable ddr failsafe support for 0.03
+     - Bug 71496: Fix vrm monitor stop working with DFS
+     - Bug 71460: QS: RAS: Add BMC notification of GIC errors
+     - Bug 71459: QS: RAS: Add BMC notification of OCM errors
+     - Bug 71436: QS: RAS: Add BMC notification of SMpro and PMpro errors
+     - Bug 71435: QS: RAS: Fix DMC Link Error reporting to BMC
+     - Bug 71379: QS: PCIE: Enable RCA3B x4x4 as default
+     - Bug 71379: QS: PCIE: Enable RCA2/3 x16 as default
+     - Bug 71414: Fix HNF configuration for 2P
+     - Bug 71300: RA SAM region size configuration error
+     - Bug 71258: QS: CCIX: Only access slave config space if link is up
+     - Bug 71379: QS: PCIE: Parse board configuration for initial bifurcation
+     - Bug 71424: QS: RAS: Add BMC Notification for 2P errors
+     - Bug 71105: QS: RAS: Add Error Source for SMMU
+     - Bug 71119: Support ddr failsafe - 1P only
+     - Bug 71254: SECPROV: Add the support to update the fw incase of key revocation and anti-rollback certificates
+     - Bug 71254: SECPROV: Add support for key revocation feature
+     - Bug 71328: PEM prints counter values in hex
+     - Bug 71254: SECPROV: Fix the lcsflag comparison incase of RMA certificate
+     - Bug 71239: QS: RAS: Add BMC Notification for PCIe HB errors
+     - Bug 71278: Support TM1 with CPUPLL frequency throttling
+     - Bug 71274: DDR: Support 4-MCU configurations 0246, 0347, 1357
+     - Bug 71273: Support DFS
+     - Bug 71272: Optimize the runtime for clk driver
+     - Bub 71271: Disable temperature limit by default
+     - Bug 71270: Optimize runtime for CPM available checking
+     - Bug 71268: Fix can not read DIMM temp after enable DIMM sensor thread
+     - Bug 71254: SECPROV: Implement the security provision for rma and debug disable feature
+     - Bug XXXXX: QS: Security: Implement the fuse blowing operation
+     - Bug 71042: Support changing SLC size with enabled eLRU
+     - Bug 70999: Profile: Stub out the profile module to decrease some code
+     - Bug 71168: Mesh: Rnsam supports all single MCU and 4 MCU2367 modes
+     - Bug 70661: Fix AXI write error when writing RCx TSM register
+     - Bug 71114: Change CPPC minimum frequency to 1000 Mhz
+     - Bug 71127: DDR: Support single MCU 1/2/3/5/6/7 only configuration.
+     - Bug 71086: DDR: Add 4 MCU 2367 configuration support.
+     - Bug 71030: Mesh: Enable PCIe master present for all RNDs
+     - Bug 71085: Disable CPPC software feedback counter
+     - Bug 71084: Mesh supports 4 MCU channel 2 3 6 7
+     - Bug 71064: Memory map checks new SubNUMA base addresses
+     - Bug 70990: 2P: Pass the number of sockets inside the HOB
+     - Bug 70464: BMC: alert to BMC when detect VRD error/warn
+     - Bug 71049: Correct the PCP power estimation calculation
+     - Bug 71048: Disable power limit feature by default
+     - Bug 71047: Support PEM dump debug info continuously
+     - Bug 71037: Support NVPARAM for margin voltage 0V85_RCAx
+     - Bug 71002: BMC_RAS: cannot update RAS OTHER UE/CE error
+     - Bug 70479: QS: PCIE: Disable bifurcation support for RCB
+     - Bug 70683: mesh: Add SubNUMA support
+     - Bug 70989: Fix can not received checkpoint info from UEFI
+     - Bug 70999: QS: Code optimization for space
+     - Bug 70890: PSCI: Fix CPU PSTATE request report PDENY
+     - Bug 70990: 2P: Fix the software override for 2P as 1P
+     - Bug 70968: Initialize the maximum CPU clock ratio
+     - Bug 70940: SEC: Fix the compilation issues related to disabling of security module
+     - Bug 70944: Add NVPARAM to select WA for Arm errata 1542419
+     - Bug 70838: QS: NVPARAM to disable SLC
+     - Bug XXXXX: QS: RAS: Add BMC Notification for Mesh and MCU errors
+     - Bug 70869: QS: RAS: Add GIC Error Handling
+     - Bug 70868: BMC_RAS: cannot log the RAS CORE error into BMC reg
+     - Bug 70680: QS: GIC: Put SPI RAM in Ready State after Memory Init
+     - Bug 70762: CONSOLE: Fix the console prints messing up
+     - Bug 70805: Speed up the I2C SPD reading
+     - Bug 70835: Sensors: Enable VRM sensor monitor
+     - Bug 70571: Enable change I2C3/I2C9 slave speed
+     - Bug 70808: Enable hwmon PCC handler
+     - Bug 70805: I2C: Speed up the SPD reading by increasing the number of bytes to the FIFO limit
+     - Bug 70670: Enable PEM module
+
+---------------------------------------------------------------------------
+
+    Version 0.02.20200206 (2/6/2020)
+    SMpro/PMpro Firmware Features:
+     - SCP hand-off-block (HOB) support (for passing parameter to ATF)
+     - DDR SPD query support (for passing DDR info to HOB)
+     - Macronix/Winbond QSPI mode support at 2.5MHz
+     - POST (boot progress) support with report to BMC
+     - Assert PWROK signal on boot
+     - CLI command support
+     - Core, SoC and DDR VRD control and monitor via i2c
+     - Strap ARMv8 processor boot code
+     - Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print
+     - Reboot/shutdown support
+     - 2P Gen1 support with up to 160 cores (default to 4 cores only)
+     - Timer support at 25MHz
+     - TPC TM2 support
+     - Board setting for VRD topology support (Fansipan: Config 1; Snow: Config 2)
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 70857: QS: SMBIOS: Fix the incorrect logic during updating type 4
+     - Bug 71123: QS: SMBIOS: Fix wrong ECID reading for slave socket
+     - Bug 71043: PCIE: Configure PCIe RCA internal RAM voltage margin to 850mV
+     - Bug 70479: QS: PCIE: Disable bifurcation support for RCB
+     - Bug 70779: Support TPSxxx VRDsurcation support for RCB
+     - Bug 70779: Support TPSxxx VRDs
+     - Bug 70479: QS: PCIE: Configure RCB Root Complex VendorID
+     - Bug 70502: QS: CCIX: Fix PCIe pipe ready wait logic
+     - Bug XXXXX: QS: Bump the fw minor version to 2
+     - Bug 70775: QS: PMpro: Add up to 20 seconds timeout for pcp_init
+     - Bug 70789: TPC: Clear the PMpro TPC DMA buffer before use
+     - Bug 70652: Configure TM2 at 120 degree C
+     - Bug 70700: Support NVPARAM to disable TM2 handler
+     - Bug 70479: QS: PCIE: Configure bifurcation for RCB2 and RCB3
+     - Bug 70502: QS: CCIX: Advertise CCIX link as Gen-1 x16
+     - Bug 70768: Fix PMpro take out of reset before slave socket ready
+     - Bug 70770: QS: I2C_SLAVE: correct slave address for 2 slave socket
+     - Bug 70571: QS: Support config I2C/SPI speed via NVPARAM
+     - Bug 70744: QS: Support send all NV-parameters from master to slave socket
+     - Bug 70760: QS: SPI: Add Quad mode support for Winbond and Macronix Flash
+     - Bug 70700: QS: NVPARAM: Copy TM2 disable to PMpro
+     - Bug 70742: QS: Fix master socket hang sometime when booting on 2P system
+     - Bug 70737: QS: Enable SENSORS module
+     - Bug 70728: QS: BMC: enable BMC module
+     - Bug 70724: QS: TPC: Show TM1 and TM2 thresholds with tpcinfo command
+     - Bug 70700: QS: NVPARAM: Add param to disable TM2 shutdown
+     - Bug 70517: QS: Fix BMC cannot communicate with SCP after kernel boots up
+     - Bug 70455: QS: RAS: Fix the hard fault handler
+     - Bug 70502: QS: CCIX: Fix the concurrency issue between CCIX isr and non-isr
+     - Bug 70575: QS: Mark I2C6 as non-secure
+     - Bug 70558: QS: TPC: Support NVPARAM to disable the TSM overtemp ISR
+     - Bug 70507: QS: Fix the trustzone configuration of OCM
+     - Bug 70480: QS: TPC: Enable RCA and RCB TSMs
+     - Bug 70426: QS: Misc fixes related to 2P
+     - Bug 70502: QS: OB2P: Support message transfer for CCIX
+     - Bug 70502: QS: CCIX: Support NVPARAM to override lane allocation
+     - Bug 70502: QS: CCIX: Support LTSSM logging for debugging
+     - Bug 70502: QS: CCIX: Bypass equalization for GEN-3 and GEN-4
+     - Bug 70502: QS: CCIX: PHY: Integrate fix for PHY Number
+     - Bug 70502: QS: CCIX: PHYLib: Initialize platform callback functions
+     - Bug 70502: QS: CCIX: Integrate PHY library 20191229 release
+     - Bug 70520: QS: Fix unable to switch VRM config via setting nvparam offset
+     - Bug 70500: QS: Enable diag module to support disable VRM monitor via CLI
+     - Bug 70491: QS: SPD: Fix the SPD reading in slave socket
+     - Bug 70396: QS: in-correct setting values for HIGHTEMP/OVERTEMP
+     - Bug 70468: QS: RAS: Fix PCIe Host Bridge Slave Socket Addresses
+     - Bug 70462: QS: DDR: Ignore inactive board setting MCU channels.
+     - Bug XXXXX: QS: BMC: fix SMBALERT does not active
+     - Bug 70455: QS: RAS: Remove PMpro register access delay from error source
+     - Bug 70403: QS: BMC: doesn't alert for VR Hot event
+     - Bug 70395: QS: GPIO pin is initialized when booting up
+     - Bug XXXXX: QS: I2C_SLAVE: fix cannot read SPD info
+     - Bug XXXXX: QS: RAS: Add PCIe Host Bridge Error Handling
+     - Bug XXXXX: QS: RAS: Fix PMPRO Corrected RAM errors produced by PMpro error source
+     - Bug XXXXX: QS: RAS: Add initial SCP (SMpro/PMpro) error handing
+     - Bug 68698: QS: SMPro runtime code should not clear and should not
+     - Bug XXXXX: QS: NVPARAM: Add default values for DDR board parameters.
+     - Bug XXXXX: QS: RAS: Fix PMPRO Corrected RAM errors produced by PMpro error source
+     - Bug XXXXX: QS: HOB: Pass the clock information inside the HOB
+     - Bug XXXXX: QS: NVPARAM: Add DDR Board parameters for 2DPC
+     - Bug XXXXX: QS: DDR: Update DDR NVPARAM list
+     - Bug XXXXX: QS: RAS: Fix error logging of DMC Link Error
+     - Bug XXXXX: QS: DVFS: Correct the DVFS target voltage equation
+     - Bug XXXXX: QS: BMC: Add CORE CE/UE register support
+     - Bug XXXXX: QS: DDR: Fall back to a lower MCU mask if invalid config detected
+     - Bug XXXXX: QS: BMC: Add MCU CE/UE register support
+     - Bug XXXXX: QS: RAS: Add initial OCM error handing
+     - Bug XXXXX: QS: RAS: Add CPM processing support from host processor
+     - Bug XXXXX: QS: CCIX: Add basic error handling
+
+---------------------------------------------------------------------------
+
+    Version 0.01.20200111 (1/10/2020)
+    SMpro/PMpro Firmware Features:
+     - DDR SPD support
+     - SCP hand-off-block (HOB) support (for ATF)
+     - Standard SPI mode support at 2.5MHz
+     - POST support
+     - Assert PWROK signal on boot
+     - CLI command support with temperature sensor reporting
+     - VRM monitor support
+     - Timer clock at 25MHz
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 70348: QS: Fix the ahbc timer at 25MHz
+     - Bug XXXXX: QS: SPI: Fix write issue
+     - Bug 70550: BSC: Configure CPUPLL at 1.8 GHz
+     - Bug 70491: SPD: Fix the SPD reading in slave socket
+     - Bug 70468: QS: RAS: Fix PCIe Host Bridge Slave Socket Addresses
+     - Bug 70484: BSC: Configure 1.2Ghz Mesh PLL and 2.4Ghz CPU PLL
+     - Bug 70485: Mesh: Enable 32 HNFs
+     - Bug 70453: NVPARAM: Fix voltage margin offset is return wrong value
+     - Bug 70449: VRM: Support setting VBOOT before enabling PCP VRM
+     - Bug 70375: QS: Clk: Support CLI changing the PLL frequency
+     - Bug 70426: QS: Misc fixes related to 2P
+     - Bug 70403: QS: BMC: doesn't alert for VR Hot event
+     - Bug 70395: QS: GPIO pin is initialized when booting up
+     - Bug XXXXX: QS: SPI: Fix write issue
+     - Bug XXXXX: QS: I2C_SLAVE: fix cannot read SPD info
+     - Bug XXXXX: QS: RAS: Add PCIe Host Bridge Error Handling
+     - Bug XXXXX: QS: RAS: Fix PMPRO Corrected RAM errors produced by PMpro error source
+     - Bug XXXXX: QS: RAS: Add initial OCM error handing
+     - Bug XXXXX: QS: RAS: Add initial SCP (SMpro/PMpro) error handing
+     - Bug XXXXX: QS: RAS: Fix PMPRO corrected RAM errors produced by PMpro error source
+     - Bug XXXXX: QS: RAS: Add PCIe Host Bridge error handling
+     - Bug XXXXX: QS: I2C_SLAVE: Fix cannot read SPD info
+     - Bug XXXXX: QS: SPI: Fix write issue
+     - Bug 70395: QS: Initialize GPIO pins on booting up
+     - Bug 70403: QS: BMC: Fix alert for VR Hot event
+     - Bug 70426: QS: 2P Misc fixes
+     - Bug 70375: QS: Clk: Support CLI changing the PLL frequency
+     - Bug 70449: VRM: Support setting VBOOT before enabling PCP VRM
+     - Bug 70453: NVPARAM: Fix voltage margin offset is return wrong value
+     - Bug 70408: Default to enable CPM0 if CPM mask not set
+     - Bug 70358: Mesh: Fix the logic to force 1 H-NF
+     - Bug 70358: QS: Mesh: Disable SLC OCM
+     - Bug 70404: SPI: Support 2.5Mhz clock
+     - Bug XXXXX: QS: SPI: Fix power cycle boot issue
+     - Bug 68698: QS: SMPro runtime code should not clear and should not reload SMPro key certificate
+     - Bug 70376: QS: Clk: Correct PLL changing sequence
+     - Bug 70375: QS: Clk: CLI command only allows changing PLL 50Mhz step
+     - Bug 70374: Clk: Change PLL range from 800 Mhz to 4000 Mhz
+     - Bug 70358: QS: Mesh: Enable SLC OCM for 32MB Booting
+     - Bug XXXXX: QS: CPM: Enable the CPM mask changeability using NVPARAM
+     - Bug 70353: Enable NVPARAM module
+     - Bug 70353: NVPARAM: Fix fail to load nvparam to PMPRO RAM
+     - Bug 70353: NVPARAM: Correct the NVPARAM Board Setting base address
+     - Bug 70346: Mesh: Correct the HNF config for RNSAM
+     - Bug 70351: QS: TPC: Enable MCU TSM sensors
+     - Bug 70339: QS: TPC: Enable Sys TSM sensor
+     - Bug 70321: QS: TPC: Disable OS notification when over temp
+     - Bug 70321: QS: TPC: Disable VRM shutdown
+     - Bug 70337: QS: TPC: Enable TM2 for 100 degree C
+     - Bug 70335: QS: MESH: Temporarily limit to 1 HN-F at (x,y)=(0,1).
+     - Bug 70334: Mesh: Sync HNI and HND config with arch spec
+     - Bug XXXXX: QS: CLI: Fix config VRD devices via smbrd/smbwr command
+     - Bug XXXXX: QS: VRM: Enable VRM driver
+     - Bug XXXXX: QS: CLI: Fix the variable stored addresss to 64bit
+     - Bug XXXXX: QS: Fix DVFS change the voltage even if it is disable.
+     - Bug XXXXX: QS: Change SENSORS message between SMpro/PMpro to secure
+     - Bug XXXXX: QS: Change VRM doorbell message between SMpro/PMpro to secure
+     - Bug 70321: QS: Disable VRM shutdown when system has over temp issue
+     - Bug XXXXX: QS: clk: Add CLI command support
+     - Bug XXXXX: QS: clk: Add Mesh PLL clock module
+     - Bug XXXXX: QS: TPC: Return 0 if TSM returns negative value
+     - Bug XXXXX: QS: TPC: Support tpcinfo command
+     - Bug XXXXX: QS: TPC: Support TCP data print out
+     - Bug XXXXX: QS: TPC: Enable TSM over temp interrupt
+     - Bug XXXXX: QS: TPC: Bypass PLL in case of over temp
+     - Bug 70316: QS: Assert PWROK signal
+     - Bug 70315: QS: Enable POST module
+     - Bug XXXXX: QS: SPI: Enable SPI standard mode instead quad mode
+     - Bug 70314: QS: I2C: Fix incorrect I2C SPD bus assignment and logic to update SPD to HOB
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+2.0 COPYRIGHT
+
+    Copyright (c) 2020, Ampere Computing LLC
+    All Rights Reserved.
+
+    Ampere Computing CONFIDENTIAL - This is an unpublished, proprietary
+    work of Ampere Computing, and is fully protected under
+    copyright and trade secret laws. You may not view, use, disclose,
+    copy or distribute this file or any information contained herein
+    except pursuant to a valid written license from Ampere Computing.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

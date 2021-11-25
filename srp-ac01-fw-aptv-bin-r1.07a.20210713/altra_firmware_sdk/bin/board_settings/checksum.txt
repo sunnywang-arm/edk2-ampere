@@ -1,0 +1,5 @@
+e1ae338ee56754f6c89bbb0e788dd973  jade_board_setting_1.07.20210713.bin
+1e962c974e19bbabec65b01d07ff6303  jade_board_setting_1.07.20210713.txt
+f11cc0c75ad5e1e4c2ce48ee9ee3f81e  jade_board_setting_1P_1.07.20210713.bin
+5358027d199c71ccc1ac20521251c7d7  jade_board_setting_1P_1.07.20210713.txt
+d973c1ef3c823d5e0397b0ad692548b9  nvparam.py

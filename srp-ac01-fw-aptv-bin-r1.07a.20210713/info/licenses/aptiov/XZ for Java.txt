@@ -1,0 +1,11 @@
+Software: XZ for Java
+License: Public Domain
+Software URL: http://tukaani.org/xz/java.html
+License URL: http://tukaani.org/xz/java.html
+
+License Content
+All the files in this package have been written by Lasse Collin and/or Igor
+Pavlov. All these files have been put into the  public domain. You can do
+whatever you want with these files.
+This software is provided "as is", without any warranty.
+Comments

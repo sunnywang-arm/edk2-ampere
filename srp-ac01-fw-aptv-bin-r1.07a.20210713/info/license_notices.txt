@@ -1,0 +1,94 @@
+# Altra Software License Notices
+
+This LICENSE_NOTICES file covers all packages which Ampere distributes 
+as part of the Software Release Packaging (SRP) process. As part of your 
+distribution, you may have received all, or only a subset of the packages 
+listed below. Please reference the licenses/ folder for specific license 
+texts associated with an individual package.  Please consult this list 
+in order to identify which licenses apply to the package(s) you have 
+received as part of your distribution. If you believe your package has 
+been omitted, or the list you have received is in error, please contact 
+us at developer@amperecomputing.com.
+
+If you want to request source code for any of the below packages, please 
+write to:
+
+developer@amperecomputing.com 
+
+The software included in this product contains copyrighted software that 
+is licensed under the GPL. A copy of that license is included in this 
+document in the licenses/ folder. You may obtain the complete Corresponding 
+Source code from us for a period of three years after our last shipment 
+of this product, which will be no earlier than 2023-07-31, by sending a money 
+order or check for $5 to:
+
+Ampere Computing LLC
+CO: Open Source Requests, Ampere Software
+4655 Great America Parkway
+Suite 601
+Santa Clara,CA 95054
+
+Please write “source for [product Y] ” in the memo line of your payment. Where 
+[product Y] should be replaced with the specific package(s) you are requesting.
+
+This offer is valid to anyone in receipt of this information.
+
+## Ampere CentOS 8.0
+
+  * In the case that this distribution includes CentOS 8 artifacts,
+    modified or unmodified by Ampere, it will be fully compatible with 
+    licenses specified in the included CentOS Linux distribution sources. 
+    A copy of these sources will be included in this package in the case 
+    that any CentOS 8 artifacts are included. References can be 
+    found in the included amp_sw_centos_8.0-YYYYMMDD.src.rpm within the
+    linux/COPYING and linux/LICENSES paths. 
+
+## Ampere Debug Tools
+
+  * Ampere's debug tools packages include a Docker container derived from
+    the Ubuntu 18.04:base image. Additional packages are installed on the 
+    system, license files can be found in licenses/debug/ in this distribution.
+
+    The debug tools package also includes a packaged distribution of OpenOCD.
+    Source code for this distribution can be found on Ampere Computing's GitHub or
+    the OpenOCD project page (https://sourceforge.net/projects/openocd/). License 
+    information is included in licenses/debug/openocd.txt.
+
+## Ampere MegaRAC Software Development Kit
+
+  * MegaRAC BMC is built and modified using libraries known to be licensed
+    under various Open Source Licenses. See licenses/megarac/* for specific 
+    module level license files, details can also be found at 
+    https://github.com/ami-megarac/OSSW-12-1.
+
+## Ampere OpenBMC Software Development Kit
+
+  * OpenBMC is built and modified using libraries known to be licensed
+    under various Open Source Licenses. See licenses/openbmc/*  within 
+    this distribution for specific module level license files, details 
+    can also be found at https://github.com/openbmc/openbmc.
+
+  * If you have received an OpenBMC binary distribution, then you can
+    request access to a source repository that contains 
+    given code. Please reach out to developer@amperecomputing.com. 
+
+## Ampere Firmware Development Kit
+
+ Derived from sources licensed under:
+  * BSD 3-Clause
+  * BSD 2-Clause 
+  * Apache 2.0 
+
+ Copies of these licenses are included in the licenses/common/ directory
+ of this distribution.
+
+### AMI AptioV
+
+ Derived from sources and licenses listed in 
+ licenses/aptiov/*.txt
+
+### EDK2
+
+  * If you have received an EDK2 binary distribution, then you can
+    request access to a source repository that contains 
+    given code. Please reach out to developer@amperecomputing.com. 

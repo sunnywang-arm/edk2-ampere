@@ -1,0 +1,8 @@
+Software: NW.JS Credits
+License: Various
+Software URL: https://nwjs.io/
+License URL: https://ami.com/opensourceinformation/nwjsopensource/
+
+License Content
+See URL of OSS License for details
+Comments

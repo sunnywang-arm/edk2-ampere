@@ -1,0 +1,31 @@
+Software: Composer Dependent Packages
+License: Various
+Software URL: https://ami.com/en/
+License URL: https://ami.com/en/open-source-information/
+
+License Content
+git 2.7.4
+openssh-server 7.2
+luajit 2.0.4
+lua5.1 5.1.5
+nginx 1.10.3
+lua-filesystem 1.6.3
+libinotifytools0 3.14
+libinotifytools0-dev 3.14
+redis-server 3.0.6
+libssl-dev 1.0.2g
+lua-sec 0.5.1
+lua-posix 31-2build1
+openssl 1.0.2g
+powerwake 2.21
+samba-common-bin 4.3.11
+freeipmi-tools 1.4.11
+wimtools  1.9.0
+java 1.8.0_191
+python-pip 8.1.1
+python-dev 2.7.12
+mysql-server 5.7.25
+php-fpm 7
+phpmyadmin 4.5.4.1
+Tomcat 9.0.5
+Comments

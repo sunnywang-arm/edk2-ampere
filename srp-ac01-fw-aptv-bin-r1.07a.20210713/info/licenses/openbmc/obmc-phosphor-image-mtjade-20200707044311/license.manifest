@@ -1,0 +1,1170 @@
+PACKAGE NAME: ampere-console
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-console
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-eeprom
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-eeprom
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-fan
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-fan
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-flash-bios
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-flash-bios
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-host-tempevent-monitor
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-host-tempevent-monitor
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-hostctrl
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-hostctrl
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-i2c0-rst
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-i2c0-rst
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-powerctrl
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-powerctrl
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ampere-soc-control
+PACKAGE VERSION: 1.0
+RECIPE NAME: ampere-soc-control
+LICENSE: Apache-2.0
+
+PACKAGE NAME: avahi-daemon
+PACKAGE VERSION: 0.8
+RECIPE NAME: avahi
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: base-files
+PACKAGE VERSION: 3.0.14
+RECIPE NAME: base-files
+LICENSE: GPLv2
+
+PACKAGE NAME: base-passwd
+PACKAGE VERSION: 3.5.29
+RECIPE NAME: base-passwd
+LICENSE: GPLv2
+
+PACKAGE NAME: bash
+PACKAGE VERSION: 5.0
+RECIPE NAME: bash
+LICENSE: GPLv3+
+
+PACKAGE NAME: bmcweb
+PACKAGE VERSION: 1.0+gitAUTOINC+a2ec6384de
+RECIPE NAME: bmcweb
+LICENSE: Apache-2.0
+
+PACKAGE NAME: boost-context
+PACKAGE VERSION: 1.73.0
+RECIPE NAME: boost
+LICENSE: BSL-1.0 & MIT & Python-2.0
+
+PACKAGE NAME: boost-coroutine
+PACKAGE VERSION: 1.73.0
+RECIPE NAME: boost
+LICENSE: BSL-1.0 & MIT & Python-2.0
+
+PACKAGE NAME: boost-thread
+PACKAGE VERSION: 1.73.0
+RECIPE NAME: boost
+LICENSE: BSL-1.0 & MIT & Python-2.0
+
+PACKAGE NAME: busybox
+PACKAGE VERSION: 1.31.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.6
+
+PACKAGE NAME: busybox-udhcpc
+PACKAGE VERSION: 1.31.1
+RECIPE NAME: busybox
+LICENSE: GPLv2 & bzip2-1.0.6
+
+PACKAGE NAME: cjson
+PACKAGE VERSION: 1.7.13
+RECIPE NAME: cjson
+LICENSE: MIT
+
+PACKAGE NAME: clear-once
+PACKAGE VERSION: 1.0
+RECIPE NAME: clear-once
+LICENSE: Apache-2.0
+
+PACKAGE NAME: cracklib
+PACKAGE VERSION: 2.9.5
+RECIPE NAME: cracklib
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: dbus
+PACKAGE VERSION: 1.12.18
+RECIPE NAME: dbus
+LICENSE: AFL-2.1 | GPLv2+
+
+PACKAGE NAME: dbus-broker
+PACKAGE VERSION: 23
+RECIPE NAME: dbus-broker
+LICENSE: Apache-2.0
+
+PACKAGE NAME: dbus-lib
+PACKAGE VERSION: 1.12.18
+RECIPE NAME: dbus
+LICENSE: AFL-2.1 | GPLv2+
+
+PACKAGE NAME: dbus-perms
+PACKAGE VERSION: 1.0
+RECIPE NAME: dbus-perms
+LICENSE: Apache-2.0
+
+PACKAGE NAME: dropbear
+PACKAGE VERSION: 2019.78
+RECIPE NAME: dropbear
+LICENSE: MIT & BSD-3-Clause & BSD-2-Clause & PD
+
+PACKAGE NAME: e2fsprogs-e2fsck
+PACKAGE VERSION: 1.45.6
+RECIPE NAME: e2fsprogs
+LICENSE: GPLv2
+
+PACKAGE NAME: ethtool
+PACKAGE VERSION: 5.7
+RECIPE NAME: ethtool
+LICENSE: GPLv2+
+
+PACKAGE NAME: expat
+PACKAGE VERSION: 2.2.9
+RECIPE NAME: expat
+LICENSE: MIT
+
+PACKAGE NAME: ffdc
+PACKAGE VERSION: 1.0+gitAUTOINC+b503be4138
+RECIPE NAME: ffdc
+LICENSE: Apache-2.0
+
+PACKAGE NAME: fmt
+PACKAGE VERSION: 6.2.0
+RECIPE NAME: fmt
+LICENSE: MIT
+
+PACKAGE NAME: glib-2.0
+PACKAGE VERSION: 2.64.3
+RECIPE NAME: glib-2.0
+LICENSE: LGPLv2.1+ & BSD & PD
+
+PACKAGE NAME: glibc
+PACKAGE VERSION: 2.31+gitAUTOINC+1094741224
+RECIPE NAME: glibc
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: gpioplus
+PACKAGE VERSION: 0.1+gitAUTOINC+2f8444ce2d
+RECIPE NAME: gpioplus
+LICENSE: Apache-2.0
+
+PACKAGE NAME: i2c-tools
+PACKAGE VERSION: 4.1
+RECIPE NAME: i2c-tools
+LICENSE: GPLv2+
+
+PACKAGE NAME: id-button
+PACKAGE VERSION: 1.0
+RECIPE NAME: id-button
+LICENSE: Apache-2.0
+
+PACKAGE NAME: ipmitool
+PACKAGE VERSION: 1.8.18+gitAUTOINC+c3939dac2c
+RECIPE NAME: ipmitool
+LICENSE: BSD-3-Clause
+
+PACKAGE NAME: jsnbd
+PACKAGE VERSION: 1.0+gitAUTOINC+74c8a72821
+RECIPE NAME: jsnbd
+LICENSE: Apache-2.0
+
+PACKAGE NAME: json-c
+PACKAGE VERSION: 0.14
+RECIPE NAME: json-c
+LICENSE: MIT
+
+PACKAGE NAME: kmod
+PACKAGE VERSION: 27
+RECIPE NAME: kmod
+LICENSE: GPL-2.0+ & LGPL-2.1+
+
+PACKAGE NAME: libavahi-common
+PACKAGE VERSION: 0.8
+RECIPE NAME: avahi
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libavahi-core
+PACKAGE VERSION: 0.8
+RECIPE NAME: avahi
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libcap
+PACKAGE VERSION: 2.36
+RECIPE NAME: libcap
+LICENSE: BSD | GPLv2
+
+PACKAGE NAME: libcomerr
+PACKAGE VERSION: 1.45.6
+RECIPE NAME: e2fsprogs
+LICENSE: GPLv2 & LGPLv2 & BSD & MIT
+
+PACKAGE NAME: libcrypto
+PACKAGE VERSION: 1.1.1g
+RECIPE NAME: openssl
+LICENSE: openssl
+
+PACKAGE NAME: libdaemon
+PACKAGE VERSION: 0.14
+RECIPE NAME: libdaemon
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libe2p
+PACKAGE VERSION: 1.45.6
+RECIPE NAME: e2fsprogs
+LICENSE: GPLv2 & LGPLv2 & BSD & MIT
+
+PACKAGE NAME: libestr
+PACKAGE VERSION: 0.1.11
+RECIPE NAME: libestr
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: libevdev
+PACKAGE VERSION: 1.9.0
+RECIPE NAME: libevdev
+LICENSE: MIT-X
+
+PACKAGE NAME: libext2fs
+PACKAGE VERSION: 1.45.6
+RECIPE NAME: e2fsprogs
+LICENSE: GPLv2 & LGPLv2 & BSD & MIT
+
+PACKAGE NAME: libfastjson
+PACKAGE VERSION: 0.99.8
+RECIPE NAME: libfastjson
+LICENSE: MIT
+
+PACKAGE NAME: libffi
+PACKAGE VERSION: 3.3
+RECIPE NAME: libffi
+LICENSE: MIT
+
+PACKAGE NAME: libgcc
+PACKAGE VERSION: 10.1.0
+RECIPE NAME: libgcc
+LICENSE: GPL-3.0-with-GCC-exception
+
+PACKAGE NAME: libgpiod
+PACKAGE VERSION: 1.4.3
+RECIPE NAME: libgpiod
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libgpiod-tools
+PACKAGE VERSION: 1.4.3
+RECIPE NAME: libgpiod
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libgssapi-krb5
+PACKAGE VERSION: 1.17.1
+RECIPE NAME: krb5
+LICENSE: MIT
+
+PACKAGE NAME: libjitterentropy
+PACKAGE VERSION: 2.2.0
+RECIPE NAME: libjitterentropy
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: libjpeg-turbo
+PACKAGE VERSION: 2.0.4
+RECIPE NAME: libjpeg-turbo
+LICENSE: BSD-3-Clause
+
+PACKAGE NAME: libk5crypto
+PACKAGE VERSION: 1.17.1
+RECIPE NAME: krb5
+LICENSE: MIT
+
+PACKAGE NAME: libkmod
+PACKAGE VERSION: 27
+RECIPE NAME: kmod
+LICENSE: LGPL-2.1+
+
+PACKAGE NAME: libkrb5
+PACKAGE VERSION: 1.17.1
+RECIPE NAME: krb5
+LICENSE: MIT
+
+PACKAGE NAME: libkrb5support
+PACKAGE VERSION: 1.17.1
+RECIPE NAME: krb5
+LICENSE: MIT
+
+PACKAGE NAME: liblzma
+PACKAGE VERSION: 5.2.5
+RECIPE NAME: xz
+LICENSE: PD
+
+PACKAGE NAME: libmapper
+PACKAGE VERSION: 1.0+gitAUTOINC+eecc196b3f
+RECIPE NAME: phosphor-mapper
+LICENSE: Apache-2.0
+
+PACKAGE NAME: libmnl
+PACKAGE VERSION: 1.0.4
+RECIPE NAME: libmnl
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libnl
+PACKAGE VERSION: 3.5.0
+RECIPE NAME: libnl
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: libnl-genl
+PACKAGE VERSION: 3.5.0
+RECIPE NAME: libnl
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: libnss-mdns
+PACKAGE VERSION: 0.14.1
+RECIPE NAME: libnss-mdns
+LICENSE: LGPLv2.1+
+
+PACKAGE NAME: libpam
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: libpam-runtime
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: libpcre
+PACKAGE VERSION: 8.44
+RECIPE NAME: libpcre
+LICENSE: BSD-3-Clause
+
+PACKAGE NAME: libssl
+PACKAGE VERSION: 1.1.1g
+RECIPE NAME: openssl
+LICENSE: openssl
+
+PACKAGE NAME: libstdc++
+PACKAGE VERSION: 10.1.0
+RECIPE NAME: gcc-runtime
+LICENSE: GPL-3.0-with-GCC-exception
+
+PACKAGE NAME: libsysfs
+PACKAGE VERSION: 2.1.0
+RECIPE NAME: sysfsutils
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: libsystemd
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: libtinyxml2
+PACKAGE VERSION: 8.0.0
+RECIPE NAME: libtinyxml2
+LICENSE: Zlib
+
+PACKAGE NAME: libudev
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: libvncserver
+PACKAGE VERSION: 0.9.12+gitAUTOINC+1354f7f1bb
+RECIPE NAME: libvncserver
+LICENSE: GPLv2
+
+PACKAGE NAME: libxcrypt
+PACKAGE VERSION: 4.4.16
+RECIPE NAME: libxcrypt
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: logrotate
+PACKAGE VERSION: 3.16.0
+RECIPE NAME: logrotate
+LICENSE: GPLv2
+
+PACKAGE NAME: lrzsz
+PACKAGE VERSION: 0.12.20
+RECIPE NAME: lrzsz
+LICENSE: GPLv2+
+
+PACKAGE NAME: lzo
+PACKAGE VERSION: 2.10
+RECIPE NAME: lzo
+LICENSE: GPLv2+
+
+PACKAGE NAME: nbd-client
+PACKAGE VERSION: 3.20
+RECIPE NAME: nbd
+LICENSE: GPLv2
+
+PACKAGE NAME: ncurses-libtinfo
+PACKAGE VERSION: 6.2
+RECIPE NAME: ncurses
+LICENSE: MIT
+
+PACKAGE NAME: ncurses-terminfo-base
+PACKAGE VERSION: 6.2
+RECIPE NAME: ncurses
+LICENSE: MIT
+
+PACKAGE NAME: net-snmp-lib-netsnmp
+PACKAGE VERSION: 5.8
+RECIPE NAME: net-snmp
+LICENSE: BSD & MIT
+
+PACKAGE NAME: netbase
+PACKAGE VERSION: 6.1
+RECIPE NAME: netbase
+LICENSE: GPLv2
+
+PACKAGE NAME: nscd
+PACKAGE VERSION: 2.31+gitAUTOINC+1094741224
+RECIPE NAME: glibc
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: nss-pam-ldapd
+PACKAGE VERSION: 0.9.8
+RECIPE NAME: nss-pam-ldapd
+LICENSE: LGPLv2.1
+
+PACKAGE NAME: obmc-console
+PACKAGE VERSION: 1.0+gitAUTOINC+d802b11942
+RECIPE NAME: obmc-console
+LICENSE: Apache-2.0
+
+PACKAGE NAME: obmc-ikvm
+PACKAGE VERSION: 1.0+gitAUTOINC+861337e8ec
+RECIPE NAME: obmc-ikvm
+LICENSE: GPLv2
+
+PACKAGE NAME: obmc-libobmc-intf
+PACKAGE VERSION: 1.0+gitAUTOINC+1146f8c6e5
+RECIPE NAME: obmc-libobmc-intf
+LICENSE: Apache-2.0
+
+PACKAGE NAME: obmc-op-control-power
+PACKAGE VERSION: 1.0+gitAUTOINC+1146f8c6e5
+RECIPE NAME: obmc-op-control-power
+LICENSE: Apache-2.0
+
+PACKAGE NAME: obmc-phosphor-buttons-handler
+PACKAGE VERSION: 1.0+gitAUTOINC+5ed4cc0f09
+RECIPE NAME: obmc-phosphor-buttons
+LICENSE: Apache-2.0
+
+PACKAGE NAME: obmc-phosphor-buttons-signals
+PACKAGE VERSION: 1.0+gitAUTOINC+5ed4cc0f09
+RECIPE NAME: obmc-phosphor-buttons
+LICENSE: Apache-2.0
+
+PACKAGE NAME: obmc-phosphor-power
+PACKAGE VERSION: 1.0+gitAUTOINC+4d209a2458
+RECIPE NAME: obmc-phosphor-power
+LICENSE: Apache-2.0
+
+PACKAGE NAME: openldap
+PACKAGE VERSION: 2.4.50
+RECIPE NAME: openldap
+LICENSE: OpenLDAP
+
+PACKAGE NAME: openssl-conf
+PACKAGE VERSION: 1.1.1g
+RECIPE NAME: openssl
+LICENSE: openssl
+
+PACKAGE NAME: os-release
+PACKAGE VERSION: 1.0
+RECIPE NAME: os-release
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-ampere-apps-chassis
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-ampere-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-ampere-apps-fans
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-ampere-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-ampere-apps-flash
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-ampere-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-ampere-apps-system
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-ampere-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-base
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-base
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-base-extended
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-base
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-base-ipv6
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-base
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-core-boot
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-core-boot
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-core-ssh-dropbear
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-core-ssh-dropbear
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-distro-base
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-base
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-machine-base
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-base
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-bmc-state-mgmt
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-chassis-state-mgmt
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-debug-collector
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-extras
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-extrasdevtools
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-fan-control
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-host-state-mgmt
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-inventory
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-leds
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-logging
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-network
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-remote-logging
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-sensors
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-settings
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-software
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-apps-user-mgmt
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-apps
+LICENSE: MIT
+
+PACKAGE NAME: packagegroup-obmc-ipmid-providers-libs
+PACKAGE VERSION: 1.0
+RECIPE NAME: packagegroup-obmc-ipmid-providers
+LICENSE: MIT
+
+PACKAGE NAME: pam-ipmi
+PACKAGE VERSION: 1.0+gitAUTOINC+f3919c432f
+RECIPE NAME: pam-ipmi
+LICENSE: Apache-2.0
+
+PACKAGE NAME: pam-plugin-access
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-cracklib
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-deny
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-env
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-faildelay
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-group
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-keyinit
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-lastlog
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-limits
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-localuser
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-loginuid
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-mail
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-motd
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-nologin
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-permit
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-pwhistory
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-rootok
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-securetty
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-shells
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-succeed-if
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-tally2
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-unix
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: pam-plugin-warn
+PACKAGE VERSION: 1.3.1
+RECIPE NAME: libpam
+LICENSE: GPLv2+ | BSD
+
+PACKAGE NAME: phosphor-bmcweb-cert-config
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-bmcweb-cert-config
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-certificate-manager
+PACKAGE VERSION: 0.1+gitAUTOINC+5c515c21fb
+RECIPE NAME: phosphor-certificate-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-dbus-interfaces
+PACKAGE VERSION: 1.0+gitAUTOINC+12a8ca89d9
+RECIPE NAME: phosphor-dbus-interfaces
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-dbus-monitor
+PACKAGE VERSION: 1.0+gitAUTOINC+f3367686f8
+RECIPE NAME: phosphor-dbus-monitor
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-debug-collector-dreport
+PACKAGE VERSION: 1.0+gitAUTOINC+b503be4138
+RECIPE NAME: phosphor-debug-collector
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-debug-collector-manager
+PACKAGE VERSION: 1.0+gitAUTOINC+b503be4138
+RECIPE NAME: phosphor-debug-collector
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-debug-collector-monitor
+PACKAGE VERSION: 1.0+gitAUTOINC+b503be4138
+RECIPE NAME: phosphor-debug-collector
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-debug-collector-scripts
+PACKAGE VERSION: 1.0+gitAUTOINC+b503be4138
+RECIPE NAME: phosphor-debug-collector
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-fan-control
+PACKAGE VERSION: 1.0+gitAUTOINC+3ad14346fb
+RECIPE NAME: phosphor-fan
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-fan-monitor
+PACKAGE VERSION: 1.0+gitAUTOINC+3ad14346fb
+RECIPE NAME: phosphor-fan
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-fan-presence-tach
+PACKAGE VERSION: 1.0+gitAUTOINC+3ad14346fb
+RECIPE NAME: phosphor-fan
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-gpio-monitor-monitor
+PACKAGE VERSION: 1.0+gitAUTOINC+3ce88a7b5a
+RECIPE NAME: phosphor-gpio-monitor
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-hwmon
+PACKAGE VERSION: 1.0+gitAUTOINC+5906173aec
+RECIPE NAME: phosphor-hwmon
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-image-signing
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-image-signing
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-inventory-manager
+PACKAGE VERSION: 1.0+gitAUTOINC+55f9eae440
+RECIPE NAME: phosphor-inventory-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-ipmi-config
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-ipmi-config
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-ipmi-fru
+PACKAGE VERSION: 1.0+gitAUTOINC+0968237b47
+RECIPE NAME: phosphor-ipmi-fru
+LICENSE: GPL-3.0
+
+PACKAGE NAME: phosphor-ipmi-host
+PACKAGE VERSION: 1.0+gitAUTOINC+84c49dc17f
+RECIPE NAME: phosphor-ipmi-host
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-ipmi-net
+PACKAGE VERSION: 1.0+gitAUTOINC+5b114ed728
+RECIPE NAME: phosphor-ipmi-net
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-ipmi-ssif
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-ipmi-ssif
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-ldap
+PACKAGE VERSION: 1.0+gitAUTOINC+4f617b7a32
+RECIPE NAME: phosphor-user-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-led-manager-faultmonitor
+PACKAGE VERSION: 1.0+gitAUTOINC+a6c18f8d8b
+RECIPE NAME: phosphor-led-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-led-manager-ledmanager
+PACKAGE VERSION: 1.0+gitAUTOINC+a6c18f8d8b
+RECIPE NAME: phosphor-led-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-led-sysfs
+PACKAGE VERSION: 1.0+gitAUTOINC+604a45ea78
+RECIPE NAME: phosphor-led-sysfs
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-logging
+PACKAGE VERSION: 1.0+gitAUTOINC+92b4fd49dc
+RECIPE NAME: phosphor-logging
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-logging-base
+PACKAGE VERSION: 1.0+gitAUTOINC+92b4fd49dc
+RECIPE NAME: phosphor-logging
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-mapper
+PACKAGE VERSION: 1.0+gitAUTOINC+eecc196b3f
+RECIPE NAME: phosphor-mapper
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-network
+PACKAGE VERSION: 1.0+gitAUTOINC+e5a867a547
+RECIPE NAME: phosphor-network
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-nslcd-authority-cert-config
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-nslcd-authority-cert-config
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-nslcd-cert-config
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-nslcd-cert-config
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-rsyslog-config
+PACKAGE VERSION: 1.0+gitAUTOINC+92b4fd49dc
+RECIPE NAME: phosphor-logging
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-settings-manager
+PACKAGE VERSION: 1.0+gitAUTOINC+8f5c256647
+RECIPE NAME: phosphor-settings-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-snmp
+PACKAGE VERSION: 0.1+gitAUTOINC+e5d90c3575
+RECIPE NAME: phosphor-snmp
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-software-manager-download-mgr
+PACKAGE VERSION: 1.0+gitAUTOINC+f7a69e1adf
+RECIPE NAME: phosphor-software-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-software-manager-updater
+PACKAGE VERSION: 1.0+gitAUTOINC+f7a69e1adf
+RECIPE NAME: phosphor-software-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-software-manager-version
+PACKAGE VERSION: 1.0+gitAUTOINC+f7a69e1adf
+RECIPE NAME: phosphor-software-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-bmc
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-chassis
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-discover
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-host
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-host-check
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-obmc-targets
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-reset-sensor-states
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-state-manager-systemd-target-monitor
+PACKAGE VERSION: 1.0+gitAUTOINC+7fdad605ab
+RECIPE NAME: phosphor-state-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-systemd-policy
+PACKAGE VERSION: 1.0
+RECIPE NAME: phosphor-systemd-policy
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-time-manager
+PACKAGE VERSION: 1.0+gitAUTOINC+c6d33972d9
+RECIPE NAME: phosphor-time-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-user-manager
+PACKAGE VERSION: 1.0+gitAUTOINC+4f617b7a32
+RECIPE NAME: phosphor-user-manager
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-watchdog
+PACKAGE VERSION: 1.0+gitAUTOINC+086837596c
+RECIPE NAME: phosphor-watchdog
+LICENSE: Apache-2.0
+
+PACKAGE NAME: phosphor-webui
+PACKAGE VERSION: 1.0+gitAUTOINC+1578b87ebe
+RECIPE NAME: phosphor-webui
+LICENSE: Apache-2.0
+
+PACKAGE NAME: popt
+PACKAGE VERSION: 1.16
+RECIPE NAME: popt
+LICENSE: MIT
+
+PACKAGE NAME: rng-tools
+PACKAGE VERSION: 6.10
+RECIPE NAME: rng-tools
+LICENSE: GPLv2
+
+PACKAGE NAME: rsync
+PACKAGE VERSION: 3.1.3
+RECIPE NAME: rsync
+LICENSE: GPLv3+
+
+PACKAGE NAME: rsyslog
+PACKAGE VERSION: 8.2004.0
+RECIPE NAME: rsyslog
+LICENSE: GPLv3 & LGPLv3 & Apache-2.0
+
+PACKAGE NAME: run-postinsts
+PACKAGE VERSION: 1.0
+RECIPE NAME: run-postinsts
+LICENSE: MIT
+
+PACKAGE NAME: sdbusplus
+PACKAGE VERSION: 1.0+gitAUTOINC+f534ba04c9
+RECIPE NAME: sdbusplus
+LICENSE: Apache-2.0
+
+PACKAGE NAME: sdeventplus
+PACKAGE VERSION: 0.1+gitAUTOINC+b0a0e4db46
+RECIPE NAME: sdeventplus
+LICENSE: Apache-2.0
+
+PACKAGE NAME: shadow
+PACKAGE VERSION: 4.8.1
+RECIPE NAME: shadow
+LICENSE: BSD | Artistic-1.0
+
+PACKAGE NAME: shadow-base
+PACKAGE VERSION: 4.8.1
+RECIPE NAME: shadow
+LICENSE: BSD | Artistic-1.0
+
+PACKAGE NAME: shadow-securetty
+PACKAGE VERSION: 4.6
+RECIPE NAME: shadow-securetty
+LICENSE: MIT
+
+PACKAGE NAME: slpd-lite
+PACKAGE VERSION: 1.0+gitAUTOINC+a592888328
+RECIPE NAME: slpd-lite
+LICENSE: Apache-2.0
+
+PACKAGE NAME: systemd
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: systemd-compat-units
+PACKAGE VERSION: 1.0
+RECIPE NAME: systemd-compat-units
+LICENSE: MIT
+
+PACKAGE NAME: systemd-conf
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd-conf
+LICENSE: MIT
+
+PACKAGE NAME: systemd-extra-utils
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: systemd-serialgetty
+PACKAGE VERSION: 1.0
+RECIPE NAME: systemd-serialgetty
+LICENSE: GPLv2+
+
+PACKAGE NAME: u-boot-fw-utils-aspeed
+PACKAGE VERSION: v2016.07+gitAUTOINC+1ded9fa3a2
+RECIPE NAME: u-boot-fw-utils-aspeed
+LICENSE: GPLv2+
+
+PACKAGE NAME: udev
+PACKAGE VERSION: 245.6
+RECIPE NAME: systemd
+LICENSE: GPLv2 & LGPLv2.1
+
+PACKAGE NAME: udev-aspeed-mtd-partitions
+PACKAGE VERSION: 1.0
+RECIPE NAME: udev-aspeed-mtd-partitions
+LICENSE: Apache-2.0
+
+PACKAGE NAME: udev-aspeed-vuart
+PACKAGE VERSION: 1.0
+RECIPE NAME: udev-aspeed-vuart
+LICENSE: Apache-2.0
+
+PACKAGE NAME: update-alternatives-opkg
+PACKAGE VERSION: 0.4.2
+RECIPE NAME: opkg-utils
+LICENSE: GPLv2+
+
+PACKAGE NAME: update-rc.d
+PACKAGE VERSION: 0.8
+RECIPE NAME: update-rc.d
+LICENSE: GPLv2+
+
+PACKAGE NAME: util-linux-agetty
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-fsck
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-libblkid
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-libmount
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-libuuid
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-mount
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-sulogin
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: util-linux-umount
+PACKAGE VERSION: 2.35.2
+RECIPE NAME: util-linux
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+
+PACKAGE NAME: volatile-binds
+PACKAGE VERSION: 1.0
+RECIPE NAME: volatile-binds
+LICENSE: MIT
+
+PACKAGE NAME: xz
+PACKAGE VERSION: 5.2.5
+RECIPE NAME: xz
+LICENSE: GPLv2+
+
+PACKAGE NAME: zlib
+PACKAGE VERSION: 1.2.11
+RECIPE NAME: zlib
+LICENSE: Zlib
+

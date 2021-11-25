@@ -1,0 +1,3693 @@
+                            Ampere Computing
+                     Jade UEFI Firmware Release Note
+                      (support@amperecomputing.com)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                                 CONTENTS
+Topic                            --------                       Section
+-----                                                           -------
+
+ o SUMMARY OF CHANGES ............................................ 1.0
+ o COPYRIGHT ..................................................... 2.0
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+1.0 SUMMARY OF CHANGES
+
+	Version 1.07.20210713 (7/13/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable
+    - CPUECTLR_EL1 config without reboot
+    - TPM Physical Presence Interface support
+    - EL2 State capture with Firmware Crash Capture
+    - Send DDR training error syndrome to SCP
+    - HCR_EL2 config set by BIOS for each core
+    - CPM RAS error register capture with Firmware Crash Capture
+    - 8TB DRAM support
+    - In-band upgrading in OS context without rebooting
+    - Reset PCIe device with GPIO byte write instead bit write
+    - Read/write NVPARAM in runtime service
+	- Hotplug disable via board setting
+	- Mandatory TPM PPI support
+	- 2P CCIX speed control via UEFI
+	- Single secure domain support
+	- Core change notification to BMC
+	- ARMv8 L1/L2 prefetch control via UEFI
+	- 2P CCIX speed control via UEFI
+	- I2C9 available for 1P system
+	- LRDIMM/3DS LRDIMM support
+	- Core change notification to BMC
+	- UEFI dbu/dbb with SHA384/key size 4096 support
+	- ATF dbu/dbb with SHA384/key size 4096 support
+	- SMC authentication security support (1.07)
+	- DIMM status report via SMBIOS (1.07)
+	- In-band FW update enhancement (single file image for 
+	  external SPI programmer and in-band (1.07)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+		
+    Notes:
+    - Due to change in in-band FW interface, the FW image for
+	  in-band and external SPI programmer are now the same 
+	  file. The UEFI fwu tool is also updated.
+
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.07 does not work with SCP FW 1.06.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+	- Bug 89615: 2P link UE crash dump does not include data content dump
+	  Solution: On 2P link UE error, the crash dump includes only an indication
+	            that the error occurred. The current implementation does not
+				provide any additional data.
+	  
+    Resolved Issues:
+
+---------------------------------------------------------------------------
+
+	Version 1.07.20210623 (6/23/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable
+    - CPUECTLR_EL1 config without reboot
+    - TPM Physical Presence Interface support
+    - EL2 State capture with Firmware Crash Capture
+    - Send DDR training error syndrome to SCP
+    - HCR_EL2 config set by BIOS for each core
+    - CPM RAS error register capture with Firmware Crash Capture
+    - 8TB DRAM support
+    - In-band upgrading in OS context without rebooting
+    - Reset PCIe device with GPIO byte write instead bit write
+    - Read/write NVPARAM in runtime service
+	- Hotplug disable via board setting
+	- Mandatory TPM PPI support
+	- 2P CCIX speed control via UEFI
+	- Single secure domain support
+	- Core change notification to BMC
+	- ARMv8 L1/L2 prefetch control via UEFI
+	- 2P CCIX speed control via UEFI
+	- I2C9 available for 1P system
+	- LRDIMM/3DS LRDIMM support
+	- Core change notification to BMC
+	- UEFI dbu/dbb with SHA384/key size 4096 support
+	- ATF dbu/dbb with SHA384/key size 4096 support
+	- SMC authentication security support (1.07)
+	- DIMM status report via SMBIOS (1.07)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+		
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.07 does not work with SCP FW 1.06.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+	  
+    Resolved Issues:
+	- Bug 88886: QS: Fix the slowness while upgrading SCP
+	- Bug 88825: DDR: Sync up ddrlib version 210525
+					Update ODT setting for LRDIMM
+	- Bug 89140: Fix NVPARAM SPI access issue when BMC handshake is enabled.
+	- Bug 88322: QS: PCIE: HP: Fix OS freeze for HP feature when PCIe AER FW First Enabled
+	- Bug 86641: QS: RAS: Fix system reporting two CPM/DSU errors
+	- Bug 87248: QS: RAS: Add MCU support for DRAM CE Threshold Window Filter
+
+	- Bug 88112: QS: Update ACPI setting for I2C6 clock to 400kHz
+	- Bug 88481: AmiModule: TCG2: Debug messages has been changed from DEBUG_ERROR to DEBUG_INFO.
+	- Bug 88603: QS: SMBIOS: Type 9: Fix slot status for slave socket
+	- Bug 88424: QS: ACPI: Patch DSDT NVD3/4 OpRegion base address to be the base address of NVD1/2 when there's no NVDIMMs under Slave socket
+	- Bug 88221: TCG: TPM PPI Clear via doorbell
+	- Bug 85448: QS: RAS: Update BERT size for additional RAS records captured
+	- Bug 88942: QS: SMBIOS: Remove L3 and display L1I and L1D seperately
+	- Bug 89172: QS: Display full version to setup screen and Smbios
+	- Bug 89220: QS: RAS: Update BERT_VERSION as the crash dump data has changed
+	- Bug 89229: AmperePlatformPkg: PCI: Remove IO resource support
+	- Bug 89229: QS: PCI: Fix MMIO32 size that should be 256MB in 1P
+	- Bug 89293: QS: RAS: Update RAS configuration menu threshold descriptions
+	- Bug 89266: QS: Sends UEFI full version info to BMC
+	- Bug 89292: QS: PCIe: Only start link training after putting EP out of reset
+	- Bug 89461: AmiNetworkPkg: PXE: Add "Altra" to vendor string id
+	- Bug 87584: ArmPlatformPkg: RTC: Allow user to change timzone to unspecified
+	- Bug 89006: QS: PCIE: Enable combine PMEM32 with MEM32
+	- Bug 89568: Increase delay after bifurcation register programming
+
+---------------------------------------------------------------------------
+
+	Version 1.06.20210615 (6/15/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable
+    - CPUECTLR_EL1 config without reboot
+    - TPM Physical Presence Interface support
+    - EL2 State capture with Firmware Crash Capture
+    - Send DDR training error syndrome to SCP
+    - HCR_EL2 config set by BIOS for each core
+    - CPM RAS error register capture with Firmware Crash Capture
+    - 8TB DRAM support
+    - In-band upgrading in OS context without rebooting
+    - Reset PCIe device with GPIO byte write instead bit write
+    - Read/write NVPARAM in runtime service
+	- Hotplug disable via board setting (1.06)
+	- Mandatory TPM PPI support (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- Single secure domain support (1.06)
+	- Core change notification to BMC (1.06)
+	- ARMv8 L1/L2 prefetch control via UEFI (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- I2C9 available for 1P system (1.06)
+	- LRDIMM/3DS LRDIMM support (1.06)
+	- Core change notification to BMC (1.06)
+	- UEFI dbu/dbb with SHA384/key size 4096 support (1.06)
+	- ATF dbu/dbb with SHA384/key size 4096 support (1.06)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+		
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.06 does not work with SCP FW 1.05.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+	- Bug 88702: In-band Upgrade/downgrade FW with secure boot between 1.05
+				 and 1.06 does not work
+	  There is a change in the UEFI authentication hash and key size (dbb/dbu).
+	  In 1.05, hash size is 256 and key size is 2096. In 1.06 and above,
+	  hash size is 384 and key size is 4096. Due to this change, they
+	  are not compatible.
+	  Solution for 1.05 to 1.06 FW: 
+			1. Delete dbu and dbb
+				a. Boot system to UEFI
+				b. Go to security tab and disable secure boot
+				c. Reboot system and go to UEFI shell
+				d. Execute command from shell:
+					FWU -K del_dbukey.auth
+					FWU -P del_dbukey.auth
+				e. Reboot system
+			2. Update to 1.06 FW
+
+		Solution for 1.06 to 1.05 FW: 
+			1. Delete dbu and dbb using 1.06 FW
+				a. Boot system to UEFI
+				b. Go to security tab and disable secure boot
+				c. Reboot system and go to UEFI shell
+				d. Execute command from shell:
+					FWU -K del_dbukey.auth
+					FWU -P del_dbukey.auth
+				e. Reboot system
+			2. Update to 1.05 FW
+	  
+    Resolved Issues:
+	- Bug 88754: QS: PCIE: HP: Fix link stable when doing graceful removal
+	- Bug 87669: QS: PCIE: HP: Support scan 4 rounds per port
+	- Bug 88987: QS: PCIE: Correct PERST reset sequence	
+	- Bug 89380: QS: SEC: Fix in-band update for SCP and ATF/UEFI without certificate
+				 NOTE: Certificate present checking is ignored.
+
+---------------------------------------------------------------------------
+
+	Version 1.06.20210613 (6/13/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable
+    - CPUECTLR_EL1 config without reboot
+    - TPM Physical Presence Interface support
+    - EL2 State capture with Firmware Crash Capture
+    - Send DDR training error syndrome to SCP
+    - HCR_EL2 config set by BIOS for each core
+    - CPM RAS error register capture with Firmware Crash Capture
+    - 8TB DRAM support
+    - In-band upgrading in OS context without rebooting
+    - Reset PCIe device with GPIO byte write instead bit write
+    - Read/write NVPARAM in runtime service
+	- Hotplug disable via board setting (1.06)
+	- Mandatory TPM PPI support (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- Single secure domain support (1.06)
+	- Core change notification to BMC (1.06)
+	- ARMv8 L1/L2 prefetch control via UEFI (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- I2C9 available for 1P system (1.06)
+	- LRDIMM/3DS LRDIMM support (1.06)
+	- Core change notification to BMC (1.06)
+	- UEFI dbu/dbb with SHA384/key size 4096 support (1.06)
+	- ATF dbu/dbb with SHA384/key size 4096 support (1.06)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+		
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.06 does not work with SCP FW 1.05.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+	- Bug 88702: In-band Upgrade/downgrade FW with secure boot between 1.05
+				 and 1.06 does not work
+	  There is a change in the UEFI authentication hash and key size (dbb/dbu).
+	  In 1.05, hash size is 256 and key size is 2096. In 1.06 and above,
+	  hash size is 384 and key size is 4096. Due to this change, they
+	  are not compatible.
+	  Solution for 1.05 to 1.06 FW: 
+			1. Delete dbu and dbb
+				a. Boot system to UEFI
+				b. Go to security tab and disable secure boot
+				c. Reboot system and go to UEFI shell
+				d. Execute command from shell:
+					FWU -K del_dbukey.auth
+					FWU -P del_dbukey.auth
+				e. Reboot system
+			2. Update to 1.06 FW
+
+		Solution for 1.06 to 1.05 FW: 
+			1. Delete dbu and dbb using 1.06 FW
+				a. Boot system to UEFI
+				b. Go to security tab and disable secure boot
+				c. Reboot system and go to UEFI shell
+				d. Execute command from shell:
+					FWU -K del_dbukey.auth
+					FWU -P del_dbukey.auth
+				e. Reboot system
+			2. Update to 1.05 FW
+	  
+    Resolved Issues:
+	- Bug 89380: QS: SEC: Fix in-band update for SCP and ATF/UEFI with out certificate
+				 NOTE: Certificate present checking is ignored.
+
+---------------------------------------------------------------------------
+
+	Version 1.06.20210526 (5/26/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable
+    - CPUECTLR_EL1 config without reboot
+    - TPM Physical Presence Interface support
+    - EL2 State capture with Firmware Crash Capture
+    - Send DDR training error syndrome to SCP
+    - HCR_EL2 config set by BIOS for each core
+    - CPM RAS error register capture with Firmware Crash Capture
+    - 8TB DRAM support
+    - In-band upgrading in OS context without rebooting
+    - Reset PCIe device with GPIO byte write instead bit write
+    - Read/write NVPARAM in runtime service
+	- Hotplug disable via board setting (1.06)
+	- Mandatory TPM PPI support (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- Single secure domain support (1.06)
+	- Core change notification to BMC (1.06)
+	- ARMv8 L1/L2 prefetch control via UEFI (1.06)
+	- 2P CCIX speed control via UEFI (1.06)
+	- I2C9 available for 1P system (1.06)
+	- LRDIMM/3DS LRDIMM support (1.06)
+	- Core change notification to BMC (1.06)
+	- dbu/dbb with SHA384/key size 4096 support (1.06)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+
+	IMPORTANT NOTE:
+	  This FW does not preserved setting when update from 
+	  previous version of the firmware.
+		
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.06 does not work with SCP FW 1.05.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+
+    Resolved Issues:
+    - Bug 79448: System failed to boot with 'ERROR: Exit boot services failed'
+	- Bug 87301: Add print statement for UEFI reboot request
+	- Bug 87158: QS: PCIE: HP: Fix AER flooded at ATF
+	- Bug 86983: CPU: Back port workaround for ARM Neoverse N1 erratum 1946160.
+	- Bug 87927: QS: RAS: Fix RASDP interrupt clearing
+	- Bug 87451: QS: RAS: Fix secure DB2.DB_AVAIL status cleared too early for EINJ
+	- Bug 87373: QS: PCIE: HP: Fix i2c read port status fail
+	- Bug 87668: QS: PCIE: HP: Reorder serve HP events come by first in first out
+	- Bug 86954: AmperePlatformPkg: ACPI: Fix wrong PCC subspace signature
+	- Bug 86955: AmperePlatformPkg: Update ACPI PCCT/APIC revision to 6.3
+	- Bug 86954: AmperePlatformPkg: Drop internal ACPI_PCCT_SHARED_MEMORY
+	- Bug 87082: QS: RAS: PCIe: Update _OSC PCIe AER bit when FW-first enabled
+	- Bug 85268: QS: Remove VHE CPU setup option
+	- Bug 86935: QS: HEST: Add PCIe Root Port entries to HEST (PCIE_61 errata)
+	- Bug 87158: QS: PCIE: HP: Fix graceful removal at slot 20
+	- Bug 87176: QS: FID component is added to SCP capsule
+	- Bug 86801: QS: Use ECID from platform HOB
+	- Bug 87192: QS: SMBIOS: Fix SLC 16-way set-associative information
+	- Bug 86908: QS: RAS: PCIE: Enable AER bits for AER Firmware First Support
+	- Bug 83452: AmiModulePkg: Update usb module to amiusb_27.1 version
+	- Bug 87376: QS: PCIe: Fixing common clock asynchronous problem between RP and EP
+	- Bug 87176: AmperePlatformPkg: InfoVariableDxe is available in FDF but not in CIF
+	- Bug 87176: AmperePlatformPkg: A component is added to enroll DBB/DBU keys if keys are present in the FV
+	- Bug 87176: Compiler check: Non-void function does not have return statement causes boot failure with LTO enabled build system
+	- Bug 87662: AmiModulePkg: SMBIOS: Fix wrong Type 17 size.
+	- Bug 87712: AmperePlatformPkg: Clear all NVPARAM if BUILD_UUID mismatched
+	- Bug 87903: QS: Enable SERR for PCI bridge device by default
+	- Bug 87924: QS: Fix wrong logic during reserve memory boot data.
+	- Bug 88002: AmperePlatformPkg: Reduce SCP timeout value and print error message
+	- Bug 87451: QS: RAS: Fix doorbell3 storm of EINJ request
+	- Bug 88111: QS: ACPI: Set checksum flags in BMC device vendor specific data
+	- Bug 78680: QS: PCIe: Add PCIe AER error detection and recovery
+	- Bug 87454: QS: Enable AER UE Surprise Link Down Error Reporting
+	- Bug 87451: QS: RAS: update EINJ execution request to latest firmware
+	- Bug 88137: AmiModulePkg: Revert "Bug 81410: AmiModulePkg: PCI: Hiding the PCI setup option Target Link Speed as"
+	- Bug 87451: QS: RAS: Correctly fix clearing secure DB2.DB_AVAIL status
+	- Bug 88387: Support CPUECTLR_EL1 prefetcher config by NS-DRAM shared memory
+	- Bug 87053: TPM: Send vPCR0/1 digest to be extended in UEFI
+	- Bug 87158: QS: PCIE: HP: Fix AER flooded at ATF
+	- Bug 87373: QS: PCIE: HP: Fix i2c read port status fail
+	- Bug 85039: TPM: Implement PPI for mandatory requests
+	- Bug 87668: QS: PCIE: HP: Reorder serve HP events come by first in first out
+	- Bug 88297: AmperePlatformPkg: Correct EFI_RESOURCE_ATTRIBUTE_UNCACHEABLE attribute for normal/device memory
+	- Bug 88243: QS: PCIe: Not access EP when link is not in L0 state
+	- Bug 88601: Correct the format of SCP FW version display at UEFI.
+	- Bug 87669: QS: PCIE: HP: Fix PCIE link stable
+	- Bug 88652: Drop emag2 print from Secure Partition version string.
+	- Bug 88424: QS: ACPI: NVDIMM devices should be removed from DSDT when second socket is not populated	
+	- Bug 88457: QS: Assign proximty domain for SMMU
+	- Bug 88769: QS: Fix PCIe enumeration issue with multiple function device
+	
+---------------------------------------------------------------------------
+
+	Version 1.05.20210426 (4/26/2021)
+    BIOS Features:
+    - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+    - Mixing different RCD vendor across channels​
+    - Mixing different RCD vendors within the same channel​
+    - Mixing different DRAM dies across channels​
+    - Mixing different DRAM dies within the same channel
+    - Mixing x4 and x8 based dimms across channels​ with same memory size​
+    - Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+    - Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+    - Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+    - LRDIMM/3DS LRDIMM support
+    - Board setting for DDR support
+    - PSCI 1.1 SMP support
+    - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+    - Mesh frequency up to 1.8 GHz
+    - Serial port console support
+    - Macronix/Winbond QSPI at 2.5MHz/33MHz support
+    - Persistent storage support via trusted firmware SMC
+    - Timer support at 25MHz
+    - Reboot/shutdown with power button support
+    - SubNUMA (monolithic/hemisphere/Quadrant) support
+    - Boot progress support
+    - UEFI RTC support
+    - UEFI HWmon/PMU ACPI support
+    - UEFI core frequency table report support
+    - UEFI BMC IPMI support
+    - UEFI SMBIOS table support
+    - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+    - UFEI subNUMA control scrren support
+    - UEFI SSIF ACPI support
+    - UEFI tftp support
+    - UEFI RAS APEI support
+    - UEFI x86 emulation support (default disabled)
+    - UEFI VGA (RCB) support (default disabled)
+    - PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+    - NVMe storage support
+    - i210/Mellanox 10/25/100GbE network support
+    - DDR failsafe support
+    - Boot failsafe support
+    - RAS error inject support
+    - RAS DDR UE retry and ECC symbol support
+    - PCIe bifurcation without 2nd reboot support
+    - PCIe RCA0/1 support code for 1P configuration
+    - On-board LoM support for Fansipan board
+    - UEFI USB support
+    - PCIe RCA0/0 support for 1P (default disabled)
+    - UEFI boot time performance measurement support
+    - UEFI RAS configuration menu support
+    - UEFI ACPI/turbo configuration menu support
+    - SBSA/SBBR compliance
+    - Enhance DDR margin and improve timing
+    - Secure partition (SPM) infrastructure support
+    - Secure boot up to Linux OS support
+    - PCIe SR-IOV with SMMU support
+    - Secure variable support via UEFI MM SPM
+    - Secure firmware update support via UEFI MM SPM
+    - SPI-NOR flash interface via UEFI MM SPM
+    - NV-parameter interface via UEFI MM SPM
+    - Secure in-band FW update to UEFI MM SPM
+    - Report 2P link speed in CPU Screen and during booting
+    - RAS CPM CE threshold support
+    - DDR error status report via UEFI menu support
+    - NUMA for PCIe support
+    - Secure boot with measurement TPM
+    - Measure boot support with master/slave socket merged
+    - DDR scrub control support
+    - SPI-NOR update without reboot system
+    - Use configurable secure watch dog timeout
+    - DDR RAS write CRC, PHY ZQ/IO calibration
+    - 3DS 1DPC 128G support
+      RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+    - DDR mix DIMM speed grade across channels
+    - DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+    - DDR fine Grain refresh mode support
+    - UEFI PCIe setting menu control
+    - TPM measurement event support
+    - RAS hardware EINJ for DRAM support
+    - A0/A1 silicon support
+    - DDR initialization time improvement
+    - 24 NVMe PCIe hotplug support
+    - NVDIMM-N support
+    - NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+    - NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+    - Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+    - Optional to disable secure WDT
+    - UEFI hotplug LED control support
+    - UEFI PCIe limited auto bifurcation support (default off)
+    - UEFI PCIe firwmare first support
+    - UEFI NVMe un-lock support
+    - Hotplug notification to BMC
+    - DDR refresh 2x rate based on temperature
+    - TPM interrupt mode support
+    - NVDIMM DAX/DSM support
+    - Board setting to control TPM enable or disable (1.05)
+    - CPUECTLR_EL1 config without reboot (1.05)
+    - TPM Physical Presence Interface support (1.05)
+    - EL2 State capture with Firmware Crash Capture (1.05)
+    - Send DDR training error syndrome to SCP (1.05)
+    - HCR_EL2 config set by BIOS for each core (1.05)
+    - CPM RAS error register capture with Firmware Crash Capture (1.05)
+    - 8TB DRAM support (1.05)
+    - In-band upgrading in OS context without rebooting (1.05)
+    - Reset PCIe device with GPIO byte write instead bit write (1.05)
+    - Read/write NVPARAM in runtime service (1.05)
+
+    Compiler:
+    - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC
+                          DVT: B48.03028.00SC
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later
+	- Limitation:
+		- Support only one disk removal/insertion at a time
+		- Remove and insertion requires at least 3 seconds delay
+	
+	IMPORTANT NOTE:
+	  This FW does not preserved setting when update from 
+	  previous version of the firmware.
+	
+    Known Issues:
+    - Bug XXXXX: AMI SCE not supported
+      Solution: Ampere reference design does not enable support for
+                SCE due to security concern. Other platform may
+                choose to enable this capability but will depend on
+                their security solution/risk assessment.
+    - Bug XXXXX: ATF/UEFI FW 1.05 does not work with SCP FW 1.04.
+      Solution: Update to matching FW version.
+    - Bug 76316: Linux hibernation does not work.
+      Solution: This is no solution at this time.
+    - Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+      Solution A: Limit the crash dump RAM to size lesser than 490MB.
+                  Though, you may have issue with PCIe 32-bit cards.
+      Solution B: Enable slave socket 1GB RAM from UEFI.
+                  With subNUMA hemisphere/Quadrant, not all Linux
+                  distribution will work.
+    - Bug 82768: NVDIMM-N DAX/DSM does not work
+      Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+    - Bug 79448: System failed to boot with 'ERROR: Exit boot services failed'
+      Solution: Manual select the kernel to boot or configure
+                GRUB to retry the operation by disable GRUB menu
+                from showing up after failed boot.
+    - Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+      Solution: If you observed this, reboot the system.
+
+    Resolved Issues:
+    - Bug 84452: QS: SPI NOR Proxy: Update SPI NOR access limit
+    - Bug 86160: QS: RAS: Forward PCIe RASDP errors to SMpro
+    - Bug 86102: TPM: Extend support for SHA-1 event logging
+    - Bug 85042: TPM: Add retry mechanism for CRB send to TPM device
+    - Bug 85042: TPM: Optimize the timeout values for TPM
+    - Bug 86509: TPM: Optimze SPI slave interface
+    - Bug 86679: QS: PCIE: HP: Fix flooding AER on surprise HP removal if disk mounted before boot
+    - Bug 87053: TPM: Fix mismatch in PCR0/1 with event log
+
+    - Bug 83953: PCIe: BIOS hangs (Out of resource) when Aspeed VGA is installed
+    - Bug 83044: TPM: On TPM disabled from NVPARAM setting get VPCR data
+    - Bug 84363: QS: AcpiScreen: Change TPL level matched with Smbios
+    - Bug 84363: Reference implementations should have SETUP_PRINT_EVAL_MSG set
+    - Bug 73622: AmperePlatformPkg: Support runtime debug serial port lib
+    - Bug 85638: PCI: Setup Load Defaults does not work properly for PCI dynamic setup page.
+    - Bug 85919: QS: AcpiScreen: Fix crashing on 1P Fansipan
+    - Bug 85428 QS: ACPI: IORT: Root complex missing memory address limit
+    - Bug 86058: QS: PCIE Program Power Limit to 75W.
+    - Bug 86524: AmiModulePkg: Disable the 4G decoding setup option in PCI setup page.
+    - Bug 86524: QS: BIOS_TAG cannot be verified during capsule update since FID is not available as per AMI guidelines
+    - Bug 85268: QS: Support virtualization feature option in setup screen
+    - Bug 86591: QS: BERT: Fix Block status error bit
+    - Bug 86443: QS: Failsafe: Fix failsafe not saving last known setting on invalid crc check
+    - Bug 86263: Fix cluster node has not seen in CPU topology
+    - Bug 86822: QS: SMBIOS: Put SCP version string to BIOS version field
+    - Bug 85638: AmiModulePkg: Sync AMI's change of AHCI module
+    - Bug 85638: AmperePlatformPkg: AMI release notes is available in Jade.chm
+    - Bug 86362: AmperePlatformPkg: Export some info to UEFI variables
+	- Bug 87524: QS: Enable PCIe strict order by default
+
+---------------------------------------------------------------------------
+
+	Version 1.04.20210326 (3/26/2021)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+	- LRDIMM/3DS LRDIMM support
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.8 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- 24 NVMe PCIe hotplug support
+	- NVDIMM-N support
+	- NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+	- NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+	- Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+	- Optional to disable secure WDT
+	- UEFI hotplug LED control support
+	- UEFI PCIe limited auto bifurcation support (default off)
+	- UEFI PCIe firwmare first support
+	- UEFI NVMe un-lock support (1.04)
+	- Hotplug notification to BMC (1.04)
+	- DDR refresh 2x rate based on temperature (1.04)
+	- TPM interrupt mode support (1.04)
+	- NVDIMM DAX/DSM support (1.04)
+
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC 
+                          DVT: B48.03028.00SC	
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later	
+
+	IMPORTANT NOTE:
+	In 1.03, the SPI-NOR layout was changed. The new layout is defined
+	in the Altra Interface Firmware Requirement specification. Though
+	in 1.03, the RAW ATF/UEFI firmware image was padded with 4MB of 
+	0xFF to erase all FW setting in the new location. As such, 1.03 
+	does not preserve any setting when update from 1.02. But in 1.04,
+	compatibility was maintaied to some extend in term of setting.
+	As such, there is NO 4MB padded of 0xFF. This change can break
+	external flash programmer or BMC. Therefore, when update
+	to this version (1.04) with Mt Jade reference design, first update 
+	BMC to corresponding FW version of this release. Then, update 
+	Altra SoC firmware. In addition, all setting such as board setting
+	and etc are now using the new SPI-NOR layout. And this newer BMC
+	in Mt Jade design is NOT compatible with FW version 1.03 or below.
+	Therefore, use BMC from 1.04 with FW from 1.04 or above. Use BMC 
+	from 1.03 with firmware from 1.03 or below. For more information
+	regarding BMC compatibility, see BMC release note of Mt Jade.
+	
+	Known Issues:
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.04 does not work with SCP FW 1.03.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+	- Bug 82768: NVDIMM-N DAX/DSM does not work
+	  Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+	- Bug 79448: System failed to boot with 'ERROR: Exit boot services failed'
+	  Solution: Manual select the kernel to boot or configure 
+	            GRUB to retry the operation by disable GRUB menu 
+	            from showing up after failed boot.
+	- Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+	  Solution: If you observed this, reboot the system.
+	- Bug 82959: NMI interrupt changed which breaks compatibility with 1.03
+	            based Altra SoC
+	  Solution: Due to recent switch from GPIO i2c register trigger, the
+	            NMI interrupt number changed. Please make note and update
+				your NMI interrupt number accordingly.
+    - Bug 82314: On NVMe hotplug with mulitple disk concurrently,
+                 Linux kernel reports soft lockup.
+      Solution: This is under investigation. Remove and insert
+                one NVMe at a time.
+				  
+	Resolved Issues:
+	- Bug 84633: DDR: Increase the translation table size to support 8TB DRAM
+	- Bug 85355: TPM: Set SPI1 frequency to 10MHz
+	- Bug 80641/83228: QS: PCIE: HP: Kernel panic when doing insert/remove fast
+	- Bug 82206: U.2 NVMe re-insertion does not detect in some case
+	- Bug 86443: QS: Update NVPARAM last known setting base address
+	- Bug 85227: TPM: Optimize TPM poll timeout for CRB interrupt activation
+	- Bug 84940: HP: Fix I2C Read command
+	- Bug 86028: TPM: CRB Receive retries count is incorrectly placed.
+
+	- Bug 83102: QS: ACPI: Add ACPI time and alarm node
+	- Bug 83942: QS: ACPI: Implement TCG ACPI Physical Presence Interface DSM methods
+	- Bug 85136: QS: RAS: Add SET_ERROR_TYPE to EINJ ACPI table
+	- Bug 85481: QS: RAS: Update EINJ GET_BUSY_STATUS
+	- Bug 85426: QS: TPM: TCG eventlog is corrupted or incorrect
+	- Bug 85728: QS: ACPI: DSDT: Add vendor specific data for BMC device
+	- Bug 80641: QS: PCIE: HP: Kernel panic when doing insert/remove fast
+	- Bug 85728: QS: DSDT: Fix the vendor specific data for BMC device
+	- Bug 73622: AmperePlatformPkg: Support runtime debug serial port lib
+	- Bug 73622: AmperePlatformPkg: Support in-band upgrading in OS context without rebooting
+	- Bug 73622: AmperePlatformPkg: Correct the variable name in firmware update OS application example
+	- Bug 73622: AmperePlatformPkg: Support to upload payload multiple times
+	- Bug 85824: AmperePlatformPkg: Fix in-band-upgrade issue on Windows
+	- Bug 86362: AmperePlatformPkg: Export some info to UEFI variables
+	
+---------------------------------------------------------------------------
+	
+	Version 1.04.20210223 (2/23/2021)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+	- LRDIMM/3DS LRDIMM support
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.8 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- 24 NVMe PCIe hotplug support
+	- NVDIMM-N support
+	- NVDIMM-N health monitor support
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+	- NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+	- Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+	- Optional to disable secure WDT
+	- UEFI hotplug LED control support
+	- UEFI PCIe limited auto bifurcation support (default off)
+	- UEFI PCIe firwmare first support
+	- UEFI NVMe un-lock support (1.04)
+	- Hotplug notification to BMC (1.04)
+	- DDR refresh 2x rate based on temperature (1.04)
+	- TPM interrupt mode support (1.04)
+	- NVDIMM DAX/DSM support (1.04)
+
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC 
+                          DVT: B48.03028.00SC	
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later	
+
+	IMPORTANT NOTE:
+	In 1.03, the SPI-NOR layout was changed. The new layout is defined
+	in the Altra Interface Firmware Requirement specification. Though
+	in 1.03, the RAW ATF/UEFI firmware image was padded with 4MB of 
+	0xFF to erase all FW setting in the new location. As such, 1.03 
+	does not preserve any setting when update from 1.02. But in 1.04,
+	compatibility was maintaied to some extend in term of setting.
+	As such, there is NO 4MB padded of 0xFF. This change can break
+	external flash programmer or BMC. Therefore, when update
+	to this version (1.04) with Mt Jade reference design, first update 
+	BMC to corresponding FW version of this release. Then, update 
+	Altra SoC firmware. In addition, all setting such as board setting
+	and etc are now using the new SPI-NOR layout. And this newer BMC
+	in Mt Jade design is NOT compatible with FW version 1.03 or below.
+	Therefore, use BMC from 1.04 with FW from 1.04 or above. Use BMC 
+	from 1.03 with firmware from 1.03 or below. For more information
+	regarding BMC compatibility, see BMC release note of Mt Jade.
+	
+	Known Issues:
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.04 does not work with SCP FW 1.03.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+	- Bug 82768: NVDIMM-N DAX/DSM does not work
+	  Solution: NVDIMM-N DAX/DSM require kernel version 5.11 or above.
+	- Bug 79448: System failed to boot with 'ERROR: Exit boot services failed'
+	  Solution: Manual select the kernel to boot or configure 
+	            GRUB to retry the operation by disable GRUB menu 
+	            from showing up after failed boot.
+	- Bug 78681: Rarely, Mellanox CX4 linked up at Gen1 instead Gen3.
+	  Solution: If you observed this, reboot the system.
+	- Bug 82206: U.2 NVMe re-insertion does not detect in some case
+	  Solution: There is no solution at this time.
+	- Bug 83228: System panic when doing multiple disk removal/insertion
+	  Solution: Perform removal/insertion one disk at a time.
+	- Bug 82959: NMI interrupt changed which breaks compatibility with 1.03
+	            based Altra SoC
+	  Solution: Due to recent switch from GPIO i2c register trigger, the
+	            NMI interrupt number changed. Please make note and update
+				your NMI interrupt number accordingly.
+				  
+	Resolved Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	- Bug 80749: Pass the TPM shared buffer length through TPM HOB
+	- Bug 82514: DDR: Correct max of dimminfo hob for system less than 32 DIMM slot
+	- Bug 80251: QS: RAS: Add DRAM EINJ no trigger NVparam
+	- Bug 82245: QS: RAS: Add PCIe AER FW-first board setting
+	- Bug 83235: DDR: Fix node_id of platform dimm info not initialized
+	- Bug 82959: QS: RAS: Add interrupt for trigger SDEI event.
+	- Bug 83511: NVDIMM-N: Fix SP training causes lock/unlock bakery assertion failed while saving VRef
+	- Bug 82665: TPM: Set SPI1 max frequency to 25 MHz
+	- Bug 82206: QS: PCIe: HP: U2 NVMe reinsertion does not detect disk in some ports
+	- Bug 82242: QS: Disable SMBIOS Type 44 which added when upgrade Smbios module
+	- Bug 82646: AmiIpmiPkg, HDDSmart are unused components in the
+	- Bug 82646: QS: SETUP_PRINT_EVAL_MSG SDL definition is duplicated
+	- Bug 82646: TPM: Removed the field 'tpmpresence' added in CRB registers which is not used anymore
+	- Bug 82646: TPM: Supported algorithms in UEFI is configured based on HOB retrieved from ATF
+	- Bug 82646: TPM: Resource in ASL file has been updated dynamically.The resource base and length has been calculated from HOB passed by ATF
+	- Bug 82646: QS: TPM: Hide TPM device selection option in Setup
+	- Bug 82646: TPM: TPM Hob declaration in UEFI is synced with ATF
+	- Bug 82646: QS: Emag2Pkg/Boards/Jade/Jade.SDL is listed twice in CIF. Duplicate entry is removed
+	- Bug 82646: QS: Path separator in the filenames are changed to forward slash. VEB tool works in both cases but when we use in Linux, Forward slash is used automatically when we do source management operations.
+	- Bug 82646: QS: .C .H files are already listed in the PcieCoreLib.inf file. We do not need to list them again in the CIF file.VEB tools shows them as a private file.
+	- Bug 82734: QS: BERT: Fix Bert Message Size
+	- Bug 80251: QS: RAS: Add DRAM EINJ no trigger option
+	- Bug 82938: QS: NVDIMM: Fix issue when NVDIMM-N plugged only in Socket 1
+	- Bug 82245: QS: RAS: Add PCIe AER FW first board setting
+	- Bug 83170: AmperePlatformPkg: Missed file entries are added in the INF file
+	- Bug 83170: AmperePlatformPkg: When capsule update failed, Abort reasons has to be displayed 
+	- Bug 83170: Nvme: Skipping NVME Freeze lock.
+	- Bug 77486: QS: Only disable VGA/USB for A0/A1* chip.
+	- Bug 83416: QS: CPPC: Add Performance Limited register
+	- Bug 80819: ACPI: Support new DSU PMU specs compatible with upstream kernel.
+	- Bug 83555: QS: Implement CloseEvent after the first signal ReadToBoot Events for fixing Exception issue when PXE boot retry.
+	- Bug 83496: QS: RTC: Add board seting to disable RTC lock check
+	- Bug 83555: AmiTsePkg: Upgrade TSE to 2_21_1280 version
+	- Bug 83555: AmperePlatformPkg: SD UNI files are added into CIF file for source control purpose. It is not listed in INF file
+	- Bug 83757: QS: UEFI RTC service updates date to SMpro
+	- Bug 82665: QS: TPM: Set SPI1 default frequency to 25 MHz
+	- Bug 83871: QS: TPM: Enable TPM by default 
+	- Bug 82206: QS: PCIe: HP: U2 NVMe reinsertion does not detect disk in some ports
+	- Bug 79448: MdeModulePkg: Revert fix the exiting boot service error
+	- Bug 84032: QS: ACPI: Fix duplicated _UID values for DSU CPM objects
+	- Bug 84275: DDR: Sync up ddrlib v210205
+						1T ADCMD DLL threshold and DRAM Vref training
+						Dynamic ASR when system enter/exit LPI standby
+						4 points sanity test
+						Print DMC RAS register on ECC init error checking
+						Skip bakery lock/unlock in single core case
+	- Bug 84337: QS: FWU: Fix SCP capsule update error
+	- Bug 84452: QS: SPI NOR Proxy: Add support for 64MB flash device
+	- Bug 76268: QS: RAS: Add CPM OS-first error handling support
+	- Bug 82528: QS: PCIe: HP: Do not block OS a second when do insert disk
+	- Bug 82403: Do not execute HP remove/insert events for any inactive ports
+	- Bug 82314: QS: PCIE: HP: Soft lockup while simultaneous NVMe hotplug operation
+	- Bug 84632: TPM: Optimize TPM Poll timeout for CRB interrupt activation
+	- Bug 84501: QS: PCIE: Training of Broadcom SAS cards failed
+	- Bug 84655: Update Ampere(TM) and Altra(TM) to Ampere(R) and Altra(R).
+	- Bug 84792: QS: PCIe: HP: Update pcie action table whenever do set/clear portmap table
+	- Bug 84940: HP: Fix format of I2C Write command to PCA9545 to select channel
+
+---------------------------------------------------------------------------
+
+	Version 1.03.20210121 (1/21/2021)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+	- LRDIMM/3DS LRDIMM support
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.8 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- 24 NVMe PCIe hotplug support (1.03)
+	- NVDIMM-N support
+	- NVDIMM-N health monitor support (1.03)
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+	- NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+	- Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+	- Optional to disable secure WDT (1.03)
+	- UEFI hotplug LED control support (1.03)
+	- UEFI PCIe limited auto bifurcation support (default off) (1.03)
+	- UEFI PCIe firwmare first support (1.03)
+
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC 
+                          DVT: B48.03028.00SC	
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later	
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.03 does not work with SCP FW 1.02.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+    - Bug 82240: On NVMe hot plug, AER reported on Linux console
+	  Solution: When surprise removal of NVMe disk, PCIe AER
+                error is reported by Linux kernel. There is no 
+				impact to this error. For the time being, just 
+				ignore them.
+	- Bug 82206: On NVMe hot insertion, occasionally NVMe disk
+                 is not recognized.
+      Solution: This is under investigation. Possible solution is
+                to re-insert it again.
+	- Bug 82314: On NVMe hotplug with mulitple disk concurrently,
+                 Linux kernel reports soft lockup.
+      Solution: This is under investigation. Remove and insert
+                one NVMe at a time.	  
+				  
+	Resolved Issues:
+	- Bug 82975: HP: Use device instead bus to identify PCIe device
+	- Bug 82982: PCIE: HP: Disk hotplug of slot 21/22 does not get recognized
+	- Bug 82977: PCIE: HP: Fix cannot update portmap table by HpSetPortMap from UEFI
+	- Bug 82908: PCIe: Fix logic of bit 7 (RESETN_PIN) to reset PCIE by i2c method
+	
+	- Bug 82903: MdeModulePkg: Disable code to convert convention memory to run-time
+	- Bug 82808: TPM: Do not accesss TPM memory address when TPM disabled
+	- Bug 82808: TPM: Disable TPM by default
+	- Bug 82520: SMBIOS: Fix MAX speed not updated
+
+---------------------------------------------------------------------------
+	
+	Version 1.03.20210108 (1/8/2021)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+	- LRDIMM/3DS LRDIMM support
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.8 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA/RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- 24 NVMe PCIe hotplug support (1.03)
+	- NVDIMM-N support
+	- NVDIMM-N health monitor support (1.03)
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+	- NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+	- Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+	- Optional to disable secure WDT (1.03)
+	- UEFI hotplug LED control support (1.03)
+	- UEFI PCIe limited auto bifurcation support (default off) (1.03)
+	- UEFI PCIe firwmare first support (1.03)
+
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC 
+                          DVT: B48.03028.00SC	
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later	
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.03 does not work with SCP FW 1.02.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+    - Bug 82240: On NVMe hot plug, AER reported on Linux console
+	  Solution: When surprise removal of NVMe disk, PCIe AER
+                error is reported by Linux kernel. There is no 
+				impact to this error. For the time being, just 
+				ignore them.
+	- Bug 80641: On stress NVMe hot plug, Linux kernel panic
+	             with SError. 
+	  Solution: This is under investigation. This is no workaround
+	            to this issue at the moment. It occurs under 
+				stress testing of hot plug.
+	- Bug 82206: On NVMe hot insertion, occasionally NVMe disk
+                 is not recognized.
+      Solution: This is under investigation. Possible solution is
+                to re-insert it again.
+	- Bug 82314: On NVMe hotplug with mulitple disk concurrently,
+                 Linux kernel reports soft lockup.
+      Solution: This is under investigation. Remove and insert
+                one NVMe at a time.	  
+				  
+	Resolved Issues:
+	- Bug 82259: DDR: MP: Fix DDR PHY training issue with low core SKU
+    - Bug 82790: Update SPI NOR layout to support the missing UUID region.
+	
+    - Bug 82206: PCIe: HP: QS: Fix some ports not detect disks when do reinsert
+    - Bug 80641: PCIe: HP: QS: Fix kernel panic when do fast surprise HP insert right after surprise HP remove
+    - Bug 82240: PCIe: HP: QS: Fix bug AER errors are raised when doing graceful removal U2 NVMe
+	
+	- Bug 76743: I2C: Fix IPMI in-band i2c error under stress testing
+    - Bug 76743: QS: I2C: IPMI Inband error
+    - Bug 80641: PCIe: HP: QS: Fix kernel panic when do fast surprise HP insert
+    - Bug 82654: QS: PCIE: NVMe drives are lost after several DC power cycles
+    - Bug 82808: QS: TPM: Disable TPM by-default.
+	
+---------------------------------------------------------------------------
+
+	Version 1.03.20201219 (12/19/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- Mixing DIMMs of different frequencies within the same channel (highest common frequency used) (1.03)
+    - Mixing speed grade/frequency across 2 slots per channel (1.03)
+	- LRDIMM/3DS LRDIMM support
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.8 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- 24 NVMe PCIe hotplug support (1.03)
+	- NVDIMM-N support
+	- NVDIMM-N health monitor support (1.03)
+    - DMC clock gate/PHY clock gate (default off)
+    - Auto self-refresh/Auto power down (default off)
+    - DDR 2x refresh rate support (default 1x)
+	- NMI support via GPIO0-7 (default 0)
+    - 2P link hardware error injection support
+	- Enhanced DDR RAS capability
+    - Mitigation for CVE-2020-10255
+	- Optional to disable secure WDT (1.03)
+	- UEFI hotplug LED control support (1.03)
+	- UEFI PCIe limited auto bifurcation support (default off) (1.03)
+	- UEFI PCIe firwmare first support (1.03)
+
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Hotplug Hardware and Kernel Requirement:
+    - Mt Jade EVT system: EVT2: B48.03029.00SC 
+                          DVT: B48.03028.00SC	
+    - SSD Samsung's 983 DCT or Intel SSD DC P4510 SERIES
+    - Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+    - Back plane FW: D03
+    - Ampere CentOS: AMP CentOS 8.0-20201201 or later	
+	
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.03 does not work with SCP FW 1.02.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+    - Bug 82240: On NVMe hot plug, AER reported on Linux console
+	  Solution: When surprise removal of NVMe disk, PCIe AER
+                error is reported by Linux kernel. There is no 
+				impact to this error. For the time being, just 
+				ignore them.
+	- Bug 80641: On stress NVMe hot plug, Linux kernel panic
+	             with SError. 
+	  Solution: This is under investigation. This is no workaround
+	            to this issue at the moment. It occurs under 
+				stress testing of hot plug.
+	- Bug 82206: On NVMe hot insertion, occasionally NVMe disk
+                 is not recognized.
+      Solution: This is under investigation. Possible solution is
+                to re-insert it again.
+	- Bug 82314: On NVMe hotplug with mulitple disk concurrently,
+                 Linux kernel reports soft lockup.
+      Solution: This is under investigation. Remove and insert
+                one NVMe at a time.	  
+	
+    IMPORTANT NOTE: The SPI-NOR layout change. Please consult the
+	Altra SoC BMC interface spec for more information!!!
+				  
+	Resolved Issues:
+	- Bug 79617: DDR: Handle NVDIMM-N CSAVE/ERASE/RESTORE/ARM operation failure
+	- Bug 80674: DDR: Support NV-RDIMM type for uefi memory info
+	- Bug 80246: NVDIMM-N: Re-init DIMM Vref after RESTORE operation
+	- Bug 81657: Support new SPI NOR layout.
+	- Bug 80446: AmperePlatformPkg: Support option to disable BIOS, secure WDT
+	- Bug 80674: QS: DDR: Support NV-RDIMM type for uefi memory info
+	- Bug 80427: QS: BERT: Show only vendor structure on UEFI failure
+	- Bug 80889: IPMI2 upgrade to label_07 to fix the issues with virtual
+	- Bug 80889: objcopy 2.34 is not copying the .data section into a
+	- Bug 80889: Smbios Upgrade to Label 26.Logic for dynamic update for
+	- Bug 80889: QS: Above 4G decode setup control is not applicable for Arm64 SOCs since resource description is defined in Silicon specific PCI host bridge driver. And 4G terminology is X86 terminology
+	- Bug 80939: AmperePlatformPkg: Not enable chipset SATA controller screen
+	- Bug 81076: QS: NVDIMM-N: DSM method for health check.
+	- Bug 80628: QS: Bridge port is removed after graceful/surprise removal
+	- Bug 81150: QS: NVDIMM-N: Update fields for NFIT table
+	- Bug 81314: QS: Change "Turbo Enable" to "Max Performance"
+	- Bug 81410: AmiModulePkg: PCI: Display max payload size based on root port capability
+	- Bug 81410: AmiModulePkg: PCI: PCI dynamic devices entries are created based on the SDL
+	- Bug 81410: QS: USB virtual Ethernet (between BMC and CPU) is listed in PXE boot option list. It is preferred to filter out this device from the boot list. AMI is having a off the shelf component to filter the boot devices by ELINK using product id and vendor id. This component RemoveUsbBootOption is having entry for AMI BMC RNDIS device to filter. Default is disabled. This patch enables this support
+	- Bug 81410: AmiModulePkg: PCI: Hiding the PCI setup option Target Link Speed as
+	- Bug 81404: PCI: Support limited auto bifurcation
+	- Bug 81163: QS: PCI: Fix out of resource when 32bit BAR has more than 0x400_0000
+	- Bug 81711: AmiModulePkg: AHCI: Fix missing calling unmap address
+	- Bug 81711: ArmPlatformPkg: PCI: Map DMA address to 32bit as possible
+	- Bug 81819: QS: Fix SLIT/SRAT to use ACPI 6.3 specs
+	- Bug 81681: QS: NVDIMM-N: Mark NVDIMM region as non-volatile/hot_pluggable for DAX mode support
+
+---------------------------------------------------------------------------
+
+	Version 1.02.20201208 (12/8/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels (1.02)
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​ (1.02)
+	- No support mixing DIMMs of different frequencies within the same channel (highest common frequency used)
+    - No support mixing speed grade/frequency across 2 slots per channel
+	- LRDIMM/3DS LRDIMM support (1.02)
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support	 
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.75 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- Limited PCIe hotplug support (1.02)
+	  S0 RCB1.2, S0 RCB1.6, S1 RCB2.6, and S1 RCB3.6
+	- NVDIMM-N support (1.02)
+    - DMC clock gate/PHY clock gate (default off) (1.02)
+    - Auto self-refresh/Auto power down (default off) (1.02)
+    - DDR 2x refresh rate support (default 1x) (1.02)
+	- NMI support via GPIO0-7 (default 0) (1.02)
+    - 2P link hardware error injection support (1.02)
+	- Enhanced DDR RAS capability (1.02)
+    - Mitigation for CVE-2020-10255 (1.02)
+	
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+	
+	Hotplug Hardware Requirement:
+	- Mt Jade DVT system
+	- Back plane model: Mt Jade 2U 2.5" NVME BP 19X89 SB B48.03029.00SB
+	- Back plane FW: D01 (tested version) or later
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.02 does not work with SCP FW 1.01.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+
+	Resolved Issues:
+	- Bug 81078: Add setting to force PCIe to Gen3 (for manufactory only)
+	- Bug 78681: QS: PCIe: Fix link speed issue
+
+---------------------------------------------------------------------------
+				  
+	Version 1.02.20201114 (11/14/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels (1.02)
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​ (1.02)
+	- No support mixing DIMMs of different frequencies within the same channel (highest common frequency used)
+    - No support mixing speed grade/frequency across 2 slots per channel
+	- LRDIMM/3DS LRDIMM support (1.02)
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support	 
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.75 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- Limited PCIe hotplug support (1.02)
+	  S0 RCB1.2, S0 RCB1.6, S1 RCB2.6, and S1 RCB3.6
+	- NVDIMM-N support (1.02)
+    - DMC clock gate/PHY clock gate (default off) (1.02)
+    - Auto self-refresh/Auto power down (default off) (1.02)
+    - DDR 2x refresh rate support (default 1x) (1.02)
+	- NMI support via GPIO0-7 (default 0) (1.02)
+    - 2P link hardware error injection support (1.02)
+	- Enhanced DDR RAS capability (1.02)
+    - Mitigation for CVE-2020-10255 (1.02)
+	
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.02 does not work with SCP FW 1.01.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+
+	Resolved Issues:
+	- Bug 80828: QS: Disable 2P CE masking
+
+---------------------------------------------------------------------------	
+		
+	Version 1.02.20201106 (11/6/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​
+    - Mixing DIMM vendor across channels (1.02)
+	- Mixing DIMMs of different frequencies across channels (highest common frequency used)​ (1.02)
+	- No support mixing DIMMs of different frequencies within the same channel (highest common frequency used)
+    - No support mixing speed grade/frequency across 2 slots per channel
+	- LRDIMM/3DS LRDIMM support (1.02)
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support	 
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.75 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout
+	- DDR RAS write CRC, PHY ZQ/IO calibration
+	- 3DS 1DPC 128G support
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels
+	- DDR fine Grain refresh mode support
+	- UEFI PCIe setting menu control
+	- TPM measurement event support
+	- RAS hardware EINJ for DRAM support
+	- A0/A1 silicon support
+	- DDR initialization time improvement
+	- Limited PCIe hotplug support (1.02)
+	  S0 RCB1.2, S0 RCB1.6, S1 RCB2.6, and S1 RCB3.6
+	- NVDIMM-N support (1.02)
+    - DMC clock gate/PHY clock gate (default off) (1.02)
+    - Auto self-refresh/Auto power down (default off) (1.02)
+    - DDR 2x refresh rate support (default 1x) (1.02)
+	- NMI support via GPIO0-7 (default 0) (1.02)
+    - 2P link hardware error injection support (1.02)
+	- Enhanced DDR RAS capability (1.02)
+    - Mitigation for CVE-2020-10255 (1.02)
+	
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.02 does not work with SCP FW 1.01.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+	- Bug 80031: Kernel crash dump fails due to limited 32-bit RAM
+	  Solution A: Limit the crash dump RAM to size lesser than 490MB.
+	              Though, you may have issue with PCIe 32-bit cards.
+	  Solution B: Enable slave socket 1GB RAM from UEFI. 
+	              With subNUMA hemisphere/Quadrant, not all Linux 
+				  distribution will work.
+
+	Resolved Issues:
+    - Bug 78359: DDR: Sync up with ddrlib v200914
+	             - Enable IO calibration
+				 - Skip compare address mapping from edge connector to DRAM per channel
+				 - Support mix DIMM x4/x8 per channel.
+    - Bug 78664: DDR: Optimize 2DPC wtr_s/l/cs and wtw_cs timing.
+    - Bug 78892: DDR: Support DDR Low Power configuration.
+    - Bug 78941: DDR: Sync up ddrlib version 201001.
+	             - Support 2x tREFI to migrate row hammering attack
+				 - Update PHY DLL threshold from 8 to 6
+				 - Change shutter bits for new memory hashing
+    - Bug 78653: Pass 2P link speed/width to UEFI HOB
+    - Bug 79398: DDR: Sync up ddrlib v201009
+                 - Update BIST pattern
+				 - Improve PHY Vref training
+				 - Skip common SPD channel compare for NVDIMM at MCU3/7
+				 - Support mixing DIMM vendor across channel
+				 - Support mixing DRAM bitmap per slot
+    - Bug 79486: Changing SPI NOR access handshake with BMC.
+    - Bug 78213, 77309: DDR: Fix RTW (+1) timing margin
+    - Bug 80168: WDT: Correct the timeout value for NS-WDT
+    - Bug 80245: DDR: Syncup ddrlib v201030
+           - Remove wrong software assertion in MP training.
+           - SW DQS calibration retry with different DramVref and WrDQ value.
+    - Bug 80485: DDR: Sync up DDR library v201106 to fix performance degrade issue
+
+    - Bug 78358: HP: PCIe reset support for limited GPIO and I2C
+    - Bug 78176: Update Secureboot, AmiSecureBootPkg, AmiCryptoPkg 
+    - Bug 78176: QS: Not enable Secure Boot by default
+    - Bug 72563: QS: SmbiosMiscDxe: Correct segment slot number
+    - Bug 78142: QS: Remove LPI-1 Standby ATF state
+    - Bug 78518: QS: Don't build TCG when enable Emag2Emulator_SUPPORT
+    - Bug 66720: QS: ACPI: DSDT: PCIe HP: Support multiple HP ports
+    - Bug 78402: QS: BERT: fix Truncated Bert Record
+    - Bug 76627: AmperePlatformPkg: Support NVParamNull library
+    - Bug 78518: QS: Don't build TCG when enable Emag2Emulator_SUPPORT
+    - Bug 78518: QS: ACPI: Not populate BERT with Emag2Emulator_SUPPORT = 1
+    - Bug 78518: QS: ACPI: Not populate BERT with Emag2Emulator_SUPPORT = 1
+    - Bug 78402: QS: BERT: Resize Record to match core count
+    - Bug 78893: QS: Add Runtime service support to Emag2CpuLib
+    - Bug 78714: Upgrade AMITSE to 1278 to fix crashing
+    - Bug 78869: QS: NVParamLib: Support handling Virtual Address.
+    - Bug 76907: DDR: Add BIOS menu for CVE-2020-10255 mitigation.
+    - Bug 78179: QS: Secure Boot: Updating SecureBoot and CryptoPkg module in AmperePlatformPkg
+    - Bug 78682: Avoid clearing failsafe context on every boot
+    - Bug 79397: QS: SMBIOS Type1: Correct Family type string
+    - Bug 79550: PCI: PCIE MaxPayLoad Setup option is created dynamically based on
+    - Bug 78936: QS: BERT: Add Bert Revision
+    - Bug 76648: QS: Enable CUSTOM_FRU_ID_SUPPORT=1
+    - Bug 79021: QS: Fix potential offnode page struct when boot Linux
+    - Bug 79448: MdeModulePkg: Fix the exiting boot service error
+    - Bug 79791: AmiTsePkg: Update HPKTool
+    - Bug 79791: Correct PCIe device in PCI SDL data
+    - Bug 79571: QS: Meminfo screen: Remove redundant character
+    - Bug 75054: QS: Fix exposing CMN mapping register range
+    - Bug 79680: QS: PCIe: Fix kernel crashes due to PCIe retrain logic with PCIe switch device
+    - Bug 77950: QS: ACPI: Remove slave socket HEST entries for 1P
+    - Bug 77907: QS: Create NUMA nodes for 32-bit ranges for each socket
+    - Bug 66270: QS: PCIe: Update PCI nodes to support PCIe HP for 15 RCB ports
+    - Bug 79653: QS: BERT: Report Fatal 2P link error through Bert
+    - Bug 80066: DDR: Fix UEFI Total Memory info incorrectly
+	
+---------------------------------------------------------------------------	
+	
+	Version 1.01.20201019 (10/19/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​ (1.01)
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​ (1.01)
+	- No support for mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- No support mixing DIMMs of different frequencies within the same channel (highest common frequency used)
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support	 
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.75 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout (1.01)
+	- DDR RAS write CRC, PHY ZQ/IO calibration (1.01)
+	- 3DS 1DPC 128G support (1.01)
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels (1.01)
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels (1.01)
+	- DDR fine Grain refresh mode support (1.01)
+	- UEFI PCIe setting menu control (1.01)
+	- TPM measurement event support (1.01)
+	- RAS hardware EINJ for DRAM support (1.01)
+	- A0/A1 silicon support (1.01)
+	- DDR initialization time improvement (1.01)
+	
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.01 does not work with SCP FW 0.10.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+
+	Resolved Issues:
+	- Bug 78635: DDR: Pass the whole total memory size to UEFI.
+	- Bug 79482: Fix passing HW max supported core count to UEFI
+	
+    - Bug 78716, 78717: PCI: Prevent NULL pointer accessing
+    - Bug 78312: QS: Disable IPMI2 USB binding
+    - Bug 76460: QS: PCIE: correct Altra PCI ids
+    - Bug 78837: QS: Add PCIe NUMA node ID for subNUMA
+    - Bug 78467: Take long time in UEFI Checkpoint 9A due to IpmiRedirFru
+    - Bug 77940: QS: MemInfo: Add FGR option to setup screen
+    - Bug 77940: DDR: Minor correction for FGR 4x BIOS menu selection.
+    - Bug 78717: QS: PciBug: Add additional check for NULL pointer
+	- Bug 78588: MdeModulePkg: Ignore 64K non-alignment region when convert runtime data/code
+	- Bug 78804: QS: Fix subNUMA nonde calculation
+    - Bug 78213/77309: DDR: Sync up ddrlib 201016
+                            Update RTW timing margin            
+
+---------------------------------------------------------------------------
+
+	Version 1.01.2020930 (9/30/2020)
+	SMpro/PMpro Firmware Features:
+	- SCP hand-off-block (HOB) support (for passing parameter to ATF)
+	- DDR SPD query support (for passing DDR info to HOB)
+	- Macronix/Winbond QSPI mode support at 2.5MHz/33MHz
+	- POST (boot progress) support with report to BMC
+	- Assert PWROK signal on boot
+	- CLI command support
+	- Core, SoC and DDR VRD control and monitor via i2c with report to BMC
+	- Strap ARMv8 processor boot code
+	- Core, DSU, SLC, Mesh, MCU, CCIX, SCP, GIC, OCM, SMpro/PMpro, and SMMU RAS support via console print and report to BMC
+	- Reboot/shutdown support
+	- 2P Gen4/ESM 25G support with up to 160 cores @ 3.3GHz with AVS or 2.8GHz without AVS (default to 4 cores only)
+	- Mesh frequency up to 1.75GHz
+	- Board setting for i2c and SPI support
+	- Board setting for VRD topology support
+	(Fansipan: Config 0; Snow: Config 1, Config 2)
+	- CPPC core frequency scaling and LPI support
+	- SubNUMA monolithic, hemisphere (1.00), and quadrant support
+	- TPC TM1/TM2 with frequency throttle @ temperature limit
+	- SoC temperature HWmon support (for Linux)
+	- Timer support at 25MHz
+	- TMM support
+	- AVS support
+	- Failsafe support
+	- Measure boot support via HOB
+	- DVFS support
+	- RAS APEI support
+	- Error injection (EINJ) support
+	- SPI failover notification to BMC support
+	- Security provision support
+	- Turbo support (require effuse part)
+	- Secure boot support
+	- RAS CPM threshold support
+	- Report all power rail of SoC to BMC
+	- effuse AVS version 1.0 support
+	- effues SKU max turbo support
+	- SKU TDP report to BMC support
+	- Core energy report support
+	- DDR scrubbing support
+	- Handle I2C/2P link failure by disable slave socket (1.01)
+	- Secure watch dog user time out changeable support (1.01)
+	- Report current for all rails (1.01)
+	- RAS DDR hardware EINJ support (1.01)
+	- RAS 2P error handling support (1.01)
+	- DIMM alert trigger TCRIT method support (1.01)
+	- RAS SMpro/PMpro crash dump support (1.01)
+	- A0/A1 silicon support (1.01)
+	- Add AVS ver 2.0 support (1.01)
+	- Add Soft-start feature support (1.01)
+     
+	Known Issues:
+	- Bug XXXXX: SCP FW 1.01 does not work with ATF/UEFI FW 0.10.
+	  Solution: Update to matching FW version.	
+	 
+	Resolved Issues:
+
+	SMpro/PMpro Firmware Features (internal):
+
+	Resolved Issues (internal):
+
+---------------------------------------------------------------------------
+
+	Version 1.01.20200928 (9/28/2020)
+	BIOS Features:
+	- 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR up to 3200 MHz with ECC support
+	- Mixing different RCD vendor across channels​
+	- Mixing different RCD vendors within the same channel​
+	- Mixing different DRAM dies across channels​
+	- Mixing different DRAM dies within the same channel
+	- Mixing x4 and x8 based dimms across channels​ with same memory size​ (1.01)
+	- Mixing different DRAM densities (8 & 16 Gb) across channels​ with same memory size​ (1.01)
+	- No support for mixing DIMMs of different frequencies across channels (highest common frequency used)​
+	- No support mixing DIMMs of different frequencies within the same channel (highest common frequency used)
+	- Board setting for DDR support
+	- PSCI 1.1 SMP support	 
+	- 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	- Mesh frequency up to 1.75 GHz
+	- Serial port console support
+	- Macronix/Winbond QSPI at 2.5MHz/33MHz support 
+	- Persistent storage support via trusted firmware SMC
+	- Timer support at 25MHz
+	- Reboot/shutdown with power button support
+	- SubNUMA (monolithic/hemisphere/Quadrant) support
+	- Boot progress support
+	- UEFI RTC support
+	- UEFI HWmon/PMU ACPI support
+	- UEFI core frequency table report support
+	- UEFI BMC IPMI support
+	- UEFI SMBIOS table support
+	- UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	- UFEI subNUMA control scrren support
+	- UEFI SSIF ACPI support
+	- UEFI tftp support
+	- UEFI RAS APEI support
+	- UEFI x86 emulation support (default disabled)
+	- UEFI VGA (RCB) support (default disabled)
+	- PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	- PCIe Gen1 RCB (master/slave) support
+	- NVMe storage support
+	- i210/Mellanox 10/25/100GbE network support
+	- DDR failsafe support
+	- Boot failsafe support
+	- RAS error inject support
+	- RAS DDR UE retry and ECC symbol support
+	- PCIe bifurcation without 2nd reboot support
+	- PCIe RCA0/1 support code for 1P configuration
+	- On-board LoM support for Fansipan board
+	- UEFI USB support
+	- PCIe RCA0/0 support for 1P (default disabled)
+	- UEFI boot time performance measurement support
+	- UEFI RAS configuration menu support
+	- UEFI ACPI/turbo configuration menu support
+	- SBSA/SBBR compliance
+	- Enhance DDR margin and improve timing
+	- Secure partition (SPM) infrastructure support
+	- Secure boot up to Linux OS support
+	- PCIe SR-IOV with SMMU support
+	- Secure variable support via UEFI MM SPM
+	- Secure firmware update support via UEFI MM SPM
+	- SPI-NOR flash interface via UEFI MM SPM
+	- NV-parameter interface via UEFI MM SPM
+	- Secure in-band FW update to UEFI MM SPM
+	- Report 2P link speed in CPU Screen and during booting
+	- RAS CPM CE threshold support
+	- DDR error status report via UEFI menu support
+	- NUMA for PCIe support
+	- Secure boot with measurement TPM
+	- Measure boot support with master/slave socket merged
+	- DDR scrub control support
+	- SPI-NOR update without reboot system
+	- Use configurable secure watch dog timeout (1.01)
+	- DDR RAS write CRC, PHY ZQ/IO calibration (1.01)
+	- 3DS 1DPC 128G support (1.01)
+	  RDIMM[ce:80] 3DS 128GB 3200 ECC 4R x4 RCD[32:86] M393AAG40M32-CAE
+	- DDR mix DIMM speed grade across channels (1.01)
+	- DDR mix DIMM x4/x8 and component capacity 8Gb/16Gb across channels (1.01)
+	- DDR fine Grain refresh mode support (1.01)
+	- UEFI PCIe setting menu control (1.01)
+	- TPM measurement event support (1.01)
+	- RAS hardware EINJ for DRAM support (1.01)
+	- A0/A1 silicon support (1.01)
+	- DDR initialization time improvement (1.01)
+	
+	Compiler:
+	- Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+	Known Issues:
+	- Bug XXXXX: PCIE: USB/VGA do not work
+	  Solution: Install Ampere kernel version. Then, enable PCIE 
+				Controller 6 from UEFI menu.
+	- Bug XXXXX: AMI SCE not supported
+	  Solution: Ampere reference design does not enable support for
+				SCE due to security concern. Other platform may
+				choose to enable this capability but will depend on
+				their security solution/risk assessment.
+	- Bug XXXXX: ATF/UEFI FW 1.01 does not work with SCP FW 0.10.
+	  Solution: Update to matching FW version.
+	- Bug 76316: Linux hibernation does not work.
+	  Solution: This is no solution at this time.
+
+	Resolved Issues:
+	- Bug 76715: DDR: Syncup with ddrlib v200729
+	- Bug 76922: NVPARAM: Support Writable bitmask for CPUECTLR_EL1 register
+	- Bug 76806: Default prefetching L2 distance to 28
+	- Bug 76736: QS: RAS: Add DDR Link Error Threshold
+	- Bug 76263: DDR: NVPARAM: Add board setting nvparam DIMM_TEMP_THRESHOLD
+	- Bug 76761: DDR: NVPARAM: Add board setting nvparam to disable spd compare
+	- Bug 77235: Reserve NS shared memory on Slave socket DRAM
+	- Bug 77238: QS: RAS: CE Threshold Update
+	- Bug 68732: QS: Enable SDEI
+	- Bug 68732: QS: Register SDEI SGI as Secure
+	- Bug 77499: Syncup ddrlib to add support ddr speed 2133
+	- Bug 75339: QS: BERT: Update Bert SPI memory space
+	- Bug 76266: QS: SPI: Update default SPI frequency for A1 chip
+	- Bug 77466: Configure the new default Prefetch Target values
+	- Bug 74726: Syncup ddrlib to add support cid_addr, rank_addr for USER_CONFIG2
+	- Bug 77051: Enable Ares max-power throttle by default
+	- Bug 77533: DDR: PHY training/ECC init simultaneously on both sockets.
+	- Bug 77656: DDR: Support NVPARAM to configure Fine Granularity Refresh mode.
+	- Bug 77533: DDR: PHY training/ECC init simultaneously on both sockets.
+	- Bug 76556: PM: Use spinlock instead of bakery lock for ACPI mbox
+	- Bug 77672: NVPARAM: Sync NVPARAM for CPU LPI hysteresis counter
+	- Bug 77716: QS: Fix NS Watchdog timer interrupt trigger during setup.
+	- Bug 77756: DDR: Move DDR_ZQCS_EN NVPARAM to user region
+	- Bug 73888: Add TPM Boot event logging support
+	- Bug 77367: Skip FWU authentication if DBU key is not deployed yet
+	- Bug 77400: QS: RAS: Update MPIDR reporting for RAS
+	- Bug 73888: TPM Boot event logging support
+	- Bug 77998: QS: RAS: Add ATF fatal BERT EINJ
+	- Bug 67043: QS: RAS: ATF Crash EINJ Update
+	- Bug XXXXX: SMCCC_ARCH_SOC_ID SMC (SMCCC v1.2) support
+	- Bug 77010: Fix support to mix DIMM x4/x8 per channel
+    - Bug 78622: DDR: Sync up with ddrlib v200921 (Enable IOCAL by default)
+	- Bug 74648: QS: PCIe: UEFI set linkup timeout to 1 second
+	- Bug 76586: QS: Add AHBC ID to hob
+	- Bug 76487: QS: Fix loss characters in memory setup screen.
+	- Bug 75798: QS: Provide BIOS option for switching between eLRU and pseudo-random for SLC replacement policy
+	- Bug 73378: LPI: Support LPI usage and residency counter
+	- Bug 76922: QS: NVPARAM: Support Writable bitmask for CPUECTLR_EL1 register
+	- Bug 76402: QS: Measure LPI Latency
+	
+	- Bug 76936: Smbus shows error when reading data via I2C
+	- Bug 76739: ShellBinPkg: Upgrade to ShellBinPkg_12 from AMI SVN.
+	- Bug 76855: QS: MemInfo: Display slot indicator from 1 matching board layout.
+	- Bug 76736: QS: RAS: Add DDR Link Error Threshold
+	- Bug 72563: QS: SMBIOS: Set PCIe slots as Gen 4
+	- Bug 72563: QS: SmbiosMiscDxe: Correct numbering for slots
+	- Bug 75699: QS: Watchdog: Add Secure Watchdog Timer user parameter
+	- Bug 77033: QS: Don't map zero address.
+	- Bug 77058: QS: ACPI: FADT minor version should be 3 (ACPI 6.3)
+	- Bug 76974: QS: Updating LPI wake latency causes PMPro errors
+	- Bug 77127: QS: PCIE: Enable common clock.
+	- Bug 77128: QS: Fix memory corruption when BMC FRU not available.
+	- Bug 77128: AmperePlatformPkg: Intel Nic driver has been upgraded to 25.1.1
+	- Bug 77128: Ami modules: Fix IP settings not cleared when IP configuration disabled.
+	- Bug 75699: AmperePlatformPkg: Allow to change watchdog used by ATF and SCP.
+	- Bug 77093: QS: UEFI crash with debug image
+	- Bug 76981: QS: Add link equalization for GEN4 link
+	- Bug 76436: QS: Optimize the Altra hwmon shared memory
+	- Bug 77238: QS: RAS: CE Threshold Update
+	- Bug 76648: Fix FRU data transfer issue
+	- Bug 76733: QS: Update PCIe speed register
+	- Bug 77176: QS: Fix SCSI not working.
+	- Bug 77216: MmCommunicationPeiLib: Move API header to Include directory
+	- Bug 77216: NVParam: Fix implicit declaration of function
+	- Bug 77216: CpuLib: Fix implicit declaration of function
+	- Bug 77216: Fix sequence point warnings
+	- Bug 77216: QS: PlatformInfoDxe: Fix typo
+	- Bug 68732: QS: ACPI: Add SDEI Support
+	- Bug 77045 : MQ Emulator: Linux OS boot hang while parsing GIC ITS.
+	- Bug 77384: QS: ACPI: Update FACP and GTDT to ACPI 6.3 specs.
+	- Bug 77445: QS: Print correct CCIX speed.
+	- Bug 75767: QS: Add demand scrub option to memory setup screen.
+	- Bug 75339: QS: BERT: Enable Full Crash Dump
+	- Bug 77672: QS: Sync NVPARAM for CPU LPI hysteresis counter
+	- Bug 77716: AmperePlatformPkg: Prevent system reset when receiving fishy NS Watchdog timer.
+	- Bug 68732: QS: Board: Jade: NMI GPIO Interrupt Enable
+	- Bug 75339: QS: BERT: Fix incorrect structure size
+	- Bug 77751: IpConfiguration: Buffer overflow check has been added when copying string variables
+	- Bug 77751: Remove iSCSI module dute to security concerns
+	- Bug 72501: Program preset setting and update IP reset sequence
+	- Bug 72501: Program common clock setting
+	- Bug 72501: Add detection of no card present
+	- Bug 72501: Add PCIe retraining logic
+	- Bug 72501: Altra: Temporary workaround check point 94 by avoid link retrain
+	- Bug 77400: QS: ACPI: Update HEST source 5 ack register
+	- Bug 77894: QS: Support option to disable onboard VGA
+	- Bug 77734: QS: PCIe: Unable to detect PEX88096's Downstream ports on SLT board
+	- Bug 77789: QS: DDR: Add Write CRC option to memory setup screen
+	- Bug 77751: QS: Evaluation flag needs to be set for the reference platforms for business reasons
+	- Bug 75339: QS: BERT: Add Slave Smpro/Pmpro to Bert
+	- Bug 77965: QS: Enable AHCI host controller driver
+	- Bug 77977: QS: Fix CCIX speed display in UEFI menu
+	- Bug 73888: Enhanced UEFI TPM driver to sync TPM Event Logs from pre-UEFI
+	- Bug 73888: QS: Enhanced UEFI TPM driver to sync TPM Event Logs from pre-UEFI
+	- Bug 76213: QS: PCIE: Enable UEFI menus to select MaxPayLoad
+	- Bug 78111: AmperePlatformPkg: Mark remote node memory as boot service data
+    - Bug 76627: QS: ACPI: DSDT: Update DSU nodes follow new specs.
+    - Bug 78325: QS: PCIe: Fix non-alignment access during reading CAP
+    - Bug 78480: Add board setting Gen4 Rx/Tx preset setting support
+	- Bug 78529: QS: Enable turbo by default for supported part
+	- Bug 76460: QS: PCIE: Update PCIe device ID for host/PCI bridge
+	
+---------------------------------------------------------------------------
+
+    Version 0.10.20200813 (8/13/2020)
+    BIOS Features:
+	 - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+     - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+     - Mixing different RCD vendor across channels​
+     - Mixing different RCD vendors within the same channel​
+     - Mixing different DRAM dies across channels​
+     - Mixing different DRAM dies within the same channel
+	 - Board setting for DDR support
+     - PSCI 1.1 SMP support	 
+     - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	 - Mesh frequency up to 1.75 GHz
+     - Serial port console support
+     - Macronix/Winbond QSPI at 2.5MHz/20MHz support 
+     - Persistent storage support via trusted firmware SMC
+     - Timer support at 25MHz
+     - Reboot/shutdown with power button support
+     - SubNUMA (monolithic/hemisphere/Quadrant) support
+     - Boot progress support
+     - UEFI RTC support
+     - UEFI HWmon/PMU ACPI support
+	 - UEFI core frequency table report support
+     - UEFI BMC IPMI support
+	 - UEFI SMBIOS table support
+     - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	 - UFEI subNUMA control scrren support
+	 - UEFI SSIF ACPI support
+	 - UEFI tftp support
+	 - UEFI RAS APEI support
+	 - UEFI x86 emulation support (default disabled)
+	 - UEFI VGA (RCB) support (default disabled)
+	 - PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	 - PCIe Gen1 RCB (master/slave) support
+     - NVMe storage support
+     - i210/Mellanox 10/25/100GbE network support
+	 - DDR failsafe support
+	 - Boot failsafe support
+	 - RAS error inject support
+	 - RAS DDR UE retry and ECC symbol support
+	 - PCIe bifurcation without 2nd reboot support
+	 - PCIe RCA0/1 support code for 1P configuration
+	 - On-board LoM support for Fansipan board
+	 - UEFI USB support
+	 - PCIe RCA0/0 support for 1P (default disabled)
+	 - UEFI boot time performance measurement support
+     - UEFI RAS configuration menu support
+     - UEFI ACPI/turbo configuration menu support
+	 - SBSA/SBBR compliance
+	 - Enhance DDR margin and improve timing
+	 - Secure partition (SPM) infrastructure support
+	 - Secure boot up to Linux OS support
+	 - PCIe SR-IOV with SMMU support
+	 - Secure variable support via UEFI MM SPM
+	 - Secure firmware update support via UEFI MM SPM
+     - SPI-NOR flash interface via UEFI MM SPM
+	 - NV-parameter interface via UEFI MM SPM
+	 - Secure in-band FW update to UEFI MM SPM
+	 - Report 2P link speed in CPU Screen and during booting
+     - RAS CPM CE threshold support
+     - DDR error status report via UEFI menu support
+	 - NUMA for PCIe support
+	 - Secure boot with measurement TPM
+	 - Measure boot support with master/slave socket merged
+	 - DDR scrub control support
+	 - SPI-NOR update without reboot system
+	 
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+	 - Bug XXXXX: PCIE: USB/VGA do not work
+	   Solution: Install Ampere kernel version. Then, enable PCIE 
+				 Controller 6 from UEFI menu.
+	 - Bug XXXXX: AMI SCE not supported
+	   Solution: Ampere reference design does not enable support for
+	             SCE due to security concern. Other platform may
+				 choose to enable this capability but will depend on
+				 their security solution/risk assessment.
+	 - Bug XXXXX: ATF/UEFI FW 0.10 does not work with SCP FW 0.09.
+	   Solution: Update to matching FW version.
+     - Bug 72501: PCIE: UEFI hangs at check point 94
+       Solution: It is observed on some system that UEFI hangs at boot
+                   occasionally. Reboot the system when observed.
+	 - Bug 76440: PCIE: UEFI hangs at check point 92
+       Solution: It is observed on some system that UEFI hangs at boot
+                   occasionally. Reboot the system when observed.
+	   
+	Resolved Issues:
+	 - Bug 76586: Add report of AHBC version
+     - Bug 76626: DDR: Sync up with ddrlib v200727
+	              - Enhance performance for Mt Jade.
+				  - Optimize timing for performance improvement.
+				  - Support Hynix 64GB DIMM.
+     - Bug 75521: QS: SPI: Update Exit XIP mode configuration
+
+	 - Bug 72501: QS: PCIe: Decrease likelihood seeing UEFI stuck at "Checkpoint 94"
+     - Bug 76586: QS: Add AHBC ID to hob
+     - Bug 76733: QS: PCIe RCA bifurcation/speed errata workaround
+     - Bug 76626: QS: DDR: NVPARAM: Syncup ddr board setting default value with ddrlib 200727
+	 - Bug 76635: QS: Fix FACP and SMBIOS Type 17 FWTS failed testcases
+     - Bug 76558: QS: SMBIOS reports S1 max frequency when turbo is enabled
+     - Bug 73173: QS: ACPI: PCIe: CentOS hang when MLX 10G installed on RCB0A/RCB0B
+     - Bug 76733: QS: Fix PCIe RCA bifurcation/speed errata for additional silicon
+     - Bug 77093: QS: UEFI crash with debug image (help with reliability stress testing)
+     - Bug 75774: Secure Boot: Add linux distro certificates
+	 - Bug 76648: Fix FRU data transfer issue
+	    
+---------------------------------------------------------------------------
+
+    Version 0.09.20200724 (7/24/2020)
+    BIOS Features:
+	 - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+     - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+     - Mixing different RCD vendor across channels​ (0.09)
+     - Mixing different RCD vendors within the same channel​ (0.09)
+     - Mixing different DRAM dies across channels​ (0.09)
+     - Mixing different DRAM dies within the same channel (0.09)
+	 - Board setting for DDR support
+     - PSCI 1.1 SMP support	 
+     - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	 - Mesh frequency @ 1.25 GHz (AVS) and 1.2GHz (non-AVS)
+     - Serial port console support
+     - Macronix/Winbond QSPI at 2.5MHz support 
+     - Persistent storage support via trusted firmware SMC
+     - Timer support at 25MHz
+     - Reboot/shutdown with power button support
+     - SubNUMA (monolithic/hemisphere/Quadrant) support (0.09)
+     - Boot progress support
+     - UEFI RTC support
+     - UEFI HWmon/PMU ACPI support
+	 - UEFI core frequency table report support
+     - UEFI BMC IPMI support
+	 - UEFI SMBIOS table support
+     - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	 - UFEI subNUMA control scrren support
+	 - UEFI SSIF ACPI support
+	 - UEFI tftp support
+	 - UEFI RAS APEI support
+	 - UEFI x86 emulation support (default disabled)
+	 - UEFI VGA (RCB) support (default disabled)
+	 - PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	 - PCIe Gen1 RCB (master/slave) support
+     - NVMe storage support
+     - i210/Mellanox 10/25/100GbE network support
+	 - DDR failsafe support
+	 - Boot failsafe support
+	 - RAS error inject support
+	 - RAS DDR UE retry and ECC symbol support
+	 - PCIe bifurcation without 2nd reboot support
+	 - PCIe RCA0/1 support code for 1P configuration
+	 - On-board LoM support for Fansipan board
+	 - UEFI USB support
+	 - PCIe RCA0/0 support for 1P (default disabled)
+	 - UEFI boot time performance measurement support
+     - UEFI RAS configuration menu support
+     - UEFI ACPI/turbo configuration menu support
+	 - SBSA/SBBR compliance
+	 - Enhance DDR margin and improve timing
+	 - Secure partition (SPM) infrastructure support
+	 - Secure boot up to Linux OS support (0.09)
+	 - PCIe SR-IOV with SMMU support (0.09)
+	 - Secure variable support via UEFI MM SPM (0.09)
+	 - Secure firmware update support via UEFI MM SPM (0.09)
+     - SPI-NOR flash interface via UEFI MM SPM (0.09)
+	 - NV-parameter interface via UEFI MM SPM (0.09)
+	 - Secure in-band FW update to UEFI MM SPM (0.09)
+	 - Report 2P link speed in CPU Screen and during booting (0.09)
+     - RAS CPM CE threshold support (0.09)
+     - DDR error status report via UEFI menu support (0.09) 
+	 - NUMA for PCIe support (0.09)
+	 - Secure boot with measurement TPM (0.09)
+	 - Measure boot support with master/slave socket merged (0.09)
+	 - DDR scrub control support (0.09)
+	 - SPI-NOR update without reboot system (0.09)
+	 
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+	 - Bug XXXXX: PCIE: USB/VGA do not work
+	   Solution: Install Ampere kernel version. Then, enable PCIE 
+				 Controller 6 from UEFI menu.
+	 - Bug XXXXX: AMI SCE not supported
+	   Solution: Ampere reference design does not enable support for
+	             SCE due to security concern. Other platform may
+				 choose to enable this capability but will depend on
+				 their security solution/risk assessment.
+	 - Bug XXXXX: ATF/UEFI FW 0.09 does not work with SCP FW 0.05.
+	   Solution: Update to matching FW version.
+     - Bug 72501: PCIE: UEFI hangs at check point 94
+       Solution: It is observed on some system that UEFI hangs at boot
+                   occasionally. Reboot the system when observed.
+     - Bug 73175: PCIE: Mellanox 10GbE card failed to probe when connected to
+                  PCIE RCB0A port
+       Solution: Do not connect on PCIe RCB0A port. Use a different port.
+	 - Bug 76440: PCIE: UEFI hangs at check point 92
+       Solution: It is observed on some system that UEFI hangs at boot
+                   occasionally. Reboot the system when observed.
+	 - Bug 76556: ATF: ACPI mailbox time out waiting for TX ack observed.
+	   Solution: It is observed sometime. Reboot the system if necessary.
+	   
+	Resolved Issues:
+     - Bug 74411: QS: Use ARMv8.1-a LSE extensions for atomic ops
+     - Bug 74411: QS: PM: Use atomic operations for power management code
+     - BUG 74477: TPM: Send complete value of TPM SPI Location
+     - Bug 74132: QS: DDR: Extend DDR failsafe context to support reporting the DIMM error
+     - Bug 70942: Fix IRQ nobody care warning message
+     - Bug 75132: SPI NOR proxy: Print error message for write permission check.
+     - Bug 74864: DDR: Support ECC initialization with any core as master.
+     - Bug 74871: QS: DDR: Support to report NO-DIMM event
+     - Bug 74093: QS: DDR: Support to skip init Slave DDR if NO-DIMM detected on Slave
+     - Bug 75072: QS: DDR: Support to log NO-DIMM for both SK in case NO-DIMM plugged on both of them
+     - Bug 75315: QS: DDR: Fix BIOS shows SO-DIMM instead of UDIMM
+     - Bug 75810: QS: DDR: Update the implementation of no-dimm detection and reporting
+     - Bug 74904: Support SPD comparison policy for slot/channel (1.00.20200711)
+     - Bug 74133: QS: DDR: Enable DDR Scrub Patrol by default with period 24hrs (1.00.20200711)
+     - Bug 75711: QS: SPI: Add Receive Data Sample Delay (1.00.20200711)
+     - Bug 75868: TPM: Set SPI1 default frequency to 10MHz (1.00.20200711)
+     - Bug 75861: TPM: Set TPM SPI frquency based on NVParam value (1.00.20200711)
+     - Bug 75265: QS: WDT: Fix system is not rebooted when WS1 times out after OS fails to boot (1.00.20200711)
+     - Bug 75888: DDR: Fix ECC init strange characters on Terminal Emulator. (1.00.20200711)
+     - Bug 75999: SPI NOR live locking support. (1.00.20200711)
+     - Bug: 76120: QS: RASDP: Fix RCA number print (1.00.20200718)
+     - Bug 76247: QS: RAS: Add DSU CE Error Injection (1.00.20200718)
+     - Bug 75687: TPM: Fix timeout in SPI communication (1.00.20200718)
+	 - Bug 76375: DDR: Fix ECC print info (1.00.20200721)
+	 - Bug 76412: DDR: Allow mix RCD manufacture ID across slot per channel (1.00.20200721)
+
+	 - Bug 74476: I2CLib update for compatibility with BMC NACK
+     - Bug 74201: Clone MmCommunicationDxe driver from EDK2.
+     - Bug 74201: Support MmCommunicateDxe on Jade platform.
+     - Bug 74580: QS: Core context is not lost in LPI states
+     - Bug 74620: MM: Fix the OS crashes when loading MmCommunicate Driver.
+     - Bug 74567: Events are logged in SEL with incorrectly time during CPU cycle
+     - Bug 74200: MM: Switch ArmSMCSecureLib to use MM protocol.
+     - Bug 74200: MM: Switch SecurityDxe to use MM protocol.
+     - Bug 74545: QS: ACPI: Fix wrong resource allocation in PCI/RCA1/RCA1_PRT
+     - Bug 74667: QS: SMBIOS: Add missing Type 17 max/min/configured voltages.
+     - Bug 74423: QS: Fix BIOS_TAG broken.
+     - Bug 74481: QS: SMBIOS: Fix cache config and type error.
+     - Bug 73889: QS: PCIe: Fix out of resouce when allocating IO memory.
+     - Bug 73710: QS: PCIe: Read back after writting to configuration space.
+     - Bug 74557: Fix failsafe get wrong status
+     - Bug 75067: QS: AmperePlatformPkg: Send BL33 boot progress to slave
+     - Bug 74624: QS: Change the core order with faster core first
+     - Bug 74782 QS: ACPI: IORT: Update SMMUv3 node
+     - Bug 74592: AmiIpmi2Pkg: Fix FRU Information displayed in UEFI Menu
+     - Bug 75220: QS: ACPI: DSDT: Remove _CID from PL011.
+     - Bug 75271: QS: SMBIOS: Type 4: Fill a valid value for asset tag.
+     - Bug 69354: QS: Always send UEFI revision to BMC
+     - Bug 75099: QS: SMBIOS Type 17: Display correct DIMM locator string for slave socket.
+     - Bug 68456: QS: ACPI: SRAT table require ITS affinity definition
+     - Bug 74799 QS: PCIE: Incorrect PCIe devices Numa_node
+     - Bug 75362: MM: Switch FailSafeLib to use MM protocol.
+     - Bug 75402: AmiModulePkg: Add AMI TPM UEFI source component based on pre-25 and AArch64 specific changes (1.00.20200627)
+     - Bug 75402: QS: Configured CRB address and SMC ID for TPM. CRB address added in memorymap. ASL node for TPM added in DSDT
+     - Bug 75402: AmiModulePkg: NVME: TPM PPI support has been disabled since it asserts during booting which handles the freeze lock. It requires associated MM handler ( SMM in X86 ) which QS does not have.
+     - Bug 75402: AmiModulePkg: Update AmiTsePkg to AMITSE_2_21_1277 to fix memory leak which casues assert when TPM is not present.
+     - Bug 75402: QS: Change build UUID due to adding TPM support (1.00.20200627)
+	 - Bug 75648: MdeModulePkg: ACPI: Changed DEBUG macro level from ERROR to INFO (1.00.20200627)
+     - Bug 75661: QS: Clean up PCIe debug print (0.99.20200630)
+	 - Bug 70825: PCIE: PCI switch does not work. (0.99.20200630)
+     - Bug 75762: AmperePlatformPkg: Limit UEFI memory base to 32bits. (0.99.20200702)
+     - Bug 75177: QS: Skip unnecessary NVPARAM read for DebugInfoPei driver. (0.99.20200702)
+	 - Bug 74133: QS: Add scrub patrol selection menu (0.99.20200702) 
+	 - Bug 75854: QS: DSDT: Add Altra hwmon support (1.00.20200711)
+	 - Bug 75868: QS: TPM: Set SPI1 default frequency to 10MHz (1.00.20200711)
+	 - Bug 75877: QS: DSDT: Only enable Slave Altra hwmon node on 2P system (1.00.20200711)
+	 - Bug 72563: QS: Support SMBIOS Type 9 (1.00.20200711)
+	 - Bug 75770: QS: SMBIOS Type 17: Fix DDR size not correctly populated for slave socket (1.00.20200711)
+	 - Bug 75773: QS: DSDT: Add checking TPM presence (1.00.20200711)
+	 - Bug 75929: AmperePlatformPkg: Make sure AmperePlatformPkg stay after SecureBoot in build order. (1.00.20200711)
+	 - Bug 75929: QS: Add AMI FmpCapsule module to the project. (1.00.20200711)
+	 - Bug 75929: AmiModulePkg: Add DefaultBootOptionPriority module (1.00.20200711)
+	 - Bug 75285: QS: PCIe: Unable to boot UEFI Broadcom Switch Cards (1.00.20200711)
+     - Bug 76259: QS: CryptoPkg: Fix the CryptoPkg crash (1.00.20200718)
+     - Bug 75774: QS: Secure Boot: Restoring Factory Key (1.00.20200718)
+     - Bug 75773: QS: ACPI: DSDT: Fix missing return zero for TPM (1.00.20200718)
+     - Bug 76193: QS: Fix PCIe PHY potential uses un-initialize setting (1.00.20200718)
+	 - Bug 76234: QS: ACPI: Enable LPI by default (1.00.20200721)
+	    
+---------------------------------------------------------------------------
+
+    Version 0.05.20200529 (5/29/2020)
+    BIOS Features:
+	 - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+     - 2DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support (0.05)
+	 - Board setting for DDR support
+     - PSCI 1.1 SMP support	 
+     - 2P support with up to 160 cores @ 3.0GHz (AVS) and 1.8GHz (non-AVS)
+	 - Mesh frequency @ 1.25 GHz (AVS) and 1.2GHz (non-AVS)
+     - Serial port console support
+     - Macronix/Winbond QSPI at 2.5MHz support 
+     - Persistent storage support via trusted firmware SMC
+     - Timer support at 25MHz
+     - Reboot/shutdown with power button support
+     - SubNUMA (monolithic/Quadrant) support
+     - Boot progress support
+     - UEFI RTC support
+     - UEFI HWmon/PMU ACPI support
+	 - UEFI core frequency table report support
+     - UEFI BMC IPMI support
+	 - UEFI SMBIOS table support
+     - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	 - UFEI subNUMA control scrren support
+	 - UEFI SSIF ACPI support
+	 - UEFI tftp support
+	 - UEFI RAS APEI support
+	 - UEFI x86 emulation support (default disabled)
+	 - UEFI VGA (RCB) support (default disabled)
+	 - PCIe Gen1/Gen2/Gen3/Gen4 RCA (master/slave) support
+	 - PCIe Gen1 RCB (master/slave) support
+     - NVMe storage support
+     - i210/Mellanox 10/25/100GbE network support
+	 - DDR failsafe support
+	 - Boot failsafe support (0.05)
+	 - RAS error inject support (0.05)
+	 - RAS DDR UE retry and ECC symbol support (0.05)
+	 - PCIe bifurcation without 2nd reboot support (0.05)
+	 - PCIe RCA0/1 support code for 1P configuration (0.05)
+	 - On-board LoM support for Fansipan board (0.05)
+	 - UEFI USB support (0.05)
+	 - PCIe RCA0/0 support for 1P (default disabled) (0.05)
+	 - UEFI boot time performance measurement support (0.05)
+     - UEFI RAS configuration menu support (0.05)
+     - UEFI ACPI/turbo configuration menu support (0.05)
+	 - SBSA/SBBR compliance (0.05)
+	 - Enhance DDR margin and improve timing (0.05)
+	 - Secure partition infrastructure support (0.05)
+	 - Secure boot support (0.05)
+
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+	 - Bug 70825: PCIE: PCI switch does not work.
+	   Solution: There is no workaround available.
+	 - Bug XXXXX: PCIE: USB/VGA do not work
+	   Solution: Install Ampere kernel version. Then, enable PCIE 
+				 Controller 6 from UEFI menu.
+	 - Bug XXXXX: AMI SCE not supported
+	   Solution: Ampere reference design does not enable support for
+	             SCE due to security concern. Other platform may
+				 choose to enable this capability but will depend on
+				 their security solution/risk assessment.
+	 - Bug 74655: System failed to boot due to slave socket failure
+	   Solution: It is observed that randomly slave socket may fails
+	             to boot. But the occurence is low (once over 12+
+				 hours). To recover, reboot the system again.
+	 - Bug XXXXX: ATF/UEFI FW 0.05 does not work with SCP FW 0.04.
+	   Solution: Update to matching FW version.
+	  	
+	Resolved Issues:
+	 - Bug 71516: SPI: Enhance SPI device support via SFDP
+	 - Bug 72366: CORE: Prevent speculative execution past ERET
+	 - Bug 67403: DDR: Hide slave socket 32-bit memory while enable via UEFI
+	 - Bug 72282: MISC: Add version info to ATF BL31 image
+     - Bug 73606: RAS: Treat L2 TLB CEs as Uncontainable
+     - Bug 73701: Fix DIMM info passed to UEFI in HOB not correctly
+	 - Bug 72430: QS: RASDP: Add RASDP handling for RCA0 and RCA1
+     - Bug 72429: QS: RASDP: Add Slave Socket RASDP Support
+     - Bug 71729: QS: RASDP: Add additional RASDP register prints
+     - Bug 72472: QS: PCIE: Update NVME Backplane to x4 x4 as default
+	 - Bug 71729: QS: RASDP: Add additional RASDP register prints
+     - Bug 74193: QS: DDR: Fix meminfo region number when disabling 32-bits 1G region of socket 1
+
+	 - Bug 71532: UEFI: Fix wrong DIMM info in UEFI menu
+	 - Bug 67584: I2C: Add BMC reliability support by monitor ready pin
+	 - Bug 72367: MISC: change binary file name
+	 - Bug 72367: MISC: Misc sync up with AMI code base
+	 - Bug 72438: MISC: Fix compliance issue with SCT HII
+	 - Bug 72474: MISC: Fix compliance issue with FWTS
+	 - Bug 72481: PM: CPPC table to revision 3
+	 - Bug 72482: MISC: Fix compliance issue with SBSA
+     - Bug 72610: USB: Enable USB support in UEFI	 
+	 - Bug 72620: MISC: Enable power policy in UEFI
+	 - Bug 69354: BMC: Send UEFI version to BMC
+	 - Bug 72700: PCIE: Install SMMU node to IORT table
+	 - Bug 69380: MISC: Set UEFI boot mode for AARCH64
+     - Bug 72755: IpmiHelperLib: Support to get SKU number for Chassis and Product entries.
+     - Bug 72755: SMBIOS: Add SKU number to SMBIOS Type 1 and 3.
+     - Bug 71866: SMBIOS: Fix missed information in SMBIOS type 4.
+     - Bug 71290: GIC: Fix initialization of IPRIORITYR registers	
+     - Bug 71624: BMC: Add AmiIpmi2Pkg support
+     - Bug 67403: MISC: Add option to enable slave socket 32bit region
+     - Bug 72995: PM: Correct CPPC offset of nominal frequency for CPU19
+     - Bug 71861: MISC: Fix duplicated menu entries in Advance screen.
+     - Bug 72189: MISC: Fix Debian OS not recognized in boot list.
+     - Bug 72002: RTC: ArmPlatformPkg: Fix wrong time hour value flashed to RTC.
+     - Bug 72635: PCIE: Add PCIe RCA0/1 with MSI support
+     - Bug 72408: I2C: Improve i2c I2C_HCNT/_LCNT calculation
+     - Bug 71868: MISC: Host reboot paused at UEFI while updating BMC FW image
+     - Bug 73021: MISC: Fix runtime memory doesn't have RO or XP during OS booting.
+     - Bug 68634: MISC: Fix cmos-clear IPMI command not working.
+     - Bug 73384: SMBIOS: AmiIpmi2Pkg: Fix missed information in SMBIOS type 2 and type 3
+     - Bug 73670: Include CapsuleApp.efi and fix wrong key to sign capsule files
+     - Bug 73227: notify to BMC that firmware inband update is performed
+     - Bug 73857: ACPI: IORT: Supports PMCG node. 
+     - Bug 66266: RAS: Add 2P CE Threshold 
+	 - Bug 73975: QS: Duplicate SDL definition
+	 - Bug 73975: AmperePlatformPkg: Update localRoot in CIF in accordance to physical location
+	 - Bug 73975: AmperePlatformPkg: Adding Library INF entries in CIF file
+	 - Bug 73975: AmperePlatformPkg: Rearragne files in FailSafeDxe CIF/INF for modular view
+	 - Bug 73975: AmperePlatformPkg: Resolving referecne error of ArmPkg WatchdogTimer
+	 - Bug 73975: Ipmi: Buffer overflow check in StrCat
+	 - Bug 73975: QS: Capsule Meta data has been added
+	 - Bug 72002: AmperePlatformPkg: RTC: Fix wrong timezone converting.
+	 - Bug 71584: QS: SMBIOS: Type 17: Fix wrong text of DIMM 10 location.
+	 - Bug 73722: QS: Set RTC clock to 400khz.
+	 - Bug 73718: QS: Increase I2C speed of BMC to 400khz.
+	 - Bug 73424: QS: Print AVS info during boot up.
+	 - Bug 74109: QS: ACPI: Setup private IRQ for each DSU PMU.
+	 - Bug 72213: AMI Modules: Upgrade SecureBoot, AmiScureBootPkg and AmiCryptoPkg module from AMI SVN.
+	 - Bug 74109: QS: ACPI: Fix wrong SW IRQ for DSU PMU.	 
+     - Bug 73938: QS: RAS: Add RAS Configuration UEFI Menu
+     - Bug 73884: QS: ACPI screen supports turbo configuration option
+     - Bug 73975: QS: Performance measurement support enabled
+     - Bug 73975: AMI modules: Deleting the components which are not going to be used in
+     - Bug 73975: AmperePlatformPkg: PMProLib.inf is added into CIF
+     - Bug 71941: QS: Print marketing part ID to SMBIOS table.
+     - Bug 74476: I2CLib update for compatibility with BMC NACK
+     - Bug 74580: QS: Core context is not lost in LPI states
+     - Bug 74545: QS: ACPI: Fix wrong resource allocation in PCI/RCA1/RCA1_PRT
+	 - Bug 74611: QS: Disable SMMU PMU by default
+     - Bug 74667: QS: SMBIOS: Add missing Type 17 max/min/configured voltages
+	 
+---------------------------------------------------------------------------
+
+    Version 0.04.20200329 (3/29/2020)
+    BIOS Features:
+     - 2DPC 1/2/4/6/8 channel 2 Rank RDIMM DDR @ 2666 MHz with ECC support
+	 - 1DPC 1/2/4/6/8 channel 1/2 Rank RDIMM DDR @ 3200 MHz with ECC support
+	 - Board setting for DDR support
+     - PSCI 1.1 SMP support	 
+     - 2P support with up to 160 cores @ 3.0GHz (AVS)
+	   and 1.8GHz (non-AVS)
+	 - Mesh frequency @ 1.25 GHz (AVS) and 1.2GHz (non-AVS)
+     - Serial port console support
+     - Macronix/Winbond QSPI at 2.5MHz support 
+     - Persistent storage support via trusted firmware SMC
+     - Timer support at 25MHz
+     - Reboot/shutdown with power button support
+     - SubNUMA (monolithic/Quadrant) support
+     - Boot progress support
+     - UEFI RTC support
+     - UEFI HWmon/PMU ACPI support
+	 - UEFI core frequency table report support
+     - UEFI BMC IPMI support
+	 - UEFI SMBIOS table support
+     - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen support
+	 - UFEI subNUMA control scrren support
+	 - UEFI SSIF ACPI support
+	 - UEFI tftp support
+	 - UEFI APEI (core/DSU) support
+	 - UEFI x86 emulation support (default disabled)
+	 - UEFI VGA/USB (RCB) support (default disabled)
+	 - PCIe bifurcation support
+	 - PCIe Gen1/Gen3/Gen4 RCA (master/slave) support
+	 - PCIe Gen1 RCB (master/slave) support
+     - NVMe storage support
+     - i210/Mellanox 10/25/100GbE network support
+	 - DDR failsafe support
+
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+	 - Bug 70825: PCIE: PCI switch does not work.
+	   Solution: There is no workaround available.
+	 - Bug XXXXX: PCIE: USB/VGA do not work
+	   Solution: Install Ampere kernel version. Then, enable PCIE 
+				 Controller 6 from UEFI menu.
+	 - Bug XXXXX: UEFI USB keyboard/mouse does not work.
+	   Solution: This is not a support feature in this release. Use
+	             serial console instead.
+	 - Bug XXXXX: UEFI PCIe bifurcation not changeable.
+	   Solution: This is not currently support. Use board setting
+	             instead.
+     - Bug XXXXX: PCIe RAM error is not reported for slave socket.
+	   Solution: This is not currently support.
+	 
+    Resolved Issues:
+     - Bug 71535: QS: Fix CPU Info string trimmed to 32 characters.
+     - Bug 71604: AmperePlatformPkg: Fix memory leak inside Xtools.
+     - Bug 71400: AmperePlatformPkg: All dynamic shell commands should be UEFI_DRIVER.
+     - Bug 71852: QS: PCIE: Implemented ACPI IORT table to cover all 2P host bridges
+     - Bug 70992: QS: PCIE: MCFG advistizse "End Bus Number" 0xFF
+	 - Bug 66320: QS: SMBIOS Type 17: Fix detail type based on DDR type.
+     - Bug 71989: Fix wrong board settings offset (build)
+	 - Bug 71941: QS: Update CPU string
+	 - Bug 71895: QS: ACPI screen removes unsupported SMC calls
+	 - Bug 72067: QS: Change Jade.sdl BIOS_UUID_BUILD as per PCIE update (invalid 
+	                  previous all PCDs)
+     - Bug 72004: OS: Debian/Ubuntu crashes on boot
+     
+---------------------------------------------------------------------------
+
+    Version 0.03.20200228 (2/28/2020)
+    BIOS Features:
+     - 1/4/8 channel 1/2 Rank RDIMM DDR @ 2400 MHz with ECC support
+     - PSCI 1.1 SMP support
+     - 2P support with up to 160 cores @ 1.8GHz
+     - Serial port console support
+     - Macronix/Winbond QSPI at 2.5MHz support 
+     - Persistent storage support via trusted firmware SMC
+     - Timer support at 25MHz
+     - Reboot/shutdown support
+     - SubNUMA (monolithic) support
+     - Boot progress support
+     - UEFI RTC support
+     - UEFI HWmon/PMU ACPI support
+     - UEFI BMC IPMI support
+     - UEFI Setup, BMC, CPU, Memory, APEI and ACPI screen supports
+	 - UEFI SSIF ACPI support
+     - PCIe Gen1/Gen3 RCA (master/slave sockets) support	 
+     - NVMe storage support
+     - i210 network support
+
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+	 - Bug 71825 - Use OEM command to request BMC to sync RTC time
+     - Bug 71508: Fix Linux SSIF is not working
+	 - Bug 71731: QS: PCIE: Do not attempt to re-initialize controller
+	 - Bug 71600: QS: PCIE: Add elink to get Root Bridge segment number
+	 - Bug 71657: Fix sometime cannot access VRD device on bus 0
+	 - Bug 70479: QS: PCIE: Configure RCB Root Complex VendorID
+	 - Bug 71379: QS: PCIE: Disable RCB3
+     - Bug 71379: QS: PCIE: Enable Slave socket RCA2 and RCA3
+     - Bug 70479: QS: PCIE: Support Slave socket RCA2 and RCA3
+     - Bug 71026: Support Slave socket GPIO
+     - Bug 71614: QS: PCIE: Restore Completion Timeout for normal root port
+     - Bug 71612: QS: PCIE: Support Gen-3 link speed
+     - Bug 71613: QS: PCIE: Support link speed preset
+     - Bug 70479: QS: PCIE: Integrate PHYLib 20200125
+     - Bug 71598: QS: PCIE: Protect config space registers when init done
+     - Bug 71247: QS: PCIE: Program AUX clock to 500MHz
+     - Bug 70479: QS: PCIE: Start link training after endpoint reset
+	 - Bug 71582: DDR: NVPARAM: Fix default value for ADCMD_2T_MODE parameter
+	 - Bug 71560: QS: Support ACPI Screen	 
+     - Bug 71330: QS: Fix multiple threads compiling. 
+     - Bug 71438: QS: Sync up latest board settings. 
+     - Bug 71379: QS: PCIE: Enable RCA3B x4x4 as default 
+     - Bug 71379: QS: PCIE: Enable RCA2/3 x16 as default 
+     - Bug 71380: QS: Fix the compilation issue due to missing parenthesis in nvparam python 
+     - Bug 71380: QS: Add BoardSettings.txt in the CIF to have the view in VisualeBIOS IDE 
+     - Bug 71419: QS: Generate all capsules during build process. 
+     - Bug 71379: QS: PCIE: Support bifurcation from board settings 
+     - Bug 71380: QS: Update PROJECT_TAG and FW_VERSION_GUID. 
+     - Bug 71380: QS: Add flavor files in Emag2.cif 
+     - Bug 71380: QS: Emag2Asl.cif is not present. VEB reference has to be removed. 
+     - Bug 71380: QS: Add ability to build from VEB 
+     - Bug 71380: QS: Add ACPITables.INF into the Project component. 
+     - Bug 71380: QS: Fix include component does not list all the necessary files. 
+     - Bug 71380: QS: Fix CPU and PCI components are hanging outside the module view. 
+     - Bug 71380: QS: Fix INF files not listed the needed .h files 
+     - Bug 71380: Add INF/CIF reference in SignedCapsulePkg. 
+     - Bug 71380: SecurityPkg: Add CIF/INF for SecurityPkg used components 
+     - Bug 71380: AmperePlatformPkg: Add missing files in CIF. 
+     - Bug 71380: AmperePlatformPkg: Remove master inside of SDL of SplashScreen.
+	 - Bug 71119: Enable FailSafeDxe support
+     - Bug 71352: AmperePlatformPkg: Restrict UEFI memory to first socket.
+     - Bug 68385: QS: SMBIOS: Fill in Product ID field.
+     - Bug 71342: QS: PCIE: Enable master socket PCIe RCB3
+	 - Bug 71339: GenCap: Update BMC tools to SPX12.
+	 - Bug 67583: QS: Support to control DMC err0ctlr DE and FI.
+	 - Bug 71131: QS: CpuDxe: Fix wrong default configurated number of cores.
+	 - Bug 71171: QS: ACPI: Disable slave socket hwmon node for 1P system
+	 - Bug 71167: QS: ACPI: PPTT: Add root node and mark all nodes as identical implementation.
+	 - Bug 71132: QS: MemInfo: Bring up memory info setup screen.
+	 - Bug 71124: QS: ACPI: Update DMC620 ID from ARM.
+	 - Bug 71130: QS: ACPI: Remove unused static SRAT, SLIT table.
+	 - Bug 71073: QS: Fix wrong arch timer frequency.
+	 - Bug 71068: Fix Cannot build AptioV with debug mode
+	 - Bug 71034: Fix display wrong BMC version at setup screen
+	 - Bug 71041: QS: Correct core assignment for Quadrant
+	 - Bug 71037: Add NVPARAM for support margin voltage 0V85_RCAx
+	 - Bug 71014: Emag2Pkg: Changing Ramdisk to DRAM address 0x800_0000_0000
+     - Bug 70989: QS: Enable Boot Progress
+     - Bug 70994 - RTC: support notifying BMC when updating RTC
+     - Bug 70985: ACPI: Remove SPE node in DSDT.
+	 - Bug 70976: QS: ACPI: Add DSU nodes.
+     - Bug 70976: QS: Add API for detecting a CPU enabled or not.
+     - Bug 70949: QS: Enable CPPC driver
+	 - Bug 68588: QS: Add NVPARAM to configure the WA for errata 1542419
+	 - Bug 70893: QS: Correct the SPI interrupt number for Slave socket
+	 - Bug 70892: QS: Enable hwmon for Slave socket
+	 - Bug 70858: QS: Bring up CPU setup screen.
+	 - Bug 70857: AMI: SMBIOS: Fix the incorrect logic during updating type 4.
+	 - Bug 69272: QS: ACPI: Update HEST Polled Timer
+	 - Bug 70799: QS: Enable hwmon ACPI node
+	 - Bug 70735: QS: Enable printing debug info during boot up.
+	 - Bug 70736: Enable platform info setup screen.
+     - Bug 70732: QS: Enable IPMI feature and BMC setup screen.
+	
+	 - Bug 71737: DDR: MCU: Remove padded turnaround timing, 3200 1DPC support, 
+	              and enable low freq mode for 2666 and below
+	 - Bug 71512: Fix missing BL2 complete and BL31 start stage
+	 - Bug 71582: DDR: NVPARAM: Fix default value for ADCMD_2T_MODE parameter
+	 - Bug 71582: DDR: Sync up ddrlib v200219	 
+	 - Bug 71389: Support system LPI standby state
+	 - Bug 71379: QS: PCIE: Enable RCA3B x4x4 as default 
+	 - Bug 71379: QS: PCIE: Enable RCA2/3 x16 as default 
+	 - Bug 71294: Fix the efi hob for the cpm information 
+	 - Bug 71416: QS: SPM: Enable SPM_MM support.
+	 - Bug 71411: QS: ahbc: Reset SPI1
+	 - Bug 71410: spm: Disable alignment fault checking 
+	 - Bug 66257: FailSafe: Add FAILSAFE region to SPI-NOR proxy
+	 - Bug 68403: QS: PCIE: Fix populating Slave E-fuse
+	 - Bug 71373: SPM: Compilation fix due to over size.
+	 - Bug 71372: CI: Add SPM enabled ATF build target.
+	 - Bug 71284: MP: Support multi-thread ECC initialization.
+	 - Bug 71275: DDR: Support 4-MCU configurations 0246, 0347, 1357.
+	 - Bug 70990: HOB: Pass the 2p information inside the HOB
+	 - Bug 66257: DDR: Support ddr failsafe feature - 1P only
+	 - Bug 71070: BL1: Support SMP on Slave socket cores
+	 - Bug 71128: DDR: Support single MCU 1/2/3/5/6/7 configuration.
+	 - Bug 71072: QS: RAS: Add Master Socket PCIe RASDP handling
+	 - Bug 71087: DDR: Add 4 MCU 2367 configuration support.
+	 - Bug 71037: Add NVPARAM for support margin voltage 0V85_RCAx
+	 - Bug 70682: DDR: SubNUMA: Sync up DDR library for SUBNUMA.
+	 - Bug 70682: QS: DDR: Use API plat_get_subnuma_mode() to get SubNUMA mode.
+	 - Bug 70682: SUBNUMA: Adding associated NUMA node ID to each memory region.
+	 - Bug 70682: DDR: Support Subnuma configurations.
+	 - Bug 67583: DDR: Update ecc enable flag based on DDR_ECC_MODE NVPARAM
+	 - Bug 70947: Add NVPARAM to select WA for Arm errata 1542419
+	 - Bug XXXXX: tpm: pass vpcr info to the secure partition
+	 - Bug XXXXX: spm: Add spm_prepare_partition
+	 - Bug XXXXX: QS: spm: Add SPI1 to the allowed device regions
+	 - Bug XXXXX: QS: increase BL31_LIMIT
+	 - Bug 70879: QS: RAS: Fix CPM Error Instance Value
+	 - Bug 70741: Pass SCP build date string to HOB in format YYYYMMDD.
+
+---------------------------------------------------------------------------
+	
+    Version 0.02.20200206 (2/6/2020)
+    BIOS Features:
+	 - 1/4/8 channel 1/2 Rank RDIMM DDR @ 2666MHz with ECC support
+	 - PSCI 1.1 SMP support
+	 - 2P support with up to 160 cores
+	 - Serial port console support
+	 - Macronix/Winbond QSPI at 2.5MHz support 
+	 - Persistent storage support via trusted firmware SMC
+	 - Timer support at 25MHz
+	 - Reboot/shutdown support
+	 - UEFI RTC support
+	 - PCIe Gen1 RCA (master/slave sockets) support
+	 - NVMe storage support
+	 - i210 network support
+
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+	 - Bug 70857: AMI: SMBIOS: Fix the incorrect logic during updating type 4
+	 - Bug 71123: QS: SMBIOS: Fix wrong ECID reading for slave socket
+	 - Bug 70479: QS: PCIE: Support Slave socket RCA2 and RCA3
+	 - Bug 71026: Support Slave socket GPIO
+	 - Bug 70790: QS: PCIE: Check for PIPE clock stable
+	 - Bug 70479: QS: PCIE: Update PCIE programming sequence as per spec 1.1
+	 - Bug 70722: QS: PCIE: ACPI: Set NonCacheable for MMIO region 	 
+	 - Bug 70721: QS: SMMU: Program GBPA for proper bypass mode 
+	 - Bug 70479: QS: PCIE: Add (RCA2, RCA3, RCB2, RCB3) MSI to ITS 
+	 - Bug 70479: QS: PCIE: Check PIPE clock status as specification
+	 - Bug 70479: QS: PCIE: Support IO region 
+	 - Bug 70479: QS: PCIE: Configure bifurcation for RCB2 and RCB3 
+	 - Bug 70479: QS: PCIE: Fix bug in patching DSDT PCIe Mem32 resources 
+	 - Bug 70479: QS: PCIE: Do not start link training until controller ready
+	 - Bug 70729: QS: Sync NVPARAM to disable TM2 
+	 - Bug 70719: QS: PCIE: Remove _DMA method to declare DMA inbound region
+	 - Bug 70723: QS: PCIE: Disable Hotplug and PME support from Operating System
+	 - Bug 70479: QS: PCIE: Enhancement to PCIE core driver 
+	 - Bug 70730: QS: PCIE: Enable Perst Assert
+	 - Bug 70668: QS: SMBIOS: Fix incorrect ECID reading
+	 - Bug 70479: QS: PCIE: Patch DSDT PCIe Mem32 resources
+	 - Bug 70633: QS: UEFI: PMU: Fix wrong SPI IRQ for slave socket
+	 - Bug 70604: QS: ACPI: Remove the generic SRAT code generation
+	 - Bug 70551: QS: ACPI: Change debug port from UART1 to UART2
+	 - Bug 70581: QS: RTC: Enable RTC support
+	 - Bug 70580: QS: GPIO: Enable GPIO support
+	 - Bug 70580: QS: I2C: Enable I2C support
+	 - Bug 70502: QS: CCIX: Support NVPARAM to override lane allocation 
+	 - Bug 70438: QS: NVPARAM: Sync up NV-param based on SCP version 
+	 - Bug XXXXX: QS: Add signed BIOS UEFI image support
+	 - Bug XXXXX: QS: Add 1P/2P subNUMA support
+	
+	 - Bug 70875: DDR: Bank hashing and 2R RDIMM support
+	 - Bug 70760: SPI: Add Quad mode support for Winbond and Macronix Flash
+	 - Bug 70727: QS: Sync overtemp NVPARAM for TPC 
+	 - Bug 70585: QS: DDR: Minor fix for ECC progress bar
+	 - Bug 70572: QS: AHBC: Reset I2C4 and I2C6
+	 - Bug 70502: QS: CCIX: Support NVPARAM to override lane allocation 
+	 - Bug 69629: QS: RAS: Add lock to CPER population 
+	 - Bug XXXXX: QS: Increase BL1 ROM size to fix compilation issue
+	 - Bug XXXXX: QS: RAS: Add CPM RAS forward to SCP 
+	 - Bug XXXXX: QS: NVPARAM: Fix the wrong board setting base address
+	 - Bug XXXXX: QS: DDR: Add DDR Board parameters for 2DPC
+	 - Bug 68532: QS: ARES erratum 1561642 CLREX can cause core to deadlock 
+	 - Bug XXXXX: QS: Security: vTPM: Add vTPM Measurement code in BL2 and map shared memory
+     - Bug 70117: MQ: Set correct GICDA base address	 	 
+
+---------------------------------------------------------------------------
+
+    Version 0.01.20200111 (1/10/2020)
+    BIOS Features:
+     - 1/8 channel UDIMM/RDIMM DDR 2666MHz with ECC support
+     - PSCI 1.1 SMP support
+     - Serial port console support
+	 - Persistent storage support via trusted firmware SMC
+     - NVMe support
+     - i210 network support
+	 - Timer support at 25MHz
+
+    Compiler:
+     - Ampere 8.3.0 compiler (GNU GCC 8.3.0-20191025)
+
+    Known Issues:
+     - None
+
+    Resolved Issues:
+     - Bug 70547: QS: Program global counter to 25MHz
+     - Bug 70348: QS: Remove the global timer programming from ATF as it is programmed by SCP
+	 - Bug 70579: QS: Enable Intel gigabit ethernet driver
+	 - Bug 70525: QS: UEFI: Enable network, NVMe, CrytoLib, SataDevInfo, ASpeedGOP and compression mode
+	 - Bug 70549: QS: ACPI: remove conflicting _UID on CPUs
+     - Bug 70481: QS: Disable RamBlockIoDxe
+	 - Bug 70532: Correct use the total size of flash return from ATF
+     - Bug 70521: QS: UEFI: Enable Flash, NVPARAM and Setup screen
+     - Bug 70549: QS: ACPI: remove conflicting _UID on CPUs
+     - Bug 70479: QS: PCIE: Enable NVME driver support
+	 - Bug 70585: DDR: Enable ECC support
+	 - Bug 70557: QS: SPINOR Proxy: Fix logic of converting input address to physical offset
+	 - Bug 70555: QS: WrDQS calibration for 8 MCUs
+	 - Bug 70531: SPINOR proxy: Return total size to BIOS
+	 - Bug 70459: QS: SPI NOR proxy: Align address and size before mapping address
+	 - Bug 70460: QS: SPI_NOR: Fix the use of return status of read function
+	 - Bug 70477: SPI: Fix SPI sector erase issue
+     - Bug 70495: DDR: Support RDIMM 1R 2666 x4 16GB
+     - Bug 70477: SPI: Support 256B erase and write in Standard mode 
+     - Bug 70405: SPI: Support 2.5Mhz clock
+     - Bug XXXXX: QS: DDR: Support UDIMM 2666
+     - Bug 70353: NVPARAM: Correct the offset when getting NV-parameters on OCM
+     - Bug 70353: Correct the NVPARAM Board Settings base address
+     - Bug XXXXX: SPI: Support SPI read on QS in standard mode
+     - Bug 70313: UART: Fixing input frequency to external 1.8MHz
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+2.0 COPYRIGHT
+
+    Copyright (c) 2020 Ampere Computing LLC
+    All Rights Reserved.
+
+    Ampere Computing CONFIDENTIAL - This is an unpublished, proprietary 
+    work of Ampere Computing, and is fully protected under
+    copyright and trade secret laws.  You may not view, use, disclose,
+    copy or distribute this file or any information contained herein
+    except pursuant to a valid written license from Ampere Computing.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
