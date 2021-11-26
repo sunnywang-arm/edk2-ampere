@@ -15,7 +15,7 @@ make -f $WORKSPACE/edk2-ampere-tools/Makefile \
     LINUXBOOT_BIN=$WORKSPACE/flashkernel \
     SPI_SIZE_MB=32 \
     VER=1.07 BUILD=300.02 \
-    tianocore_img # tianocore_capsule # linuxboot_img # all #
+    all # tianocore_img # tianocore_capsule # linuxboot_img #
 # below setting is for module not reworked fo VR circuit, insert them to above making arguments 
 # to support the modules without reworking.    
     FAILSAFE_WORKAROUND=1 \
