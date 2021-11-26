@@ -1,12 +1,12 @@
-# Initialize Building Environment
+# Initialise Building Environment
 
-Ampere Mountain Jade codebase & tools installation.
-* Copy 'setup.sh' to local machine and run, tested with OS Ubuntu 20.04. 
-* follow the instructions to install tools and download source code.
+Ampere Mountain Jade code base & tools installation.
+* Copy 'setup.sh' to local machine and run. OS used for build environment is Ubuntu 20.04. 
+* Follow the instructions to install tools and download source code.
 
 # Folders
 * .vscode: Visual Studio Code settings for tasks which link to bash scripts.
-* adlink-platforms: source of ADLink.
+* adlink-platforms: source of ADLINK.
 * edk2: submodule from Ampere.
 * edk2-ampere-tools: submodule from Ampere's fork.
 * edk2-platforms: submodule from Ampere's fork.
@@ -18,7 +18,7 @@ Ampere Mountain Jade codebase & tools installation.
 * clean.sh: clean temporary files and tools.
 * edk2.sh: Sample script to set environment variables and run edksetup.sh.
 * flashkernel: tiny linux kernel for embedded.
-* make_ComHpcAlt.sh: Sample script to make ADLink COM-HPC-ALT.
+* make_ComHpcAlt.sh: Sample script to make ADLINK COM-HPC-ALT.
 * make_jade.sh: Sample script to make CRB Ampere Mt. Jade.
 * setup.sh: Sample script to install all source code and tools. Mind your own SSH connection setting if there is any.
     * setup.sh [TARGET_FOLDER, default=Ampere_Altra]
@@ -33,15 +33,15 @@ Ampere Mountain Jade codebase & tools installation.
    .make_ComHpcAlt.sh
    ```
 
-3. After successful compilation, the final EDK-II image **ComHpcAlt_tianocore_atf_1.07.300.cap** will be found in below path
+3. After successful compilation, the final EDK-II image **ComHpcAlt_tianocore_atf_1.07.300.02.cap** will be found in below path
 
    ```
-   $PWD/BUILDS/ComHpcAlt_tianocore_atf_1.07.300/
+   $PWD/BUILDS/ComHpcAlt_tianocore_atf_1.07.300.02/
    ```
 
 # Flashing SCP/EDK-II
 
-1. Copy **CapsuleApp.efi** , **ComHpcAlt_scp_1.07.300.cap** , **ComHpcAlt_tianocore_atf_1.07.300.cap** files from path *$PWD/BUILDS/ComHpcAlt_tianocore_atf_1.07.300/* into FAT32 USB and connect to target board.
+1. Copy **CapsuleApp.efi** , **ComHpcAlt_scp_1.07.300.02.cap** , **ComHpcAlt_tianocore_atf_1.07.300.02.cap** files from path *$PWD/BUILDS/ComHpcAlt_tianocore_atf_1.07.300.02/* into FAT32 USB and connect to target board.
 
 2. Power up the target and boot into UEFI shell. 
 
@@ -54,16 +54,16 @@ Ampere Mountain Jade codebase & tools installation.
    fs0:\>
    ```
 
-4. Run below command to flash SCP FW 1.08
+4. Run below command to flash SCP FW 1.07
 
    ```
-   CapsuleApp.efi ComHpcAlt_scp_1.07.300.cap
+   CapsuleApp.efi ComHpcAlt_scp_1.07.300.02.cap
    ```
 
-5. Run below command to flash EDK-II FW v1.07.300 (this includes ATF + UEFI + BoardSettings).
+5. Run below command to flash EDK-II FW v1.07.300.02 (this includes ATF + UEFI + BoardSettings).
 
    ```
-   CapsuleApp.efi ComHpcAlt_tianocore_atf_1.07.300.cap
+   CapsuleApp.efi ComHpcAlt_tianocore_atf_1.07.300.02.cap
    ```
 
 6. Power cycle the target board.
