@@ -112,18 +112,6 @@ echo "fetch submodules recursively"
 echo "==========================================================================="
 cd $SILLICON_FAMILY
 git submodule update --init --recursive
-cd edk2-ampere-tools
-git checkout adlink
-cd .. 
-cd edk2-platforms
-git checkout adlink
-cd .. 
-cd edk2
-git checkout 4b0c88346a6c57ddf73dd12eb55efd99b1d793e1
-cd .. 
-cd OpenPlatformPkg
-git checkout master
-cd .. 
 if [ "eval $(ssh -T git@github.com-adlink | grep -q "authenticated")" != "" ] ; then
   echo "==========================================================================="
   echo "replace HTTPS access with SSH access if authenticated"
