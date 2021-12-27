@@ -14,10 +14,10 @@ make -f $WORKSPACE/edk2-ampere-tools/Makefile \
     SCP_SLIM=$WORKSPACE/srp-ac01-fw-aptv-bin-r1.07a.20210713/altra_firmware_sdk/bin/scp/altra_scp_signed_1.07.20210713.slim \
     LINUXBOOT_BIN=$WORKSPACE/flashkernel \
     SPI_SIZE_MB=32 \
-    VER=1.07 BUILD=300.02 \
-    all # tianocore_img # tianocore_capsule # linuxboot_img #
+    VER=1.07 BUILD=300.03 \
+    tianocore_capsule # tianocore_img # linuxboot_img # all #
 # below setting is for module not reworked fo VR circuit, insert them to above making arguments 
 # to support the modules without reworking.    
-    FAILSAFE_WORKAROUND=1 \
-    BOARD_SETTING=$OEM_SRC_DIR/Platform/Ampere/ComHpcAltPkg/ComHpcAltBoardSettingVRWA.cfg \
+#   FAILSAFE_WORKAROUND=1 \
+#   BOARD_SETTING=$OEM_SRC_DIR/Platform/Ampere/ComHpcAltPkg/ComHpcAltBoardSettingVRWA.cfg \
 export PATH=$OPATH
