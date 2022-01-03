@@ -1,6 +1,7 @@
 /** @file
 
   Copyright (c) 2020 - 2021, Ampere Computing LLC. All rights reserved.<BR>
+  Copyright (c) 2022, ARM Limited. All rights reserved.<BR>
 
   SPDX-License-Identifier: BSD-2-Clause-Patent
 
@@ -275,6 +276,8 @@ RouteConfig (
   } else if (HiiIsConfigHdrMatch (Configuration, &gPcieFormSetGuid, gPcieVarstoreName)) {
     BufferSize = sizeof (PCIE_VARSTORE_DATA);
     VarStoreConfig = (UINT8 *)&PrivateData->VarStoreConfig;
+  } else {
+    return EFI_NOT_FOUND;
   }
   ASSERT (VarStoreConfig != NULL);
 
